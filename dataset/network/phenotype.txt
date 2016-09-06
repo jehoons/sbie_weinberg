@@ -1,0 +1,6 @@
+Survival 2
+DNA_repair 5
+Apoptosis 11
+EMT 112
+Proliferation 113
+Arrest 140

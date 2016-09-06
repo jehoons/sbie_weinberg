@@ -1,0 +1,6 @@
+**사이토스케이프의 레이아웃(즉, 노드의 위치)은 고정하면서 노드나 엣지의 속성, 또는 연결관계의 변화만을 반영하려면 어떻게 해야할까? 
+
+1. layourSaver 라는 App 을 사용해보기
+2. attribute table 입력으로 해결하기
+
+** boolean2 import problem

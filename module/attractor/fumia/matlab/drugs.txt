@@ -1,0 +1,5 @@
+name	target	node
+RAFi	RAF	RAFi
+MDM2i	MDM2	MDM2i
+EGFRi	EGFR	RTKi
+MEKi	MEK	ERKi

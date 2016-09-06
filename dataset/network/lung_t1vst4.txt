@@ -1,0 +1,8 @@
+SMAD1	up
+AKT1	down
+(STAT3)(STAT5A)(STAT5B)	down
+PI3K	down
+KDR	up
+MET	up
+[EIF4E][EIF4A][EIF4G]	up
+[CDK4][CCND1]	up
