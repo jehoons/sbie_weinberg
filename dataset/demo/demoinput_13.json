@@ -2,9 +2,7 @@
     "input":{
         "celltype":"LS123",
         "drugs":[
-            "Erlotinib",
-            "Nutlin-3",
-            "AZD6244"
+            "Erlotinib"
         ]
     }
 }

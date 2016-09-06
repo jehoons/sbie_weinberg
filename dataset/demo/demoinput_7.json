@@ -1,9 +1,9 @@
 {
     "input":{
-        "celltype":"LS123",
+        "celltype":"COLO205",
         "drugs":[
-            "Erlotinib",
-            "Nutlin-3"
+            "AZD6244",
+            "RAF265"
         ]
     }
 }

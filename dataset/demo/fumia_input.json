@@ -1,9 +1,0 @@
-{
-	"input": {
-		"drugs" : [
-			"RAFi",
-			"MDM2i"
-		],
-		"celltype" : "COLO205"
-	}
-}

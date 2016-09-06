@@ -1,8 +1,9 @@
 {
     "input":{
-        "celltype":"SW48",
+        "celltype":"LS123",
         "drugs":[
-            "Nutlin-3"
+            "AZD6244",
+            "RAF265"
         ]
     }
 }

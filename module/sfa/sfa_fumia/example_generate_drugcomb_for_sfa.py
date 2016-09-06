@@ -12,7 +12,8 @@ import itertools
 drug_combs = [
     {'drug': 'RAF265', 'target': 'RAF'},
     {'drug': 'Nutlin-3'	, 'target':'MDM2'},
-    {'drug': 'AZD6244'	, 'target':'MEK'} ]
+    {'drug': 'AZD6244'	, 'target':'MEK'},
+    {'drug': 'ERLOTINIB'  , 'target':'EGFR'} ]
 
 for num_drugs in range(1, 3):
     iter_drug_comb = itertools.combinations(drug_combs, num_drugs)

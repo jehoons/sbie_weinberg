@@ -1,6 +1,6 @@
 {
     "input":{
-        "celltype":"SW48",
+        "celltype":"LS123",
         "drugs":[
             "RAF265",
             "Erlotinib"

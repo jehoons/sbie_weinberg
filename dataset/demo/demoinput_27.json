@@ -2,9 +2,8 @@
     "input":{
         "celltype":"SW48",
         "drugs":[
-            "RAF265",
-            "Nutlin-3",
-            "AZD6244"
+            "AZD6244",
+            "RAF265"
         ]
     }
 }

@@ -28,12 +28,11 @@ def test_this():
         json.dump(input_range, outfile, indent=4, sort_keys=True, \
             separators=(',',':'))
 
-    # for cell in cells: 
-    combi_numbers = [1, 2, 3, 4]
+    combi_numbers = [1, 2]
 
     drugs_list = [] 
 
-    for i in [1,2,3,4]:
+    for i in combi_numbers:
         for d in itertools.combinations(drugs, i):
             drugs_list.append(d)
 
@@ -48,14 +47,9 @@ def test_this():
                 }
             inputjson_list.append(inputjson)
 
-    # with open('input_range.json', 'w') as outfile: 
-    #     json.dump(input_range, outfile, indent=4, sort_keys=True, \
-    #         separators=(',',':'))
-
     for i,inputjson in enumerate(inputjson_list):
         with open('demoinput_%d.json' % i, 'w') as outfile: 
             json.dump(inputjson, outfile, indent=4, sort_keys=True,
                 separators=(',',':'))        
 
-    # pdb.set_trace()
-
+   

@@ -266,6 +266,8 @@ def run(inputjson, outputjson):
         inputdata = json.load(f)
 
     drugs = inputdata['input']['drugs']    
+    drugs = [name.upper() for name in drugs]
+    
     celltype = inputdata['input']['celltype']
 
     # pdb.set_trace()

@@ -2,8 +2,7 @@
     "input":{
         "celltype":"SW48",
         "drugs":[
-            "Erlotinib",
-            "AZD6244"
+            "Erlotinib"
         ]
     }
 }
