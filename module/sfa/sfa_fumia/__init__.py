@@ -16,12 +16,16 @@ import argparse
 from os.path import abspath, join, dirname
 import numpy as np
 import pandas as pd
+import pytest
 
 dir_sfa = abspath(join(dirname(__file__), 'sfa'))
 
 import sys
 sys.path.append(dir_sfa)
 import sfa
+
+import pdb
+
 
 def parse_args():    
     parser = argparse.ArgumentParser()    
@@ -161,7 +165,7 @@ class FumiaData(sfa.base.Data):
 # end of class
 
 
-def run(ALG, CELL_NAME, DRUGS, INPUTS, outputfilename):
+def run_sfa(ALG, CELL_NAME, DRUGS, INPUTS, outputfilename):
 
         # Define the directories of data
     dir_root = os.path.dirname(__file__)
@@ -256,9 +260,49 @@ def run(ALG, CELL_NAME, DRUGS, INPUTS, outputfilename):
     # end of function 
 
 
-def test_run():
+def run(inputjson, outputjson): 
 
-    from sbie_weinberg.module.sfa import sfa_fumia 
+    with open(inputjson, 'r') as f: 
+        inputdata = json.load(f)
 
-    sfa_fumia.run('SP', 'COLO205', ['NUTLIN-3'], ['GFs'], 'SFA_OUTPUT.json')
+    drugs = inputdata['input']['drugs']    
+    celltype = inputdata['input']['celltype']
 
+    # pdb.set_trace()
+
+    default_alg = 'SP'    
+    default_ic = ['GFs']
+
+    run_sfa(default_alg, celltype, drugs, default_ic, outputjson) 
+
+
+def test_single_inputjson():
+
+    from sbie_weinberg.module.sfa import sfa_fumia
+    from sbie_weinberg.dataset import demo
+
+    inputjson = join(abspath(dirname(__file__)), 'test_input.json')
+
+    outputjson = join(abspath(dirname(__file__)), 'untracked/output.json')
+
+    sfa_fumia.run(inputjson, outputjson)
+
+    print ('output:', outputjson)
+
+
+# @pytest.mark.skipif(True, reason='no reason')
+def test_many_inputjson():
+
+    from sbie_weinberg.module.sfa import sfa_fumia
+    from sbie_weinberg.dataset import demo
+    import glob
+
+    files = glob.glob(join(dirname(demo.__file__), 'demoinput*.json'))
+
+    outputjson = join(abspath(dirname(__file__)), 'untracked/output.json')
+    for inputjson in files: 
+        # print (inputjson)
+        sfa_fumia.run(inputjson, outputjson)
+
+    # inputjson = join(abspath(dirname(__file__)), 'test_input.json')
+    # outputjson = join(abspath(dirname(__file__)), 'untracked/output.json')

@@ -1,23 +1,30 @@
 % matlab -r "fumia_simulation('input.json', 'output.json'); exit"
-function fumia_simulator(inputfilename, outputfilename)
+function fumia_simulator(inputfilename, outputfilename, sample_size, time_length)
+    
     if nargin == 0 
-        inputfilename = 'fumia_in.json'; 
-        outputfilename = 'fumia_out.json'; 
+        inputfilename = 'test_input.json'; 
+        outputfilename = 'test_output.json'; 
+        time_length = 10;  % 1000
+        sample_size = 5;  % 100
     end
+    
     try
         output = struct();
-        attractor_state=fumia_simulation(inputfilename,0);
+        attractor_state=fumia_simulation(inputfilename,0,sample_size,time_length);
         output.before = make_output(attractor_state);
-        attractor_state=fumia_simulation(inputfilename,1);
+        attractor_state=fumia_simulation(inputfilename,1,sample_size,time_length);
         output.after = make_output(attractor_state);   
         savejson('output', output, outputfilename)
-    catch err 
-        fprintf('execution error!')
+    catch err         
+        disp(err.identifier)
+        disp(err.message)        
     end
 
 end
 
-function attractor_state = fumia_simulation(filename,drugOK)
+% time_length = 1000
+% sample_size = 100
+function attractor_state = fumia_simulation(filename,drugOK,sample_size,time_length)
 
     load fumia
 
@@ -25,6 +32,9 @@ function attractor_state = fumia_simulation(filename,drugOK)
     ijon = loadjson(filename);
     idrugs = ijon.input.drugs;
     icelltype = ijon.input.celltype;
+
+    idrugs 
+    icelltype
 
     % Master table
     drug_master = readtable('drugs.txt', 'Delimiter', '\t');
@@ -59,9 +69,9 @@ function attractor_state = fumia_simulation(filename,drugOK)
         end
     end
 
-    l = 1000;               % time length
-    node_number = 91;       % 총 node의 개수(96) - input node의 개수(5)
-    sample_size = 100;      % http://www.surveysystem.com/sscalc.htm -> Sample Size Calculator
+    l = time_length;               % time length
+    % sample_size = 100;      % http://www.surveysystem.com/sscalc.htm -> Sample Size Calculator
+    node_number = 91;       % 총 node의 개수(96) - input node의 개수(5)    
     no_cycle = 20;          % limit cycle attractor가 되기 위한 최소 주기 반복 회수
 
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

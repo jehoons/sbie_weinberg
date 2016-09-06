@@ -1,8 +1,7 @@
 {
 	"input": {
 		"drugs" : [
-			"RAF265",
-			"Nutlin-3"
+			"NUTLIN-3"
 		],
 		"celltype" : "COLO205"
 	}

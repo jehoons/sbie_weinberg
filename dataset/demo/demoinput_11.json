@@ -1,0 +1,10 @@
+{
+    "input":{
+        "celltype":"LS123",
+        "drugs":[
+            "RAF265",
+            "Erlotinib",
+            "AZD6244"
+        ]
+    }
+}

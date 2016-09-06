@@ -34,19 +34,19 @@ def test_main():
 
     # run attractor analysis    
 
-    infile = 'dataset/demo/fumia_input.json'
+    demo_input = 'dataset/demo/fumia_input.json'
     outfile = 'untracked/attr_output.json'
 
-    attr_fumia.run(infile, outfile)
+    attr_fumia.run(demo_input, outfile)
+
     attr_fumia.summary(outfile)
 
 
-    # run signal flow analysis 
+    # run signal flow analysis
 
     # sfa_fumia.run('SP', 'COLO205', ['NUTLIN-3'], ['GFs'], 'untracked/sfa_output.json')
 
-
-    # run machine learning analysis 
+    # run machine learning analysis
 
     #ml_dream2015.run(join(root_dir, 'module/dream2015/code-with-inputdata', \
     #    '26input.CSV'), 'dream2015_output.csv')

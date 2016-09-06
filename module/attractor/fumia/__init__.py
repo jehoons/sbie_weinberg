@@ -1,3 +1,10 @@
+# -*- coding: utf-8 -*-
+#*************************************************************************
+# Author: Je-Hoon Song, <song.jehoon@gmail.com>
+# 
+# This file is part of {sbie_weinberg}.
+#*************************************************************************
+
 __all__ = [] 
 
 import os
@@ -9,12 +16,13 @@ from os import getcwd
 import json 
 from pdb import set_trace
 import pandas as pd 
+import pytest
 
 
 matlab_root = join(dirname(__file__), 'matlab')
 
 
-def run(infile, outfile):
+def run(infile, outfile, sample_size=100, time_length=1000):
 
     infile = abspath(infile)
     outfile = abspath(outfile)
@@ -23,7 +31,8 @@ def run(infile, outfile):
 
     os.chdir(matlab_root)
     
-    cmd = 'matlab -r \"fumia_simulator(\'%s\',\'%s\'); exit();\"' % (infile, outfile)
+    cmd = 'matlab -r \"fumia_simulator(\'%s\',\'%s\',%d,%d); exit();\"' % \
+        (infile, outfile, sample_size, time_length)
     
     os.system(cmd)
 
@@ -40,7 +49,8 @@ def summary(result_json):
 
     df = pd.DataFrame([], columns=['mode', 'phenotype', 'basin'])
 
-    idx = 0 
+    idx = 0
+    
     for att in before.keys():
         this = before[att]
         df.loc[idx, 'mode'] = 'before'
@@ -77,21 +87,34 @@ def summary(result_json):
 
     # set_trace()
 
-def visualizer(): 
+
+def visualizer(result_json): 
+
     # not implemented yet. 
     pass
 
 
-def test_run():
+@pytest.mark.skipif(True, reason='no reason')
+def test_single_inputjson():
 
-    infile = 'test_input.json'
-    outfile = 'test_output.json'
+    infile = join(matlab_root, 'test_input.json')
+    outfile = join(matlab_root, 'test_output.json')
 
-    run(infile, outfile)
+    run(infile, outfile, time_length=10, sample_size=5)
 
-    summary(outfile)
-    
-    visualizer(outfile)
 
-# Ref. 
-# http://stackoverflow.com/questions/89228/calling-an-external-command-in-python
+def test_many_inputjson():
+
+    from sbie_weinberg.module.sfa import sfa_fumia
+    from sbie_weinberg.dataset import demo
+    import glob
+
+    files = glob.glob(join(dirname(demo.__file__), 'demoinput*.json'))
+
+    outputjson = join(abspath(dirname(__file__)), 'untracked/output.json')
+
+    for inputjson in files: 
+        print (inputjson)
+        run(inputjson, outputjson, time_length=10, sample_size=5)
+
+        
