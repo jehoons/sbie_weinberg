@@ -387,7 +387,5 @@ def test_predict():
     inpfile = 'code-with-inputdata/26input.CSV'
     # outfile = '/data/ui_output/dream/THERAPY_USER_PRED.CSV'
 
-    outfile = 'outfile.csv'
-
-    run(inpfile, 'output.csv', userid='000') 
+    run(inpfile, 'untracked_output.csv', userid='000') 
 

@@ -10,7 +10,12 @@ __all__ = ['util', 'feature', 'preproc', 'initdatapath', 'rlang', 'diary',
 
 import os 
 from os.path import join,exists
+from os.path import dirname, exists, join, abspath
 
+module_dir = abspath(dirname( __file__ ))
+
+dataset_url = 'sbieshare@ras.kaist.ac.kr:dataset/dream2015/dataset.tar'
+dataset_filename = 'dataset.tar'
 
 def initdatapath(input_dir, output_dir, user_data=None):
 
@@ -219,14 +224,13 @@ def initdatapath(input_dir, output_dir, user_data=None):
     DIR_TRAINING_MONO_THERAPY = join(input_dir, 'dream2015/synergy/Raw_Data_csv/ch1_ch2_monoTherapy')
 
 
-from os.path import dirname, exists, join, abspath
-thisdir = abspath(dirname( __file__ ))
-
-if not exists(join(thisdir, 'test_input')) or not exists(join(thisdir, 'test_output')):   
-    prevdir = os.getcwd() 
-    os.chdir(thisdir)
-    os.system('scp sbieshare@ras.kaist.ac.kr:dataset/dream2015/dataset.tar %s' % '.')
-    os.system('tar xvf dataset.tar')
-    os.system('rm -f dataset.tar')
-    os.chdir(prevdir)
+if not exists(join(module_dir, 'test_input')) or not exists(join(module_dir, 'test_output')):   
+    cwd = os.getcwd() 
+    os.chdir(module_dir)
+    print('The file dataset.tar is now downloading...')
+    print('To download the file you need password. If you do not know the password, then contact Je-Hoon (song.jehoon@gmail.com).')
+    os.system('scp %s .' % dataset_url)
+    os.system('tar xvf %s' % dataset_filename)
+    os.system('rm -f %s' % dataset_filename)
+    os.chdir(cwd)
 
