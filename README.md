@@ -3,10 +3,11 @@ This is a documentation for Virtual Cancer Treatment Platform.
 
 
 ### Requirements ###
-* Python version 3 
+* python 3.x 
 * pandas
 * matplotlib
 * networkx
+* numpy
 
 
 ### Members ###
@@ -21,6 +22,7 @@ This is a documentation for Virtual Cancer Treatment Platform.
 * http://www.sanderlab.org/pertbio/
 * https://bitbucket.org/armish/bp_prior/overview
 * [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+* sbie.kaist.ac.kr
 
 
 ### License ###
