@@ -25,9 +25,16 @@ root_dir = dirname(__file__)
 
 def test_main():
     
-    # run attractor analysis
+    output_dir = 'untracked'
 
-    infile = 'untracked/test_input.json'
+    if not os.path.exists(output_dir): 
+        print('output_dir is not exist!')
+        print('run mkdir untrackted')
+        assert False 
+
+    # run attractor analysis    
+
+    infile = 'dataset/demo/fumia_input.json'
     outfile = 'untracked/attr_output.json'
 
     attr_fumia.run(infile, outfile)
@@ -36,13 +43,13 @@ def test_main():
 
     # run signal flow analysis 
 
-    sfa_fumia.run('SP', 'COLO205', ['NUTLIN-3'], ['GFs'], 'untracked/sfa_output.json')
+    # sfa_fumia.run('SP', 'COLO205', ['NUTLIN-3'], ['GFs'], 'untracked/sfa_output.json')
 
 
     # run machine learning analysis 
 
-    ml_dream2015.run(join(root_dir, 'module/dream2015/code-with-inputdata', \
-        '26input.CSV'), 'dream2015_output.csv')
+    #ml_dream2015.run(join(root_dir, 'module/dream2015/code-with-inputdata', \
+    #    '26input.CSV'), 'dream2015_output.csv')
 
 
 if __name__ == '__main__':

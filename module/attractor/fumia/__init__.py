@@ -23,7 +23,7 @@ def run(infile, outfile):
 
     os.chdir(matlab_root)
     
-    cmd = 'matlab -r \"fumia_simulator(\'%s\',\'%s\'); exit();\" > attr_fumia.log' % (infile, outfile)
+    cmd = 'matlab -r \"fumia_simulator(\'%s\',\'%s\'); exit();\"' % (infile, outfile)
     
     os.system(cmd)
 
