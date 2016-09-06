@@ -23,6 +23,7 @@
 * https://bitbucket.org/armish/bp_prior/overview
 * [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
 * http://sbie.kaist.ac.kr/
+* Commit message guideline - http://b.ssut.me/55
 
 
 ### License ###

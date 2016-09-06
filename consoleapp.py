@@ -16,9 +16,9 @@ if __name__ == '__main__':
     sys.path.append(join(dirname(__file__),'..'))
 
 import sbie_weinberg
-from sbie_weinberg.module.attractor import fumia as attr_fumia
-from sbie_weinberg.module.sfa import sfa_fumia
-from sbie_weinberg.module.dream2015 import model as ml_dream2015
+from sbie_weinberg.module.attractor.fumia import simulator as attr_simulator
+from sbie_weinberg.module.sfa.sfa_fumia import simulator as sfa_simulator
+from sbie_weinberg.module.dream2015 import predictor as dream2015_predictor
 
 root_dir = dirname(__file__)
 
@@ -34,12 +34,12 @@ def test_main():
 
     # run attractor analysis    
 
-    demo_input = 'dataset/demo/fumia_input.json'
+    demo_input = 'dataset/demo/demoinput_0.json'
     outfile = 'untracked/attr_output.json'
 
-    attr_fumia.run(demo_input, outfile)
+    attr_simulator.run(demo_input, outfile)
 
-    attr_fumia.summary(outfile)
+    attr_simulator.summary(outfile)
 
 
     # run signal flow analysis
