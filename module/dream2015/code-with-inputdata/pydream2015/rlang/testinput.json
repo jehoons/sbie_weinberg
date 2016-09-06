@@ -1,0 +1,17 @@
+{
+  "config":{
+    "alpha":1.0,
+    "figure":true,
+    "figure_file":"__tmp_fig",
+    "ncores":10,
+    "nfolds":5,
+    "normalize":true,
+    "nrepeats":10,
+    "threshold":1000,
+    "train_ratio":0.7
+  },
+  "data":{
+    "xdatafile":"/home/pbs/proj/dream2015/pydream2015/model/output_test_mixed_RE=0_3_GE_DC_DE_xData.csv",
+    "ydatafile":"/home/pbs/proj/dream2015/pydream2015/model/output_test_mixed_RE=0_3_GE_DC_DE_yData.csv"
+  }
+}

@@ -9,15 +9,13 @@ __all__ = []
 
 import os
 import sys 
-from subprocess import call, Popen
-from pdb import set_trace
-from os.path import dirname,join,abspath
+from os.path import dirname,join,abspath,basename
 from os import getcwd
-import json 
+from subprocess import call, Popen
 from pdb import set_trace
 import pandas as pd 
 import pytest
-
+import json 
 
 matlab_root = join(dirname(__file__), 'matlab')
 
@@ -113,8 +111,11 @@ def test_many_inputjson():
 
     outputjson = join(abspath(dirname(__file__)), 'untracked/output.json')
 
-    for inputjson in files: 
-        print (inputjson)
+    for inputjson in files:
+        outputjson = join(abspath(dirname(__file__)), 'untracked', \
+            'out_' + basename(inputjson))
+
         run(inputjson, outputjson, time_length=10, sample_size=5)
+ 
 
         

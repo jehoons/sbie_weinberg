@@ -1,24 +1,34 @@
 # -*- coding: utf-8 -*-
-#*************************************************************************
-# Author: Je-Hoon Song, <song.jehoon@gmail.com>
-# 
-# This file is part of {sbie_weinberg}.
-#*************************************************************************
+#!/usr/bin/python 
 
-import sys,hashlib,pdb,pytest,tempfile,time 
-from os.path import exists, split as pathsplit, join, dirname
-from pdb import set_trace
-import os, re, json, pandas as pd, numpy as np
-from itertools import combinations, combinations_with_replacement 
-import shutil
+import sys
+if __name__ == '__main__':
+    sys.path.append('../../..')
+    pass
 
-sys.path.append(join(dirname(__file__), 'code-with-inputdata'))
-import pydream2015
+from sets import Set
+from multiprocessing import Pool
+from os.path import exists, split as pathsplit, join
+from ipdb import set_trace
+
 from pydream2015 import rlang 
 from pydream2015.rlang import glmnet, ch1scoring_fc
 from pydream2015.util import update_progress, expand_poly2 
 from pydream2015.feature import collect_feature 
+
+import hashlib 
+import pydream2015, pytest, tempfile, time 
+import os, cPickle as pickle, re, json, pandas as pd, numpy as np
+
+#import matplotlib
+#matplotlib.use('Agg')
+#import matplotlib.pyplot as plt
+from itertools import combinations, combinations_with_replacement 
+
 from pydream2015.postproc import post_process
+
+import shutil
+from sets import Set
 
 indir = join(pathsplit(pydream2015.__file__)[0], 'test_input')
 outdir = join(pathsplit(pydream2015.__file__)[0], 'test_output')
@@ -42,36 +52,25 @@ codelist = ['GE', 'CN', 'ME', 'SM', 'DC', 'DE']
 
 KGROUP = 'DRUG_KGROUP:10'
 
-
-def run(therapy_user, predfile, userid='undefined_uid'):
+def prediction(therapy_user, predfile): 
 
     match_user_run(therapy_user, overwrite=True) 
 
-    mixedmodel(codelist, 'STEP3_FULL', predfile, [], [], 
-        inputfilename=therapy_user, userid_=userid, with_small=False, 
-        overwrite=True, nrepeats=1, alpha=1.0, online=True)
+    alpha = 1.0
+    # second, make best model trained with full experimental data 
+    mixedmodel(codelist, 'STEP3_FULL', predfile, [], [], with_small=False, 
+            overwrite=True, nrepeats=1, alpha=alpha, online=True)
 
 
-def mixedmodel(feature_codes, label, predfile = 'output_pred.csv', trainids=[], 
-    testids=[], inputfilename='', userid_=0, coefmode='coef(min)', 
-    with_small=False, overwrite=False, train_ratio=0.66, nfolds=10, nrepeats=1, 
-    threshold=1000, alpha=1.0, ncores=1, clear=False, testfile=None, 
-    online=False):
+def mixedmodel(feature_codes, label, predfile = 'output_pred.csv', trainids=[], testids=[], coefmode='coef(min)', 
+        with_small=False, overwrite=False, train_ratio=0.66, nfolds=10, nrepeats=1, 
+        threshold=1000, alpha=1.0, ncores=1, clear=False, testfile=None,
+        online=False):
 
-    dst_dir = '.'
-
-    shutil.copy(pydream2015.DATA_COMBITHERAPY, join(dst_dir, 'THERAPY_TRAINSET.CSV'))
-
-    shutil.copy(pydream2015.DATA_COMBITHERAPY_TEST, join(dst_dir, 'THERAPY_TESTSET.CSV'))
-
-    # shutil.copy(pydream2015.DATA_COMBITHERAPY,
-    #     '/data/ui_input/dream/'+str(userid_)+'THERAPY_TRAINSET.CSV') 
-
-    # shutil.copy(pydream2015.DATA_COMBITHERAPY_TEST, 
-    #     '/data/ui_input/dream/'+str(userid_)+'THERAPY_TESTSET.CSV') 
+    shutil.copy(pydream2015.DATA_COMBITHERAPY, 'THERAPY_TRAINSET.CSV') 
+    shutil.copy(pydream2015.DATA_COMBITHERAPY_TEST, 'THERAPY_TESTSET.CSV') 
 
     with_randomeffect = True 
-
     model_json = label + '.json'
 
     if exists(model_json) and (overwrite==False) and online==False:
@@ -89,19 +88,17 @@ def mixedmodel(feature_codes, label, predfile = 'output_pred.csv', trainids=[],
 
     obsfile = label + '_OBSERV.csv'
 
-    EXPERIMENT_DATA = pd.read_csv(join(dst_dir, 'THERAPY_TRAINSET.CSV' ))
+    EXPERIMENT_DATA = pd.read_csv( 'THERAPY_TRAINSET.CSV' ) 
 
     features = []
     for code in feature_codes:
         features.append( feature_db[code] ) 
+        pass
 
     TRAIN_SET = EXPERIMENT_DATA
 
     rndeffval2 = calc_randomeffect2(TRAIN_SET) 
-
-    model_json = join(dirname(__file__), 'code-with-inputdata', 'STEP3_FULL.json')
-    # model_json = '/data/platform_scripts/models/dream2015/code-with-inputdata/STEP3_FULL.json'
-    
+    model_json = 'STEP3_FULL.json'
     model3 = json.load(open(model_json))
     coefmin = model3['data']['coef(min)']
 
@@ -115,12 +112,6 @@ def mixedmodel(feature_codes, label, predfile = 'output_pred.csv', trainids=[],
     all_coefnames_i = coefmin.keys()
 
     XTEST = collect_feature(features, with_small=with_small, mode='user') 
-
-    fea_set = set(linear_features)
-    xtest_set = set(XTEST.columns.values.tolist()) 
-    fea_set = fea_set.intersection(xtest_set) 
-    linear_features = list(fea_set) 
-
     XTEST = expand_poly2(XTEST, cols=linear_features) 
 
     set1 = set(all_coefnames_i)
@@ -129,7 +120,7 @@ def mixedmodel(feature_codes, label, predfile = 'output_pred.csv', trainids=[],
 
     XTEST = XTEST[list(set1)]
 
-    TEST_SET = pd.read_csv(inputfilename)
+    TEST_SET = pd.read_csv('THERAPY_USER.CSV')
     PREDICTION = TEST_SET.copy() 
     PREDICTION['SYNERGY_SCORE'] = np.nan
     Yprediction = predict(PREDICTION, XTEST, coefmin, rndeffval2) 
@@ -150,6 +141,7 @@ def calc_randomeffect2(therapyAll):
         rndeff_combination_id['mean'][group_key] = syn_mean
         rndeff_combination_id['std'][group_key] = syn_std
         rndeff_combination_id['points'][group_key] = syn_count
+        pass
 
     rndeff_cell_line = {'mean':{}, 'std':{}, 'points':{}} 
     therapy_groups = therapyAll.groupby('CELL_LINE').groups
@@ -161,27 +153,19 @@ def calc_randomeffect2(therapyAll):
         rndeff_cell_line['mean'][group_key] = syn_mean
         rndeff_cell_line['std'][group_key] = syn_std
         rndeff_cell_line['points'][group_key] = syn_count
+        pass
 
     rndeff_monodrug = {'mean':{}, 'std':{}, 'points':{}} 
     groups_drug_a = therapyAll.groupby('COMPOUND_A').groups
     groups_drug_b = therapyAll.groupby('COMPOUND_B').groups
-    
-    drugs = [ee for ee in groups_drug_a.keys()] + \
-        [ee for ee in groups_drug_b.keys()]
-
-    # drugs = groups_drug_a.keys() + groups_drug_b.keys() 
-    
+    drugs = groups_drug_a.keys() + groups_drug_b.keys() 
     druggroups = {} 
     for drug in drugs:
         ids_a = []; ids_b = []
-        # if groups_drug_a.has_key(drug):
-        if drug in groups_drug_a: 
+        if groups_drug_a.has_key(drug):
             ids_a = groups_drug_a[drug]
-
-        # if groups_drug_b.has_key(drug): 
-        if drug in groups_drug_b:
+        if groups_drug_b.has_key(drug): 
             ids_b = groups_drug_b[drug] 
-
         druggroups[drug] = ids_a + ids_b
 
     for group_key in druggroups.keys(): 
@@ -192,6 +176,7 @@ def calc_randomeffect2(therapyAll):
         rndeff_monodrug['mean'][group_key] = syn_mean
         rndeff_monodrug['std'][group_key] = syn_std
         rndeff_monodrug['points'][group_key] = syn_count
+        pass
 
     rndeff = {
             'COMBINATION_ID': rndeff_combination_id, 
@@ -206,7 +191,6 @@ def calc_randomeffect2(therapyAll):
 
 
 def estimate_rndeff(rndeff, seriesdata):
-
     # combi_id = seriesdata['COMBINATION_ID']
     cell = seriesdata['CELL_LINE']
     drug_a = seriesdata['COMPOUND_A']
@@ -216,18 +200,15 @@ def estimate_rndeff(rndeff, seriesdata):
     mu_drug_b = 0; n_drug_b = 0
     mu_cell = 0; n_cell = 0
 
-    # if rndeff['CELL_LINE']['mean'].has_key(cell): 
-    if cell in rndeff['CELL_LINE']['mean']:
+    if rndeff['CELL_LINE']['mean'].has_key(cell): 
         mu_cell = rndeff['CELL_LINE']['mean'][cell]
         n_cell = rndeff['CELL_LINE']['points'][cell]
 
-    # if rndeff['DRUG']['mean'].has_key(drug_a): 
-    if drug_a in rndeff['DRUG']['mean']:
+    if rndeff['DRUG']['mean'].has_key(drug_a): 
         mu_drug_a = rndeff['DRUG']['mean'][drug_a]
         n_drug_a = rndeff['DRUG']['points'][drug_a]
 
-    # if rndeff['DRUG']['mean'].has_key(drug_b): 
-    if drug_b in rndeff['DRUG']['mean']:
+    if rndeff['DRUG']['mean'].has_key(drug_b): 
         mu_drug_b = rndeff['DRUG']['mean'][drug_b]
         n_drug_b = rndeff['DRUG']['points'][drug_b]
 
@@ -272,6 +253,10 @@ def predict(dfTherapy, dfX, coef0, randeffect):
         if k in dfX.columns.values.tolist():
             coef[k] = coef0[k] 
 
+            pass
+
+        pass
+
     coef['(Intercept)'] = coef0['(Intercept)']
 
     coefnames = []
@@ -281,9 +266,12 @@ def predict(dfTherapy, dfX, coef0, randeffect):
         if c == '(Intercept)':
             intercept = coef[c]
 
+            pass
         else:
             coefnames.append(c) 
             coefvalues.append(coef[c]) 
+
+            pass
     
     Xvalues = dfX[coefnames].values
 
@@ -304,24 +292,19 @@ def update_therapy_data_with_kdrug(therapyfile, KGROUP):
     druggoups_df = pd.read_csv('druggroups.csv', index_col='Unnamed: 0') 
 
     newcolname = {}
-    
     for col in druggoups_df.columns.values.tolist(): 
         newcolname[col] = 'DRUG_KGROUP:' + col
 
     # KGROUP = 'DRUG_KGROUP:10'
     druggoups_df.rename(columns=newcolname, inplace=True)
-    
     therapy_df = pd.read_csv(therapyfile) 
-    
     cellinfo_df = pd.read_csv(pydream2015.DATA_CELLINFO)
-    
     therapy_merged = pd.merge(therapy_df, cellinfo_df, left_on='CELL_LINE',
             right_on='Sanger.Name', how='left')
-    
     therapy_merged = pd.merge(therapy_merged, druggoups_df[[KGROUP]],
             left_on='COMBINATION_ID', right_index=True, how='left')
 
-    for i in therapy_merged.index:
+    for i in therapy_merged.index: 
         drug_id = therapy_merged.loc[i, KGROUP] 
         tissue_id = therapy_merged.loc[i, 'Tissue..General.']
         therapy_merged.loc[i, 'KDRUG_TISSUE_ID'] = 'DC%d.%s' % (drug_id, tissue_id)
@@ -361,33 +344,30 @@ def match_user_run(therapy_user, overwrite=False):
     from pydream2015.feature.match import match_smoothed_drugeffect
 
     match_gex(therapy_user, gexdata, matcheduser_gex, overwrite=overwrite)
-    
     match_mut(therapy_user, mutdata, matcheduser_mut, overwrite=overwrite) 
-    
     match_dd3dc(therapy_user, dd3dc, matcheduser_dd3dc, overwrite=overwrite) 
-    
     match_smoothed_mut_STRING(therapy_user, smoothed_mut_STRING,
             matcheduser_smoothed_mut, overwrite=overwrite) 
-    
     match_smoothed_CNV(therapy_user, smoothed_CNV_STRING, matcheduser_smoothed_CNV,
             overwrite=overwrite) 
-    
     match_smoothed_methyl(therapy_user, smoothed_methyl_STRING, 
             matcheduser_smoothed_methyl, overwrite=overwrite)
-    
-    #match_doseresponsecoef(therapy_user, matcheduser_doseresponsecoef, 
-    #        overwrite=overwrite)
-    
+    match_doseresponsecoef(therapy_user, matcheduser_doseresponsecoef, 
+            overwrite=overwrite)
     match_smoothed_drugeffect(therapy_user, smoothed_drugeffect_STRING,
             matcheduser_drugeffect, overwrite=overwrite)
 
+    pass
 
-def test_predict():
 
-    inpfile = 'code-with-inputdata/26input.CSV'
-    # outfile = '/data/ui_output/dream/THERAPY_USER_PRED.CSV'
+if __name__ == '__main__':
 
-    outfile = 'outfile.csv'
+    #inpfile = sys.argv[1]
+    #outfile = sys.argv[2]
 
-    run(inpfile, 'output.csv', userid='000') 
+    infile = 'THERAPY_USER1.CSV'
+    out = 'THERAPY_USER1_PRED.CSV'
+
+    prediction(infile, out ) 
+
 

@@ -5,9 +5,9 @@
 *.jpg
 *.png
 *.mat
+untracked*.*
 .cache/
 untracked/
 scratch/
 tmp/
-code-with-inputdata/
 __pycache__/
