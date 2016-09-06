@@ -1,11 +1,13 @@
 # Virtual Cancer Treatment Platform #
 This is a documentation for Virtual Cancer Treatment Platform. 
 
+
 ### Requirements ###
 * Python version 3 
 * pandas
 * matplotlib
 * networkx
+
 
 ### Members ###
 * Je-Hoon Song (song.jehoon@gmail.com)
@@ -14,13 +16,12 @@ This is a documentation for Virtual Cancer Treatment Platform.
 * Dae-Won Lee
 * Sun-Myeong Kim 
 
+
 ### Reference ###
 * http://www.sanderlab.org/pertbio/
 * https://bitbucket.org/armish/bp_prior/overview
-
-### What is this repository for? ###
-* Quick summary
 * [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+
 
 ### License ###
 This program is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
