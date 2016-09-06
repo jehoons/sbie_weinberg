@@ -276,33 +276,3 @@ def run(inputjson, outputjson):
     run_sfa(default_alg, celltype, drugs, default_ic, outputjson) 
 
 
-def test_single_inputjson():
-
-    from sbie_weinberg.module.sfa import sfa_fumia
-    from sbie_weinberg.dataset import demo
-
-    inputjson = join(abspath(dirname(__file__)), 'test_input.json')
-
-    outputjson = join(abspath(dirname(__file__)), 'untracked/output.json')
-
-    sfa_fumia.run(inputjson, outputjson)
-
-    print ('output:', outputjson)
-
-
-# @pytest.mark.skipif(True, reason='no reason')
-def test_many_inputjson():
-
-    from sbie_weinberg.module.sfa import sfa_fumia
-    from sbie_weinberg.dataset import demo
-    import glob
-
-    files = glob.glob(join(dirname(demo.__file__), 'demoinput*.json'))
-
-    outputjson = join(abspath(dirname(__file__)), 'untracked/output.json')
-    for inputjson in files: 
-        # print (inputjson)
-        sfa_fumia.run(inputjson, outputjson)
-
-    # inputjson = join(abspath(dirname(__file__)), 'test_input.json')
-    # outputjson = join(abspath(dirname(__file__)), 'untracked/output.json')
