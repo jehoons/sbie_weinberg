@@ -2,7 +2,7 @@
     "input":{
         "celltype":"COLO205",
         "drugs":[
-            "Nutlin-3"
+            "Erlotinib"
         ]
     }
 }

@@ -1,13 +1,13 @@
 {
     "cells":[
         "COLO205",
-        "LS123",
-        "SW48"
+        "SW48",
+        "LS123"
     ],
     "drugs":[
-        "Nutlin-3",
+        "Erlotinib",
         "AZD6244",
         "RAF265",
-        "Erlotinib"
+        "Nutlin-3"
     ]
 }
