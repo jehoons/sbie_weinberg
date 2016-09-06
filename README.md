@@ -24,6 +24,7 @@
 * [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
 * http://sbie.kaist.ac.kr/
 * Commit message guideline - http://b.ssut.me/55
+* Commit message guideline - http://haruair.com/blog/2683
 
 
 ### License ###
