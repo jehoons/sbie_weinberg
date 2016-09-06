@@ -1,6 +1,6 @@
+*.log
 *.tar
 *.gz
-*.json
 *.pyc
 *.jpg
 *.png

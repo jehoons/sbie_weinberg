@@ -23,7 +23,7 @@ def run(infile, outfile):
 
     os.chdir(matlab_root)
     
-    cmd = 'matlab -r \"fumia_simulator(\'%s\',\'%s\'); exit();\"' % (infile, outfile)
+    cmd = 'matlab -r \"fumia_simulator(\'%s\',\'%s\'); exit();\" > attr_fumia.log' % (infile, outfile)
     
     os.system(cmd)
 
@@ -87,7 +87,7 @@ def test_run():
     infile = 'test_input.json'
     outfile = 'test_output.json'
 
-    # run(infile, outfile)
+    run(infile, outfile)
 
     summary(outfile)
     
