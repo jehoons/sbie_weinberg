@@ -11,21 +11,16 @@ Created on Thu Aug 25 15:01:33 2016
 import os
 import re
 import json
+import pdb
 import argparse
 from os.path import abspath, join, dirname
 import numpy as np
 import pandas as pd
 import pytest
-
-dir_sfa = abspath(join(dirname(__file__), 'sfa'))
-
 import sys
+dir_sfa = abspath(join(dirname(__file__), 'sfa'))
 sys.path.append(dir_sfa)
 import sfa
-
-import pdb
-
-
 from sbie_weinberg.module.sfa import sfa_fumia
 from sbie_weinberg.dataset import demo
 import glob
