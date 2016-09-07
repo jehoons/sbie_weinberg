@@ -33,13 +33,13 @@ def make_range_demo(outfile='range.json'):
     drugs = set(df['Compound'])
     drugs = [el for el in drugs]
 
-    input_range = {'demo': { 'cell': celltypes, 'drug': drugs }}
+    input_range = {'range': { 'cell': celltypes, 'drug': drugs }}
 
     with open(outfile, 'w') as outfobj: 
         json.dump(input_range, outfobj, indent=4, sort_keys=True, \
             separators=(',',':'))
 
-                        
+
 def make_range_dream2015(outfile='range_dream2015.json'): 
 
     datadir = join(dirname(dream2015.__file__), 
@@ -53,7 +53,7 @@ def make_range_dream2015(outfile='range_dream2015.json'):
     drugs = set( df1['COMPOUND_A'].tolist() + df2['COMPOUND_B'].tolist() )
 
     simul_range = { 
-        'dream2015': {
+        'range': {
             'cell': [el for el in cells], 
             'drug': [el for el in drugs], 
             }
@@ -64,7 +64,7 @@ def make_range_dream2015(outfile='range_dream2015.json'):
 
 
 def make_inputdata_combination(infile='range_dream2015.json', combi_numbers=[2], \
-        outputheader='demoinput_dream2015_'):
+        outputheader='demoinput_dream2015_', limit=10):
 
     # combi_numbers = [ 2 ]
     # outputheader = 'demoinput_dream2015_'
@@ -72,8 +72,8 @@ def make_inputdata_combination(infile='range_dream2015.json', combi_numbers=[2],
     with open(infile, 'r') as finp: 
         datadict = json.load(finp)
 
-    drugs = datadict['dream2015']['drug']
-    cells = datadict['dream2015']['cell']
+    drugs = datadict['range']['drug']
+    cells = datadict['range']['cell']
 
     drugs_list = [] 
 
@@ -97,6 +97,9 @@ def make_inputdata_combination(infile='range_dream2015.json', combi_numbers=[2],
         with open(outputfilename, 'w') as outfile: 
             json.dump(inputjson, outfile, indent=4, sort_keys=True,
                 separators=(',',':'))
-    pass
+
+        if i > limit: 
+            break                 
+
 
 
