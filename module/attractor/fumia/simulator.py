@@ -28,7 +28,11 @@ def run(infile, outfile, sample_size=100, time_length=1000):
 
     os.chdir(matlab_root)
     
-    cmd = 'matlab -r \"fumia_simulator(\'%s\',\'%s\',%d,%d); exit();\"' % \
+    cmd =  'matlab '
+    cmd += '-nodesktop '
+    cmd += '-nosplash '
+    cmd += '-nodisplay '
+    cmd += '-r \"fumia_simulator(\'%s\',\'%s\',%d,%d); exit();\"' % \
         (infile, outfile, sample_size, time_length)
     
     os.system(cmd)

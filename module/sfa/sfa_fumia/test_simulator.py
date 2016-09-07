@@ -39,6 +39,8 @@ def test_single_inputjson():
 
     print ('output:', outputjson)
 
+    assert True 
+
     
 def test_many_inputjson():
 
@@ -49,7 +51,10 @@ def test_many_inputjson():
         outputjson = join(abspath(dirname(__file__)), 'untracked', 
             'out_' + filename)
         sfa_simulator.run(inputjson, outputjson)
+
         print ('output:', outputjson)
+
+    assert True 
 
 
         

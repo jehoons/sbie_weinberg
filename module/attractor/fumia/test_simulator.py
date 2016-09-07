@@ -21,7 +21,7 @@ def test_single_inputjson():
     attr_simulator.run(infile, outputjson, time_length=10, sample_size=5)
 
 
-@pytest.mark.skipif(True, reason='no reason')
+# @pytest.mark.skipif(True, reason='no reason')
 def test_many_inputjson():
 
     files = glob.glob(join(dirname(demo.__file__), 'demoinput*.json'))
