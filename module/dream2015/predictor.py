@@ -43,7 +43,40 @@ codelist = ['GE', 'CN', 'ME', 'SM', 'DC', 'DE']
 KGROUP = 'DRUG_KGROUP:10'
 
 
-def run(therapy_user, predfile, userid='undefined_uid'):
+def run(inputjson, outputjson):
+
+    with open(inputjson,'r') as fobj:
+        inputdata = json.load(fobj)
+        celltype = inputdata['input']['celltype']
+        drugs = inputdata['input']['drugs']
+
+    """ only two drugs combination is supported by this module. """
+    assert len(drugs) == 2
+
+    csv_inputfile = tempfile.mktemp()
+
+    with open(csv_inputfile, 'w') as fout: 
+        fout.write('CELL_LINE,COMPOUND_A,COMPOUND_B,COMBINATION_ID\n')
+        fout.write('%s,%s,%s,%s\n' % (celltype, drugs[0], 
+            drugs[1],".".join(drugs)))
+
+    csv_outputfile = tempfile.mktemp()
+    # csv_outputfile = 'untracked_output.csv'    
+    run_csv(csv_inputfile, csv_outputfile)
+
+    dataframe = pd.read_csv(csv_outputfile)
+
+    # #row of dataframe should be one. 
+    assert dataframe.shape[0] == 1
+
+    data = {'synergy': dataframe.loc[0, 'PREDICTION']} 
+
+    with open(outputjson, 'w') as foutjson:
+        json.dump(data, foutjson, indent=4, sort_keys=True, 
+            separators=(',', ':'))
+
+
+def run_csv(therapy_user, predfile, userid='undefined_uid'):
 
     match_user_run(therapy_user, overwrite=True) 
 
