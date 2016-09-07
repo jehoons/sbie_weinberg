@@ -9,7 +9,6 @@ __all__ = ['fill_missinggex','make_biomartsdict','translate_STRING']
 
 import os,sys
 import pandas as pd, numpy as np 
-from sets import Set
 from os.path import join 
 from os.path import exists 
 from os import remove 
@@ -36,8 +35,8 @@ def fill_missinggex(therapy, gexfile, cellinfofile, filled_gex):
     gex = pd.read_csv(gexfile, index_col='Unnamed: 0')
     gex = gex.T
 
-    cells_in_therapy = Set( therapy['CELL_LINE'].values.tolist() )
-    cells_in_gex = Set( gex.index.values.tolist() )
+    cells_in_therapy = set( therapy['CELL_LINE'].values.tolist() )
+    cells_in_gex = set( gex.index.values.tolist() )
     missing_cells = cells_in_therapy - cells_in_gex
 
     # fill the missing cells with the cells originated from same tissue
@@ -69,8 +68,8 @@ def make_biomartsdict(biomarts_csv, biomart_dict, test=False):
     print ('>>', biomart_dict)
 
     ensembletbl = pd.read_csv(biomarts_csv)
-    ensp_node_set  = Set(ensembletbl['Ensembl Protein ID'].values)
-    ensp_node_set -= Set([np.nan])
+    ensp_node_set  = set(ensembletbl['Ensembl Protein ID'].values)
+    ensp_node_set -= set([np.nan])
     ensp_id_list = list(ensp_node_set)
     ensp_to_gene = {} 
 
@@ -101,12 +100,12 @@ def translate_STRING(ppifile, enspdic, processedppi, translatedppi, ppihist,
 
     # input - ppifile, enspdic
     # output - processedppi, translatedppi, ppihist 
-    print '[translate_STRING]'
-    print '<<', ppifile
-    print '<<', enspdic
-    print '>>', processedppi
-    print '>>', translatedppi
-    print '>>', ppihist
+    print ('[translate_STRING]')
+    print ('<<', ppifile)
+    print ('<<', enspdic)
+    print ('>>', processedppi)
+    print ('>>', translatedppi)
+    print ('>>', ppihist)
 
     fobj = open(processedppi, 'wb')
     fobj.write('protein1,protein2,combined_score\n')
@@ -171,12 +170,12 @@ def test_make_biomartsdict():
     in_ensemblid = pydream2015.DATA_ENSEMBLID 
     out_dict = pydream2015.MYDATA_DICT
 
-    print '>>', out_dict
+    print ('>>', out_dict)
 
     if not exists(out_dict):
         make_biomartsdict(in_ensemblid, out_dict, test=False)
     else:
-        print '- skipped'
+        print ('- skipped')
 
     assert exists(out_dict)
 

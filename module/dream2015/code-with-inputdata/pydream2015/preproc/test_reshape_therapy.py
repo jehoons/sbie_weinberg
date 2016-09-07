@@ -13,8 +13,6 @@ from pdb import set_trace
 import pandas as pd
 from os.path import exists
 
-from sets import Set
-
 import numpy as np
 from numpy import corrcoef
 

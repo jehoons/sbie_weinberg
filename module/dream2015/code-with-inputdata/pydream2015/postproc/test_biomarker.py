@@ -146,7 +146,7 @@ def test_groupped_test(with_small, overwrite, outputfile='Xdata.csv'):
         words = c.split('*') 
         monocoef += words 
 
-    print monocoef
+    print (monocoef)
 
     sys.path.append(datadir)
     import feature_sets 
