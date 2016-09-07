@@ -5,6 +5,7 @@
 *.jpg
 *.png
 *.mat
+*.json
 untracked*.*
 .cache/
 untracked/
