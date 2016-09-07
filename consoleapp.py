@@ -30,26 +30,23 @@ def test_main():
     if not os.path.exists(output_dir): 
         print('output_dir is not exist!')
         print('run mkdir untrackted')
-        assert False 
+        os.mkdir(output_dir)
 
     # run attractor analysis    
 
     demo_input = 'dataset/demo/demoinput_0.json'
-    outfile = 'untracked/attr_output.json'
 
-    attr_simulator.run(demo_input, outfile)
-
-    attr_simulator.summary(outfile)
-
+    attr_simulator.run(demo_input, 'untracked/attr_output.json')
+    attr_simulator.summary('untracked/attr_output.json')
 
     # run signal flow analysis
 
-    # sfa_fumia.run('SP', 'COLO205', ['NUTLIN-3'], ['GFs'], 'untracked/sfa_output.json')
+    sfa_simulator.run(demo_input, 'untracked/sfa_output.json')
 
     # run machine learning analysis
 
-    #ml_dream2015.run(join(root_dir, 'module/dream2015/code-with-inputdata', \
-    #    '26input.CSV'), 'dream2015_output.csv')
+    dream2015_predictor.run('dataset/demo/demoinput_dream2015_0.json', 
+        'untracked/dream2015_output.json')
 
 
 if __name__ == '__main__':
