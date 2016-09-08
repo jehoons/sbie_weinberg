@@ -71,7 +71,7 @@ def download(SYNO, SOURCE, TARGET_DIR, USER, PASS):
 
 # # Password for the above user
 # # Possible issue if it contains the & character
-# PASS="0909room"
+# PASS="---"
 
 # # File to parse URLs from
 # # Each URL should be on a seperate line
