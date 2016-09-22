@@ -12,3 +12,4 @@ untracked/
 scratch/
 tmp/
 __pycache__/
+files/session/sess_*
