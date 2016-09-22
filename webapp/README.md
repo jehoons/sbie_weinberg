@@ -12,3 +12,7 @@
 
 * [PC2](http://www.pathwaycommons.org/pcviz/)
 * [pertbio](http://www.sanderlab.org/pertbio/)
+
+### installation
+* Step 1.
+* Step 2. 
