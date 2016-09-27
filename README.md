@@ -4,13 +4,6 @@
 * prediciton combination drug's effect
 * web-based simulator
 
-### Requirements
-* python 3.x 
-* pandas
-* matplotlib
-* networkx
-* numpy
-
 ### Members 
 * Je-Hoon Song (song.jehoon@gmail.com)
 * Young-Hyun Han 
