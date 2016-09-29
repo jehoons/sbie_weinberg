@@ -6,7 +6,9 @@ Installation process is described here:
 Step 1. Execute in command line 
 
 ```bash 
-sudo cp -rv htdocs/ /var/www/html/v2/
+sudo cp -rv htdocs/ /var/www/html/
+cd /var/www/html
+sudo ln -s htdocs v2
 ```
 
 Step 2. Put following command into browser
