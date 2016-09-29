@@ -5,6 +5,31 @@ config/handler.php
 header, menu, footer 를 구성하고  main은  modules의 페이지가 차지하여 기능 하도록.
 
 -------------------------------- */
+
+//__CL__ 정의 되지 않았다면 false 를 return.
+if(!defined('__CL__')) exit();
+
+//세션값이 있다면 회원정보 쿼리. $signinrow['mb_fullname'] 형식으로 사용.
+if($_SESSION["mb_rowid"]){
+	$mbrowid = $_SESSION['mb_rowid'];
+
+	//회원 정보 쿼리
+	$sql = "
+	SELECT *
+	FROM member
+	WHERE mb_rowid = '$mbrowid'
+	";
+	$result = $conn->query($sql);
+	$signinrow = $result->fetch_assoc();
+}	
+
+//작업모드이면 작업 페이지 호출
+if(substr($_GET["act"],-9,9) == "_work.php"){
+	$url = _CL_PATH_.'modules/'.$_GET["module"].'/'.$_GET["act"];
+	require $url;
+	$conn->close();
+	exit();
+}
 ?>
 <!doctype html>
 <html lang="en" class="no-js">
@@ -61,13 +86,25 @@ require $url;
 	<div id="cl-cart">
 		<h2>Account</h2>
 		<ul class="cl-cart-items">
+<?php 
+if(!$mbrowid){
+?>		
 			<li>
-				Login
+				<a href="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>?module=member&act=login.php">Log in</a>
 			</li>
 
 			<li>
-				Join us
+				<a href="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>?module=member&act=join.php">Join us</a>
+			</li>	
+<?php
+}else{
+?>
+			<li>
+				<a href="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>?module=member&act=logout_work.php&logout=true">Log out</a>
 			</li>
+<?php
+}
+?>				
 		</ul> <!-- cl-cart-items -->
 		
 		<h2>Search</h2>
@@ -86,6 +123,8 @@ require $url;
 		291 DAEHAK-RO, YUSEONG-GU, DAEJEON 305-701, REPUBLIC OF KOREA<br />
 		<img src="<?php echo _CL_PATH_HOST_;?>common/img/kaist.jpg" alt="logo">
 	</footer>
+<input type="hidden"  id="clpathhost" value="<?php echo _CL_PATH_HOST_;?>">	
+	
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <script src="<?php echo _CL_PATH_HOST_;?>common/js/main.js"></script> <!-- Gem jQuery -->
 <script src="<?php echo _CL_PATH_HOST_;?>common/js/svgcheckbx.js"></script>
