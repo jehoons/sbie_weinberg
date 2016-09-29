@@ -10,5 +10,5 @@ from os.path import exists, join, dirname
 sys.path.append(join(dirname(__file__), 'extern'))
 import boolean2 
 
-__all__ = ['dataset', 'extern', 'module', 'preproc', 'util'] 
+__all__ = ['dataset', 'module', 'preproc', 'util'] 
 
