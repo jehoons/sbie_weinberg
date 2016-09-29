@@ -5,4 +5,10 @@
 # This file is part of {sbie_weinberg}.
 #*************************************************************************
 
-__all__ = ['dataset', 'doc', 'extern', 'module', 'preproc', 'test', 'util', 'webapp'] 
+import sys 
+from os.path import exists, join, dirname 
+sys.path.append(join(dirname(__file__), 'extern'))
+import boolean2 
+
+__all__ = ['dataset', 'extern', 'module', 'preproc', 'util'] 
+
