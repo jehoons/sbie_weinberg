@@ -12,8 +12,8 @@ if(!defined('__CL__')) exit();
 // 호스트, 사용자, 비밀번호, 사용하는 database 설정
 $servername = "localhost";
 $username = "root";
-$password = "5262";
-$dbname = "kaist";
+$password = "sbl4365";
+$dbname = "weinberg";
 
 // Connect
 $conn = new mysqli($servername, $username, $password, $dbname);
