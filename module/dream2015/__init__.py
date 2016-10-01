@@ -8,12 +8,12 @@
 __all__ = [] 
 
 from os.path import exists, dirname, join, abspath
-from urllib import request
+# from urllib import request
 import tempfile, tarfile, shutil
 
 import pdb
 
-from sbie_weinberg.util import download_url
+# from sbie_weinberg.util import download_url
 
 """ code-with-inputdata.tar.gz file will be downloaded. 
 if code-with-inputdata.tar.gz file is updated, then it will be downloaded again. 
