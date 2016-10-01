@@ -47,7 +47,7 @@ def mixedmodel(feature_codes, label, predfile = 'output_pred.csv', trainids=[],
     testids=[], inputfilename='', userid_=0, coefmode='coef(min)', 
     with_small=False, overwrite=False, train_ratio=0.66, nfolds=10, nrepeats=1, 
     threshold=1000, alpha=1.0, ncores=1, clear=False, testfile=None, 
-    online=False, model_json=None, sigma=0.0):
+    online=False, sigma=0.0):
 
     dst_dir = '.'
 
@@ -90,8 +90,8 @@ def mixedmodel(feature_codes, label, predfile = 'output_pred.csv', trainids=[],
 
     rndeffval2 = calc_randomeffect2(TRAIN_SET) 
 
-    if model_json == None : 
-        model_json = join(dirname(__file__), 'code-with-inputdata', 'STEP3_FULL.json')
+    # if model_json == None : 
+    model_json = join(dirname(__file__), 'code-with-inputdata', 'STEP3_FULL.json')
 
     # model_json = '/data/platform_scripts/models/dream2015/code-with-inputdata/STEP3_FULL.json'
     
@@ -426,7 +426,6 @@ def run_csv(therapy_user, predfile, userid='undefined_uid', model_json=None,
 
     mixedmodel(codelist, 'STEP3_FULL', predfile, [], [], 
         inputfilename=therapy_user, userid_=userid, with_small=False, 
-        overwrite=True, nrepeats=1, alpha=1.0, online=True, 
-        model_json=model_json, sigma=sigma)
+        overwrite=True, nrepeats=1, alpha=1.0, online=True, sigma=sigma)
 
 
