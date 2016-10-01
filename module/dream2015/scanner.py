@@ -63,49 +63,25 @@ def get_inputcombination():
     return df0
 
 
-def step1():
+def divider(header, listfile, stepsize):
 
-    outputfile = 'inputdb.csv'
-    if exists(outputfile):
-        return
-    # result1 = get_range()
-    result2 = get_inputcombination()
-    # result2 = pd.concat([result2 for i in range(10)], ignore_index=True)
-    result2.to_csv(outputfile, index=False)
-
-
-def step2():
-    
-    outputfile = 'inputdb.csv'
-    df = pd.read_csv(outputfile)
+    df = get_inputcombination() 
     N = df.shape[0]
-    STEP = 3000
-
+    STEP = stepsize 
     df1 = pd.DataFrame([],columns=['inputfile'])
     k = 0
     for i in range(0, N, STEP):
-        progressbar.update(i, N) 
+        progressbar.update(k, N/STEP) 
         st = i 
         if i + STEP >= N: 
             ed = N - 1
         else: 
             ed = i + STEP - 1
         df0 = df.loc[st : ed]
-        #infilename = 'inputdata_%d_%d.csv' % (st, ed)
-        infilename = 'inp_part_%d.csv' % (k) 
-        #outfilename = 'inputdata_%d_%d_res.csv' % (st, ed)
+        infilename = header + '%d.csv' % (k) 
         df0.to_csv(infilename, index=False)
-        #predictor.run_csv(infilename, outfilename, sigma=10)
         df1.loc[k, 'inputfile'] = infilename 
-        
         k+=1 
 
-    df1.to_csv('inp_part_list.csv')
-
-
-def test(): 
-
-    step1()
-    step2() 
-
+    df1.to_csv(listfile)
 

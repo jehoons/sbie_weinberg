@@ -48,7 +48,8 @@ def test_run():
     df.to_csv('inputdata.csv', index=False)
     sigma = inputdata['parameters']['sigma']
 
-    predictor.run_csv('inputdata.csv', 'outputdata.csv', sigma=sigma) 
+    predictor.run_csv('inputdata.csv', 'outputdata.csv', repeat=10, sigma=sigma) 
 
     # predictor.run_scan('output.csv')
 
+    
