@@ -1,21 +1,20 @@
 # Anti-cancer drug recommendation platform
 
-### Goal  
-* prediciton combination drug's effect
-* web-based simulator
+## Goal  
 
-### Members 
-* Je-Hoon Song (song.jehoon@gmail.com)
-* Young-Hyun Han 
-* Jong-Hoon Lee 
-* Dae-Won Lee (daewon4you@gmail.com)
-* Sun-Myeong Kim
+* Simulate anti-cancer drug's efficacy
+* Support single or multiple drug treatment 
+* Provide web-based UI interface
 
-### Reference 
-* benchmark - http://www.sanderlab.org/pertbio/
-* https://bitbucket.org/armish/bp_prior/overview
+## Update history
 
-### License 
-This program is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
-This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
-You should have received a copy of the GNU Lesser General Public License along with this program. If not, see http://www.gnu.org/licenses/.
+### 2016. 10. 2
+
+* We need full DREAM2015 results with all-possible-input-combinations and it's just done 
+
+### 2016. 9. 30 
+
+* Change simulation scenario - We need a more dynamic UI 
+
+
+
