@@ -6,7 +6,7 @@
 #SBATCH --get-user-env 
 #SBATCH --nodes=1
 # CPUS-PER-TASK: 
-# --cpus-per-task is should be linked with 'OMP_NUM_THREADS' variable
+# --cpus-per-task=NUMBER is should be linked with 'export OMP_NUM_THREADS=NUMBER'
 #SBATCH --cpus-per-task=1 
 #   SBATCH --mail-type=end 
 #   SBATCH --mail-user=xyz@xyz.de 
@@ -14,8 +14,6 @@
 #SBATCH --array=0-199
 #SBATCH --time=08:00:00 
 
-#source /etc/profile.d/modules.sh
-#cd mydir
 #export OMP_NUM_THREADS=1
 
 . ~/env2/bin/activate 
