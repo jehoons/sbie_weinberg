@@ -1,3 +1,10 @@
+# -*- coding: utf-8 -*-
+#*************************************************************************
+# Author: Je-Hoon Song, <song.jehoon@gmail.com>
+# 
+# This file is part of {sbie_weinberg}.
+#*************************************************************************
+
 from ipdb import set_trace
 import glob 
 import pandas as pd 

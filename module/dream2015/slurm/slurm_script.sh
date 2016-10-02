@@ -1,4 +1,9 @@
 #!/bin/bash
+#*************************************************************************
+# Author: Je-Hoon Song, <song.jehoon@gmail.com>
+# 
+# This file is part of {sbie_weinberg}.
+#*************************************************************************
 #   SBATCH -o myjob.%A.%a.%j.out 
 #SBATCH -o myjob.%a.out 
 #   SBATCH -D /home/hpc/.../.../mydir 
