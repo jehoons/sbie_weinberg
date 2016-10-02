@@ -16,7 +16,7 @@
 
 ### 2016. 9. 30 
 
-* Change simulation scenario - We need a more dynamic UI 
+* Change simulation scenario - We need a more dynamic UI.
 
 
 
