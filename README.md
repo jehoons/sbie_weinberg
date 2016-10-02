@@ -1,4 +1,6 @@
-# Anti-cancer drug recommendation platform
+# Weinberg
+
+* Weinberg is a simulation platform for discovering anti-cancer drugs. 
 
 ## Goal  
 
@@ -10,7 +12,7 @@
 
 ### 2016. 10. 2
 
-* We need full DREAM2015 results with all-possible-input-combinations and it's just done 
+* We need simulation results for all-possible-input-combinations. Now, [the result](http://gofile.me/3gpVt/RdKxD0KVg) is ready for dream2015 model.
 
 ### 2016. 9. 30 
 
