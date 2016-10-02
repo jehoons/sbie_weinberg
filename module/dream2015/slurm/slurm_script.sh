@@ -19,8 +19,7 @@
 #export OMP_NUM_THREADS=1
 
 . ~/env2/bin/activate 
-inputfile="inp_part_${SLURM_ARRAY_TASK_ID}.csv"
-outputfile=`echo ${inputfile} | sed 's/inp_/out_/g'`
+inputfile="INPUT_PART_${SLURM_ARRAY_TASK_ID}.csv"
+outputfile=`echo ${inputfile} | sed 's/INPUT_/OUTPUT_/g'`
 python main.py ${inputfile} ${outputfile} 
-
 

@@ -296,10 +296,13 @@ def predict(dfTherapy, dfX, coef0, randeffect, sigma=0.0, repeat=1):
     intercept = np.array(intercept)
     yhat_list = []
     for j in range(repeat):
-
-        r1 = np.random.randn(coefvalues.shape[0])*sigma
-        r2 = np.random.randn(Xvalues.shape[0])*sigma
-
+        if j == 0: 
+            r1 = 0.0
+            r2 = 0.0 
+        else: 
+            r1 = np.random.randn(coefvalues.shape[0])*sigma
+            r2 = np.random.randn(Xvalues.shape[0])*sigma
+            
         yhat = Xvalues.dot(coefvalues + r1) + (intercept + r2)
 
         if randeffect == None: 

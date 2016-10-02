@@ -7,7 +7,6 @@
 
 import sys 
 sys.path.append('/home/pbs')
-
 import pytest 
 import glob
 from os.path import join,dirname
@@ -19,13 +18,10 @@ import os
 
 
 if __name__ == '__main__': 
-
     inputfile = sys.argv[1] 
     outputfile = sys.argv[2] 
     tmpdir = tempfile.mkdtemp() 
-    
     cwd = os.getcwd() 
-    
     os.chdir(tmpdir) 
-    predictor.run_csv(join(cwd, inputfile), join(cwd, outputfile), repeat=100000, sigma=5) 
+    predictor.run_csv(join(cwd, inputfile), join(cwd, outputfile), repeat=100, sigma=0.05) 
 
