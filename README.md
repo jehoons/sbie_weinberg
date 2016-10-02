@@ -1,7 +1,6 @@
 # Weinberg
 
 * Weinberg is a simulation platform for discovering anti-cancer drugs. 
-* [R.A. Weinberg](https://en.wikipedia.org/wiki/Robert_Weinberg) is a cancer biologist. 
 
 ## Goal  
 
