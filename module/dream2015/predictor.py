@@ -90,8 +90,8 @@ def mixedmodel(feature_codes, label, predfile = 'output_pred.csv', trainids=[],
 
     rndeffval2 = calc_randomeffect2(TRAIN_SET) 
 
-    if model_json == None : 
-        model_json = join(dirname(__file__), 'code-with-inputdata', 'STEP3_FULL.json')
+    # if model_json == None : 
+    model_json = join(dirname(__file__), 'code-with-inputdata', 'STEP3_FULL.json')
 
     # model_json = '/data/platform_scripts/models/dream2015/code-with-inputdata/STEP3_FULL.json'
     
