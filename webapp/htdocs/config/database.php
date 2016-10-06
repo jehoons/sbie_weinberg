@@ -10,11 +10,17 @@ MySQL 연결과 관련 함수 설정.
 if(!defined('__CL__')) exit();
 
 // 호스트, 사용자, 비밀번호, 사용하는 database 설정
+
 $servername = "localhost";
 $username = "root";
 $password = "sbl4365";
 $dbname = "weinberg";
-
+/*
+$servername = "localhost";
+$username = "root";
+$password = "5262";
+$dbname = "kaist";
+*/
 // Connect
 $conn = new mysqli($servername, $username, $password, $dbname);
  // Check connection

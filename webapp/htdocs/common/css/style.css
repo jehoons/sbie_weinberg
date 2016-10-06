@@ -26,7 +26,7 @@ body.overflow-hidden {
 }
 
 a {
-  color: #435779;
+  color: #31353d;
   text-decoration: none;
 }
 
@@ -37,6 +37,14 @@ span a{
 
 img {
   max-width: 100%;
+}
+
+pre {
+  white-space: pre-wrap;       /* css-3 */
+  white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+  white-space: -pre-wrap;      /* Opera 4-6 */
+  white-space: -o-pre-wrap;    /* Opera 7 */
+  word-wrap: break-word;       /* Internet Explorer 5.5+ */
 }
 
 footer {
@@ -69,6 +77,13 @@ Modules - reusable parts of our design
 }
 
 .cl-img-replace {
+  /* replace text with a background-image */
+  display: inline-block;
+  overflow: hidden;
+  text-indent: 100%;
+  white-space: nowrap;
+}
+.cl-lock, .cl-user {
   /* replace text with a background-image */
   display: inline-block;
   overflow: hidden;
@@ -149,8 +164,11 @@ header {
 #cl-cart-trigger {
   right: 0;
 }
-#cl-cart-trigger a {
-  background: #26292f url("../img/cl-hamburger-menu.svg") no-repeat center center;
+#cl-cart-trigger .cl-lock{
+  background: #26292f url("../img/cl-lock.svg") no-repeat center center;
+}
+#cl-cart-trigger .cl-user{
+  background: #26292f url("../img/cl-user.svg") no-repeat center center;
 }
 @media only screen and (min-width: 1200px) {
   #cl-cart-trigger {
@@ -506,11 +524,12 @@ Content
 -------------------------------- */
 #cl-content {
   /* main 안에 content */
-  padding: 20px;
-  color: #777777;
+  padding: 10px;
+  color: #555555;
   min-height: 700px;
+  width:100%;
   
-  font-size: 100%;
+  font-size: 90%;
   line-height: 30px;
 }
 #cl-content-title {
@@ -563,12 +582,12 @@ Button
 	    -ms-user-select: none;
 	        user-select: none;
 	background-image: none;
-	border: none;
+	border: 1px solid #144F98;
 	margin-bottom: 1em;
-	background: -webkit-linear-gradient(90deg, #0072FF, #C82A2A); /* For Safari 5.1 to 6.0 */
-	background: -o-linear-gradient(90deg, #0072FF, #C82A2A); /* For Opera 11.1 to 12.0 */
-	background: -moz-linear-gradient(90deg, #0072FF, #C82A2A); /* For Firefox 3.6 to 15 */
-	background: linear-gradient(90deg, #0072FF, #C82A2A); /* Standard syntax (must be last) */  	
+	background: -webkit-linear-gradient(#3690FF, #1367D0); /* For Safari 5.1 to 6.0 */
+	background: -o-linear-gradient(#3690FF, #1367D0); /* For Opera 11.1 to 12.0 */
+	background: -moz-linear-gradient(#3690FF, #1367D0); /* For Firefox 3.6 to 15 */
+	background: linear-gradient(#3690FF, #1367D0); /* Standard syntax (must be last) */  	
 	-webkit-transition: all 0.2s;
 	-moz-transition: all 0.5s;
 	transition: all 0.5s;
@@ -580,13 +599,13 @@ Button
 	transform: translateZ(0);
 	-webkit-backface-visibility: hidden;
 	backface-visibility: hidden;
-	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+	border-radius: 0px;
 }
 .no-touch .cl-btn:hover {
-	background: -webkit-linear-gradient(90deg, #00408F, #911E1E); /* For Safari 5.1 to 6.0 */
-	background: -o-linear-gradient(90deg, #00408F, #911E1E); /* For Opera 11.1 to 12.0 */
-	background: -moz-linear-gradient(90deg, #00408F, #911E1E); /* For Firefox 3.6 to 15 */
-	background: linear-gradient(90deg, #00408F, #911E1E); /* Standard syntax (must be last) */  	
+	background: -webkit-linear-gradient(#2A7ADD, #1358AE); /* For Safari 5.1 to 6.0 */
+	background: -o-linear-gradient(#2A7ADD, #1358AE); /* For Opera 11.1 to 12.0 */
+	background: -moz-linear-gradient(#2A7ADD, #1358AE); /* For Firefox 3.6 to 15 */
+	background: linear-gradient(#2A7ADD, #1358AE); /* Standard syntax (must be last) */  	
 }
 .cl-btn-inner {
 	/* 흰 테두리 버튼 */
@@ -607,6 +626,44 @@ Button
 	border: 1px solid #A8A8A8;
 	background-color: #FFFFFF;
 	margin-bottom: 1em;
+	-webkit-transition: all 0.3s;
+	-moz-transition: all 0.3s;
+	transition: all 0.3s;
+	/* Force Hardware Acceleration in WebKit */
+	-webkit-transform: translateZ(0);
+	-moz-transform: translateZ(0);
+	-ms-transform: translateZ(0);
+	-o-transform: translateZ(0);
+	transform: translateZ(0);
+	-webkit-backface-visibility: hidden;
+	backface-visibility: hidden;
+	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+.no-touch .cl-btn-inner:hover {
+	background-color: #f0f0f0;
+}
+.cl-btn-twice {
+	/* 색상이 있는 버튼 */
+	color: #FFFFFF;
+	text-transform: uppercase;
+	width: 100%;
+	height: 50px;
+	display: inline-block;
+	text-align: center;
+	-ms-touch-action: manipulation;
+	    touch-action: manipulation;
+	cursor: pointer;
+	-webkit-user-select: none;
+	   -moz-user-select: none;
+	    -ms-user-select: none;
+	        user-select: none;
+	background-image: none;
+	border: none;
+	margin-bottom: 1em;
+	background: -webkit-linear-gradient(90deg, #0072FF, #C82A2A); /* For Safari 5.1 to 6.0 */
+	background: -o-linear-gradient(90deg, #0072FF, #C82A2A); /* For Opera 11.1 to 12.0 */
+	background: -moz-linear-gradient(90deg, #0072FF, #C82A2A); /* For Firefox 3.6 to 15 */
+	background: linear-gradient(90deg, #0072FF, #C82A2A); /* Standard syntax (must be last) */  	
 	-webkit-transition: all 0.2s;
 	-moz-transition: all 0.5s;
 	transition: all 0.5s;
@@ -620,8 +677,11 @@ Button
 	backface-visibility: hidden;
 	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 }
-.no-touch .cl-btn-inner:hover {
-	background-color: #DDD;
+.no-touch .cl-btn-twice:hover {
+	background: -webkit-linear-gradient(90deg, #00408F, #911E1E); /* For Safari 5.1 to 6.0 */
+	background: -o-linear-gradient(90deg, #00408F, #911E1E); /* For Opera 11.1 to 12.0 */
+	background: -moz-linear-gradient(90deg, #00408F, #911E1E); /* For Firefox 3.6 to 15 */
+	background: linear-gradient(90deg, #00408F, #911E1E); /* Standard syntax (must be last) */  	
 }
 
 /* -------------------------------- 
@@ -769,7 +829,7 @@ Box
 	margin: auto;
 	margin-top: 1em;
 	
-	line-height: 30px;
+	line-height: 20px;
 	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 @media only screen and (min-width: 768px) {
@@ -799,7 +859,7 @@ Form
 -------------------------------- */
 .cl-text {
 	/* text type */
-	font-size:90%;
+	font-size:100%;
 	background-color:#FFF;
 	color: #2F362A;
 	margin-bottom: 1em;
@@ -828,19 +888,451 @@ Form
 }
 .cl-text:focus {
   outline: none;
-  border-color: #ff0000;
+  border-color: #000000;
+}
+.cl-textarea {
+	font-family: "Open Sans", sans-serif;
+	background-color:#FFFFFF;
+	color: #2F362A;
+	margin-bottom: 1em;
+	height: 150px;
+	border: none;
+	border-bottom: 1px solid #A8A8A8;
+	width: 100%;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	-ms-appearance: none;
+	-o-appearance: none;
+	appearance: none;
+	box-shadow: none;
+	line-height: 25px;
+	overflow-y: auto;
+}
+.cl-textarea::-webkit-input-placeholder {
+  color: #777777;
+}
+.cl-textarea::-moz-placeholder {
+  color: #777777;
+}
+.cl-textarea:-moz-placeholder {
+  color: #777777;
+}
+.cl-textarea:-ms-input-placeholder {
+  color: #777777;
+}
+.cl-textarea:focus {
+  outline: none;
+  border-color: #000000;
+}
+.cl-label {
+	cursor: pointer;
+	postion: relative;
+	display: block;
+}
+.g-recaptcha {
+  margin: auto;
+  width: 300px;
+  margin-bottom: 1em;
+}
+.cl-form-span {
+  font-size: 90%;
+  color: #777777;
+}
+
+/* -------------------------------- 
+
+choonlog search
+
+-------------------------------- */
+.cl-select {
+	margin-bottom: 1em;
+	height: 50px;
+	border: none;
+	padding: 0 0.5em;
+	width: 100%;
+	border: 1px solid #A8A8A8;
+	background-color: #EEEEEE;
+	
+	-webkit-appearance: none; /* chrome, mozila, opera select의 default 화살표 제거 */
+	-moz-appearance: none;
+	-ms-appearance: none;
+	-o-appearance: none;
+	appearance: none;
+	box-shadow: none;	
+}
+.cl-select::-ms-expand {
+  display: none;  /* IE select의 default 화살표 제거 */
+}
+.cl-select-wrapper {
+  /* select element wrapper */
+  position: relative;
+  display: inline-block;
+}
+.cl-select-wrapper::after {
+  /* switcher arrow for select element */
+  content: '';
+  position: absolute;
+  z-index: 1;
+  right: 0.5em;
+  top: 40%; /* select의 margin-bottom: 1em 으로 인하여 */
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  transform: translateY(-50%);
+  display: block;
+  width: 16px;
+  height: 16px;
+  background: url("../img/cd-icon-arrow.svg") no-repeat center center;
+  pointer-events: none;
+}
+.cl-select-folder {
+	margin: 10;
+	padding: 0;
+}
+.cl-btn-search {
+	text-transform: uppercase;background-color: #000;
+	width: 100%;
+	height: 50px;
+	display: inline-block;
+	text-align: center;
+	-ms-touch-action: manipulation;
+	    touch-action: manipulation;
+	cursor: pointer;
+	-webkit-user-select: none;
+	   -moz-user-select: none;
+	    -ms-user-select: none;
+	        user-select: none;
+	background-image: none;
+	border: none;
+	background-color: #FFFFFF;
+	margin-bottom: 1em;
+	-webkit-transition: all 0.2s;
+	-moz-transition: all 0.5s;
+	transition: all 0.5s;
+	/* Force Hardware Acceleration in WebKit */
+	-webkit-transform: translateZ(0);
+	-moz-transform: translateZ(0);
+	-ms-transform: translateZ(0);
+	-o-transform: translateZ(0);
+	transform: translateZ(0);
+	-webkit-backface-visibility: hidden;
+	backface-visibility: hidden;
+	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+.no-touch .cl-btn-search:hover {
+	background-color: #F9F9F9;
+}
+.cl-select-search {
+	margin-bottom: 1em;
+	height: 50px;
+	border: none;
+	padding: 0 0.5em;
+	width: 100%;
+	background-color: #FFFFFF;
+	
+	-webkit-appearance: none; /* chrome, mozila, opera select의 default 화살표 제거 */
+	-moz-appearance: none;
+	-ms-appearance: none;
+	-o-appearance: none;
+	appearance: none;
+	box-shadow: none;	
+}
+.cl-select-search::-ms-expand {
+  display: none;  /* IE select의 default 화살표 제거 */
+}
+.cl-text-search {
+	background-color:#FFFFFF;
+	color: #2F362A;
+	margin-bottom: 1em;
+	height: 50px;
+	border: none;
+	width: 100%;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	-ms-appearance: none;
+	-o-appearance: none;
+	appearance: none;
+	box-shadow: none;
+}
+/* -------------------------------- 
+
+Table
+
+-------------------------------- */
+.cl-manage-table {
+	width: 100%;
+	text-align:center;
+	margin-top: 1em;
+	background-color: #FFFFFF;
+	font-size:90%;
+}
+.cl-manage-tr:hover {
+	background-color: #F9F9F9;
+}
+.cl-manage-td {
+	border: 1px solid #cdcdcd;
+}
+.cl-manage-title {
+	background-color: #EEEEEE;
+}
+
+/* -------------------------------- 
+
+Basic style
+
+-------------------------------- */
+nav[role="navigation"] {
+  text-align: center;
+}
+
+.cd-pagination {
+  width: 90%;
+  max-width: 768px;
+  margin: 2em auto 4em;
+  text-align: center;
+}
+.cd-pagination li {
+  /* hide numbers on small devices */
+  display: none;
+  margin: 0 .2em;
+}
+.cd-pagination li.button {
+  /* make sure prev next buttons are visible */
+  display: inline-block;
+}
+.cd-pagination a, .cd-pagination span {
+  display: inline-block;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  /* use padding and font-size to change buttons size */
+  font-size: 1.6rem;
+}
+.cd-pagination a {
+  border: 1px solid #e6e6e6;
+  border-radius: 0.25em;
+}
+.no-touch .cd-pagination a:hover {
+  background-color: #f2f2f2;
+}
+.cd-pagination a:active {
+  /* click effect */
+  -webkit-transform: scale(0);
+  -moz-transform: scale(0);
+  -ms-transform: scale(0);
+  -o-transform: scale(0);
+  transform: scale(1);
+}
+.cd-pagination a.disabled {
+  /* button disabled */
+  color: rgba(46, 64, 87, 0.4);
+  pointer-events: none;
+}
+.cd-pagination a.disabled::before, .cd-pagination a.disabled::after {
+  opacity: .4;
+}
+.cd-pagination .button:first-of-type a::before {
+  content: '\00ab  ';
+}
+.cd-pagination .button:last-of-type a::after {
+  content: ' \00bb';
+}
+.cd-pagination .current {
+  /* selected number */
+  background-color: #64a281;
+  border-color: #64a281;
+  color: #ffffff;
+  pointer-events: none;
 }
 @media only screen and (min-width: 768px) {
-  .cl-text {
-    font-size:90%;
-    margin-bottom: 1em;
-	height: 30px;
+  .cd-pagination li {
+    display: inline-block;
   }
 }
-@media only screen and (min-width: 1200px) {
-  .cl-text {
-    font-size:100%;
-    margin-bottom: 1em;
-	height: 40px;
+@media only screen and (min-width: 1170px) {
+  .cd-pagination {
+    margin: 4em auto 8em;
   }
 }
+
+
+/* -------------------------------- 
+
+Paging
+
+-------------------------------- */
+nav[role="navigation"] {
+  text-align: center;
+  margin-top: 1em;
+  
+}
+
+.cd-pagination {
+  width: 90%;
+  max-width: 768px;
+  margin: 5em auto 4em;
+  text-align: center;
+}
+.cd-pagination li {
+  /* hide numbers on small devices */
+  display: none;
+  margin: 0 .2em;
+}
+.cd-pagination li.button {
+  /* make sure prev next buttons are visible */
+  display: inline-block;
+}
+.cd-pagination a, .cd-pagination span {
+  display: inline-block;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  /* use padding and font-size to change buttons size */
+  font-size: 1.6rem;
+}
+.cd-pagination a {
+  border: 1px solid #e6e6e6;
+  border-radius: 0.25em;
+}
+.no-touch .cd-pagination a:hover {
+  background-color: #f2f2f2;
+}
+.cd-pagination a:active {
+  /* click effect */
+  -webkit-transform: scale(0);
+  -moz-transform: scale(0);
+  -ms-transform: scale(0);
+  -o-transform: scale(0);
+  transform: scale(1);
+}
+.cd-pagination a.disabled {
+  /* button disabled */
+  color: rgba(46, 64, 87, 0.4);
+  pointer-events: none;
+}
+.cd-pagination a.disabled::before, .cd-pagination a.disabled::after {
+  opacity: .4;
+}
+.cd-pagination .button:first-of-type a::before {
+  content: '\00ab  ';
+}
+.cd-pagination .button:last-of-type a::after {
+  content: ' \00bb';
+}
+.cd-pagination .current {
+  /* selected number */
+  background-color: #64a281;
+  border-color: #64a281;
+  color: #ffffff;
+  pointer-events: none;
+}
+@media only screen and (min-width: 768px) {
+  .cd-pagination li {
+    display: inline-block;
+  }
+}
+@media only screen and (min-width: 1170px) {
+  .cd-pagination {
+    margin: 4em auto 8em;
+  }
+}
+
+nav[role="navigation"] {
+  text-align: center;
+}
+.page-li{
+  display: inline-block;
+}
+.cd-pagination {
+  width: 100%;
+  margin: 0em auto 0em;
+  text-align: center;
+}
+.cd-pagination.page-li {
+  /* hide numbers on small devices */
+  display: inline-block;
+  margin: 0 .2em;
+}
+.cd-pagination .page-li.button {
+  /* make sure prev next buttons are visible */
+  display: inline-block;
+}
+.cd-pagination a, .cd-pagination span {
+  display: inline-block;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  /* use padding and font-size to change buttons size */
+
+  font-size: 100%;
+}
+.cd-pagination a {
+  color: #333333;
+  border: 1px solid #e6e6e6;
+  border-radius: 0.25em;
+}
+.no-touch .cd-pagination a:hover {
+  background-color: #ffffff;
+}
+.cd-pagination a.disabled {
+  /* button disabled */
+  color: rgba(46, 64, 87, 0.4);
+  pointer-events: none;
+}
+.cd-pagination a.disabled::before, .cd-pagination a.disabled::after {
+  opacity: .4;
+}
+.cd-pagination .button:first-of-type a::before {
+  /*content: '\00ab  ';*/
+}
+.cd-pagination .button:last-of-type a::after {
+  /*content: ' \00bb'; */
+}
+.cd-pagination .current {
+  /* selected number */
+  background-color: #FFFFFF;
+  pointer-events: none;
+  color: #2F362A;
+}
+@media only screen and (min-width: 768px) {
+  .cd-pagination .page-li {
+    display: inline-block;
+  }
+}
+
+.cd-pagination.no-space {
+  width: auto;
+  max-width: none;
+  display: inline-block;
+  border-radius: 0.25em;
+}
+.cd-pagination.no-space:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.cd-pagination.no-space .page-li {
+  margin: 0;
+  float: left;
+  border-right: 1px solid #b9b9b9;
+}
+.cd-pagination.no-space .page-li:last-of-type {
+  border-right: none;
+}
+.cd-pagination.no-space a, .cd-pagination.no-space span {
+  float: left;
+  border-radius: 0;
+  padding: .2em .9em;
+  border: none;
+}
+.cd-pagination.no-space .page-li:first-of-type a {
+  border-radius: 0.25em 0 0 0.25em;
+}
+.cd-pagination.no-space .page-li:last-of-type a {
+  border-radius: 0 0.25em 0.25em 0;
+}
+

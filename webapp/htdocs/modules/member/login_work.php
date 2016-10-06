@@ -15,20 +15,21 @@ if($_POST['signinemail'] && $_POST['signinpwd']){
 	$signinpwd = $_POST['signinpwd'];
 
 	$sql = "
-	SELECT mb_rowid, mb_name
+	SELECT mb_rowid, mb_name, mb_code
 	FROM member
 	WHERE mb_email = '$signinemail' AND mb_pwd = password('$signinpwd')
 	";
 	$result = $conn->query($sql);
 	$loginrow = $result->fetch_assoc();
 
-	if($loginrow['mb_rowid']){
+	//이메일과 암호가 일치하는 row가 존재하면서 동시에 mb_code는 10이 아니어야 한다. mb_code=10 -> 탈퇴회원
+	if($loginrow['mb_rowid'] && $loginrow['mb_code'] != 10){
 		//session 설정
 		$_SESSION["mb_rowid"] = $loginrow['mb_rowid'];
 		
 		$afterMessage = "<span style='font-size:140%;'>".$loginrow['mb_name']."</span> 님 안녕하세요.<br />로그인에 성공 하였습니다.";
 		$afterWork = "move";
-		$afterAddress = $_SERVER["PHP_SELF"]."?module=index&act=list.php";
+		$afterAddress = htmlspecialchars($_SERVER["PHP_SELF"])."?module=index&act=list.php";
 		
 		//방문숫자 수정
 		$sql = "

@@ -47,7 +47,7 @@ def mixedmodel(feature_codes, label, predfile = 'output_pred.csv', trainids=[],
     testids=[], inputfilename='', userid_=0, coefmode='coef(min)', 
     with_small=False, overwrite=False, train_ratio=0.66, nfolds=10, nrepeats=1, 
     threshold=1000, alpha=1.0, ncores=1, clear=False, testfile=None, 
-    online=False, model_json=None, sigma=0.0):
+    online=False, repeat=1, sigma=0.0):
 
     dst_dir = '.'
 
@@ -125,12 +125,20 @@ def mixedmodel(feature_codes, label, predfile = 'output_pred.csv', trainids=[],
     TEST_SET = pd.read_csv(inputfilename)
     PREDICTION = TEST_SET.copy() 
     PREDICTION['SYNERGY_SCORE'] = np.nan
-    Yprediction = predict(PREDICTION, XTEST, coefmin, rndeffval2, sigma=sigma) 
-    PREDICTION['PREDICTION'] = Yprediction
-    PREDICTION[['CELL_LINE','COMBINATION_ID','PREDICTION']].to_csv( \
-            predfile, index=False)
 
+    Yprediction = predict(PREDICTION, XTEST, coefmin, rndeffval2, sigma=sigma, repeat=repeat) 
     
+    if len(Yprediction) == 1: 
+        PREDICTION['PREDICTION'] = Yprediction[0]
+        PREDICTION[['CELL_LINE','COMBINATION_ID','PREDICTION']].to_csv(predfile, index=False)
+    else: 
+        for i in range(len(Yprediction)): 
+            PREDICTION['PREDICTION%d'%i] = Yprediction[i]
+
+        PREDICTION[['CELL_LINE','COMBINATION_ID'] + 
+            ['PREDICTION%d'%i for i in range(len(Yprediction))]].to_csv(predfile, index=False)
+
+
 def calc_randomeffect2(therapyAll):
     
     rndeff_combination_id = {'mean':{}, 'std':{}, 'points':{}} 
@@ -258,7 +266,7 @@ def model_training(xDatafile, yDatafile, model_json, with_small=False, \
                 sort_keys=True, indent=2) 
 
 
-def predict(dfTherapy, dfX, coef0, randeffect, sigma=0.0):
+def predict(dfTherapy, dfX, coef0, randeffect, sigma=0.0, repeat=1):
 
     coef = {} 
     for k in coef0.keys():
@@ -286,20 +294,27 @@ def predict(dfTherapy, dfX, coef0, randeffect, sigma=0.0):
 
     coefvalues = np.array(coefvalues)
     intercept = np.array(intercept)
+    yhat_list = []
+    for j in range(repeat):
+        if j == 0: 
+            r1 = 0.0
+            r2 = 0.0 
+        else: 
+            r1 = np.random.randn(coefvalues.shape[0])*sigma
+            r2 = np.random.randn(Xvalues.shape[0])*sigma
+            
+        yhat = Xvalues.dot(coefvalues + r1) + (intercept + r2)
 
-    r1 = np.random.randn(coefvalues.shape[0])*sigma
-    r2 = np.random.randn(Xvalues.shape[0])*sigma
+        if randeffect == None: 
+            return yhat
 
-    yhat = Xvalues.dot(coefvalues + r1) + (intercept + r2)
+        for k, i in enumerate(dfTherapy.index): 
+            a_series = dfTherapy.loc[i] 
+            yhat[k] += estimate_rndeff(randeffect, a_series)
 
-    if randeffect == None: 
-        return yhat
+        yhat_list.append(yhat)
 
-    for k, i in enumerate(dfTherapy.index): 
-        a_series = dfTherapy.loc[i] 
-        yhat[k] += estimate_rndeff(randeffect, a_series)
-
-    return yhat 
+    return yhat_list 
 
 
 def update_therapy_data_with_kdrug(therapyfile, KGROUP):
@@ -420,13 +435,12 @@ def run(inputjson, outputjson, model_json=None, sigma=0.0):
 
 
 def run_csv(therapy_user, predfile, userid='undefined_uid', model_json=None, 
-    sigma=0.0):
+    repeat=1, sigma=0.0):
 
     match_user_run(therapy_user, overwrite=True) 
 
     mixedmodel(codelist, 'STEP3_FULL', predfile, [], [], 
         inputfilename=therapy_user, userid_=userid, with_small=False, 
-        overwrite=True, nrepeats=1, alpha=1.0, online=True, 
-        model_json=model_json, sigma=sigma)
+        overwrite=True, nrepeats=1, alpha=1.0, online=True, repeat=repeat, sigma=sigma)
 
 

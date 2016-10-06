@@ -44,6 +44,7 @@ if(substr($_GET["act"],-9,9) == "_work.php"){
 	<link rel="stylesheet" type="text/css" href="<?php echo _CL_PATH_HOST_;?>common/css/component.css" /> <!-- Form style -->
 	<script src="<?php echo _CL_PATH_HOST_;?>common/js/modernizr.js"></script> <!-- Modernizr -->
 	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+	<script src='https://www.google.com/recaptcha/api.js'></script>
   	
 	<title>Anti-cancer drug recommendation platform</title>
 </head>
@@ -54,7 +55,18 @@ if(substr($_GET["act"],-9,9) == "_work.php"){
 		<div id="logo">SBIE<!-- <img src="<?php echo _CL_PATH_HOST_;?>common/img/cl-logo.svg" alt="Homepage"> --></div>
 
 		<div id="cl-hamburger-menu"><a class="cl-img-replace" href="#0">Menu</a></div>
-		<div id="cl-cart-trigger"><a class="cl-img-replace" href="#0">Cart</a></div>
+<?php 
+if(!$mbrowid){
+?>
+		<div id="cl-cart-trigger"><a class="cl-lock" href="#0">Lock</a></div>
+<?php
+}else{
+?>
+		<div id="cl-cart-trigger"><a class="cl-user" href="#0">User</a></div>
+<?php
+}
+?>
+		
 	</header>
 <?php
 // module 은 해당 폴더, act 는 해당 페이지.
@@ -84,7 +96,7 @@ require $url;
 	<div id="cl-shadow-layer"></div>
 
 	<div id="cl-cart">
-		<h2>Account</h2>
+		<h2>Account <?php echo $signinrow[mb_name];?></h2>
 		<ul class="cl-cart-items">
 <?php 
 if(!$mbrowid){
@@ -100,22 +112,38 @@ if(!$mbrowid){
 }else{
 ?>
 			<li>
+				<a href="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>?module=member&act=edit.php">Your personal info</a>
+			</li>
+			
+			<li>
 				<a href="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>?module=member&act=logout_work.php&logout=true">Log out</a>
 			</li>
+	<?php 
+	if($signinrow[mb_code] >= 100){
+	?>
+			<li>
+				<a href="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>?module=manage&act=member_list.php">Management</a>
+			</li>
+	<?php
+	}
+	?>	
 <?php
 }
 ?>				
 		</ul> <!-- cl-cart-items -->
-		
-		<h2>Search</h2>
+<?php 
+if($mbrowid){
+?>	
+		<h2>My page</h2>
 		
 		<ul class="cl-cart-items">
 			<li>
-				search
+				Results
 			</li>
 		</ul>
-
-		<a href="#0" class="checkout-btn">Search</a>
+<?php
+}
+?>		
 	</div> <!-- cl-cart -->
 	
 	<footer>

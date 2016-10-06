@@ -56,35 +56,19 @@ jQuery(document).ready(function($){
 	
 	//Ajax를 이용하는 일반적인 form 데이터 전송.
 	$('#cl-form').submit(function(){
-
+		
 		//데이터 일괄 검사
 		callValidation('#cl-form',true);
 		return false;
 		
 	});
 	
-	//Ajax를 이용하는 login-form 데이터 전송.
-	$('#cl-form-login').submit(function(){
-
-		//데이터 일괄 검사
-		callValidation('#cl-form-login',true);
-		return false;
+	//삭제 모드 delete
+	$('.delete-open').click(function(){
+		 
+		 sendCheckMessage("삭제된 자료는 복구가 불가능합니다.<br /><br />삭제하시겠습니까?",$(this).data("urldata"),"삭제");
 		
-	});
-	
-	//로그인 클릭하면.
-	$('.cl-btn-inner').click(function(){
-
-		sendMessage("입력이 완료 되었습니다.");
-			
-	});
-	
-	//로그인 클릭하면.
-	$('.login-open').click(function(){
-
-		sendMessage("로그인");
-			
-	});
+	})
 });
 
 function toggle_panel_visibility ($lateral_panel, $background_layer, $body) {
@@ -128,7 +112,7 @@ function sendMessage(msg,val){
 		$('#cl-login-veil').remove();
 	}
 	
-	$("body").append("<div id='cl-message-veil'></div> <div id='cl-message'> <div class='message-title'>안내방송</div> <div class='message-content'> "+msg+" </div> <div class='message-button'><a href='#0' id='messagebutton'>닫기</a></div> </div>");
+	$("body").append("<div id='cl-message-veil'></div> <div id='cl-message'> <div class='message-title'>Notification</div> <div class='message-content'> "+msg+" </div> <div class='message-button'><a href='#0' id='messagebutton'>닫기</a></div> </div>");
 	$('#messagebutton').focus();
 	
 	$('#cl-message-veil').click(function(){
@@ -164,12 +148,37 @@ function sendMessage(msg,val){
 	
 }
 
+//체크 안내방송
+function sendCheckMessage(msg,move,option){
+	
+	$("body").append("<div id='cl-message-veil'></div> <div id='cl-message'> <div class='message-title'>안내방송</div> <div class='message-content'> "+msg+" </div> <div class='message-button'><a href='#0' id='messagebutton'>닫기</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#0' id='deletebutton'> "+option+" </a></div> </div>");
+	$('#messagebutton').focus();
+	
+	$('#cl-message-veil').click(function(){
+		$('#cl-message-veil').remove();
+		$('#cl-message').remove();
+
+	});
+	
+	$('#messagebutton').click(function(){
+		$('#cl-message-veil').remove();
+		$('#cl-message').remove();
+	});
+	
+	$('#deletebutton').click(function(){
+		$('#cl-message-veil').remove();
+		$('#cl-message').remove();
+		callGetAjax(move);
+	});
+	
+}
+
 //데이터 전송 전 유효 검사(모든 데이터에 적용 가능하는 일괄처리 장치) : text, email, id, pwd, password1, select, radio, isbn 순으로 검사.
 function callValidation(str,val){
 	
 	var formdata = $(str+" [data-formdata]");
 	var obj = $(str);
-	
+
 	//for 문으로 돌리면서 formdata 에 맞게 검사
 	for(var i=0;i<formdata.length;i++){
 
@@ -240,6 +249,17 @@ function callValidation(str,val){
 			}
 		}
     }
+	
+	
+	//나는 로봇이 아닙니다.
+	if($('.g-recaptcha')[0]){
+		var response = grecaptcha.getResponse();
+		if(response.length == 0){
+			sendMessage('Please prove you are not a robot.',formdata.eq(i));
+			return false;
+		}
+	}
+	
 	
 	/*
 	// 라디오 형식 검사
@@ -366,10 +386,49 @@ function callAjax(val){
 	});
 }
 
+//GET 방식의 Ajax 호출
+function callGetAjax(val){
+
+	//ajax 시작.
+	$.ajaxSetup({
+		cache : false
+	  });
+	
+	$(document).ajaxError(function(){
+	    alert("An error occured!");
+	});
+	
+	$(document).ajaxStart(function(){
+		$("body").append("<img src='" + $("#clpathhost").val() + "common/img/cl_wait.gif' id='cl-wait' />");
+	});
+	$(document).ajaxComplete(function(){
+	    $('#cl-wait').remove();
+	});
+	
+	$.ajax({
+	    url:encodeURI(val),
+	    dataType:'json',
+	    type:'GET',
+	    success:function(result){
+	    	
+	  
+	    	sendAjaxMessage(result.afterMessage.replace(/\\/gi, ""), result.afterWork, result.afterAddress);
+
+	
+	    },
+	    error:function (xhr, ajaxOptions, thrownError){
+	        alert(xhr.status);
+	        alert(xhr.statusText);
+	        alert(xhr.responseText);
+	    }
+	    
+	});
+}
+
 //AJax 호출 이후 안내방송
 function sendAjaxMessage(msg,work,address){
 
-	$("body").append("<div id='cl-message-veil'></div> <div id='cl-message'> <div class='message-title'>안내방송</div> <div class='message-content'> "+msg+" </div> <div class='message-button'><a href='#0' id='messagebutton'>확인</a></div> </div>");
+	$("body").append("<div id='cl-message-veil'></div> <div id='cl-message'> <div class='message-title'>Notification</div> <div class='message-content'> "+msg+" </div> <div class='message-button'><a href='#0' id='messagebutton'>확인</a></div> </div>");
 	$('#messagebutton').focus();
 	
 	$('#cl-message-veil').click(function(){

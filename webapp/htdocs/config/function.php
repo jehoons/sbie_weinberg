@@ -194,4 +194,12 @@ function dateDiff($startdate,$enddate){
 	return $days= ceil($cha/60/60/24);
 	
 }
+
+//관리자 구역
+function manageCheck($mb_code){
+	if(!($mb_code >= 100)){
+		gotoUrl(_CL_PATH_HOST_);
+		exit();
+	}
+}
 ?>

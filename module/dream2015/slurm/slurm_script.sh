@@ -1,26 +1,28 @@
 #!/bin/bash
-# SBATCH -o myjob.%A.%a.%j.out 
+#*************************************************************************
+# Author: Je-Hoon Song, <song.jehoon@gmail.com>
+# 
+# This file is part of {sbie_weinberg}.
+#*************************************************************************
+#   SBATCH -o myjob.%A.%a.%j.out 
 #SBATCH -o myjob.%a.out 
-# SBATCH -D /home/hpc/.../.../mydir 
+#   SBATCH -D /home/hpc/.../.../mydir 
 #SBATCH -J pbsjob
 #SBATCH --get-user-env 
 #SBATCH --nodes=1
 # CPUS-PER-TASK: 
-# --cpus-per-task is should be linked with 'OMP_NUM_THREADS' variable
-# SBATCH --cpus-per-task=1 
-# SBATCH --mail-type=end 
-# SBATCH --mail-user=xyz@xyz.de 
-# SBATCH --export=NONE 
-# SBATCH --array=0-1994
-#SBATCH --array=0
+# --cpus-per-task=NUMBER is should be linked with 'export OMP_NUM_THREADS=NUMBER'
+#SBATCH --cpus-per-task=1 
+#   SBATCH --mail-type=end 
+#   SBATCH --mail-user=xyz@xyz.de 
+#   SBATCH --export=NONE 
+#SBATCH --array=0-199
 #SBATCH --time=08:00:00 
 
-#source /etc/profile.d/modules.sh
-#cd mydir
-#export OMP_NUM_THREADS=28 
-##28 is the maximum reasonable value for CooLMUC2, and 16 for the MPP cluster 
+#export OMP_NUM_THREADS=1
 
 . ~/env2/bin/activate 
-inputfile="inp_part_${SLURM_ARRAY_TASK_ID}.csv"
-outputfile=`echo ${inputfile} | sed 's/inp_/out_/g'`
-python slurm_app.py ${inputfile} ${outputfile} 
+inputfile="INPUT_PART_${SLURM_ARRAY_TASK_ID}.csv"
+outputfile=`echo ${inputfile} | sed 's/INPUT_/OUTPUT_/g'`
+python main.py ${inputfile} ${outputfile} 
+
