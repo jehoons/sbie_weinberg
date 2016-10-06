@@ -13,7 +13,10 @@ mb_rowid					int not null auto_increment
 ,mb_writedatetime			datetime
 ,mb_recentdatetime			datetime
 ,mb_updatedatetime			datetime
+,mb_pwdupdatedatetime		datetime
 ,mb_outdatetime				datetime
+,mb_outreason				text
+,mb_code					int
 
 ,mb_varchar1				varchar(255)
 ,mb_varchar2				varchar(255)
@@ -66,13 +69,13 @@ $sql="
 dr_rowid					int not null auto_increment
 ,dr_sbie_id					varchar(700)
 ,dr_drug_targetss			text
-,dr_src_id					int
+,dr_src_id					tinytext
 ,dr_src_targets				text
 ,dr_HBA						int
 ,dr_cLogP					float
 ,dr_HBD						int
 ,dr_Lipinski				int
-,dr_SMILES					int
+,dr_SMILES					text
 ,dr_MW						float
 ,dr_source					varchar(20)
 
@@ -98,16 +101,15 @@ $sql="
 	CREATE TABLE IF NOT EXISTS inputs (
 dr_rowid					int not null auto_increment
 ,dr_cancer_type				varchar(700)
-,dr_gene_expression			text
-,dr_cnv						int
-,dr_mutation				text
-,dr_simulation_mode			int
-,dr_drugs					float
-,dr_optimal_therapy			int
-,dr_email					int
-,dr_id						int
-,dr_combination_drug		float
-,dr_cell_lines				varchar(20)
+,dr_gene_expression			mediumblob
+,dr_cnv						mediumblob
+,dr_mutation				mediumblob
+,dr_simulation_mode			char(20)
+,dr_drugs					varchar(8000)
+,dr_optimal_therapy			char(30)
+,dr_email					varchar(100)
+,dr_combination_drug		char(20)
+,dr_cell_lines				varchar(8000)
 
 ,dr_varchar1				varchar(255)
 ,dr_varchar2				varchar(255)
@@ -121,9 +123,9 @@ dr_rowid					int not null auto_increment
 $result = $conn->query($sql);
 
 if($result){
-	echo "3. Table drugs created successfully<br />";
+	echo "4. Table inputs created successfully<br />";
 }else{
-	echo "3. Error creating drugs table: " . mysqli_error($conn)."(".mysqli_errno($conn).")<br />";
+	echo "4. Error creating inputs table: " . mysqli_error($conn)."(".mysqli_errno($conn).")<br />";
 }
 ?>
 </div>
