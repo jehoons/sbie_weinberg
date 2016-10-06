@@ -1,21 +1,28 @@
-# Anti-cancer drug recommendation platform
+# Weinberg
 
-### Goal  
-* prediciton combination drug's effect
-* web-based simulator
+* Weinberg is a simulation platform for discovering anti-cancer drugs. 
 
-### Members 
-* Je-Hoon Song (song.jehoon@gmail.com)
-* Young-Hyun Han 
-* Jong-Hoon Lee 
-* Dae-Won Lee (daewon4you@gmail.com)
-* Sun-Myeong Kim
+## Goal  
 
-### Reference 
-* benchmark - http://www.sanderlab.org/pertbio/
-* https://bitbucket.org/armish/bp_prior/overview
+* Simulate anti-cancer drug's efficacy
+* Support single or multiple drug treatment 
+* Provide web-based UI interface
 
-### License 
-This program is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
-This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
-You should have received a copy of the GNU Lesser General Public License along with this program. If not, see http://www.gnu.org/licenses/.
+## Update history
+
+### 2016. 10. 6
+
+* Results from dream2015 model are inserted into MySQL database. 
+* Toy network visualization is tested. 
+* Web application is updated. 
+
+### 2016. 10. 2
+
+* We need simulation results for all-possible-input-combinations. Now, [the result](http://gofile.me/3gpVt/XaMsc90e2) is ready for dream2015 model.
+
+### 2016. 9. 30 
+
+* Change simulation scenario - We need a more dynamic UI.
+
+
+

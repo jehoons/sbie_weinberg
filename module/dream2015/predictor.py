@@ -7,7 +7,7 @@
 
 import sys,hashlib,pdb,pytest,tempfile,time 
 from os.path import exists, split as pathsplit, join, dirname
-from pdb import set_trace
+from ipdb import set_trace
 import os, re, json, pandas as pd, numpy as np
 from itertools import combinations, combinations_with_replacement 
 import shutil
@@ -43,53 +43,11 @@ codelist = ['GE', 'CN', 'ME', 'SM', 'DC', 'DE']
 KGROUP = 'DRUG_KGROUP:10'
 
 
-def run(inputjson, outputjson):
-
-    with open(inputjson,'r') as fobj:
-        inputdata = json.load(fobj)
-        celltype = inputdata['input']['celltype']
-        drugs = inputdata['input']['drugs']
-
-    """ only two drugs combination is supported by this module. """
-    assert len(drugs) == 2
-
-    csv_inputfile = tempfile.mktemp()
-
-    with open(csv_inputfile, 'w') as fout: 
-        fout.write('CELL_LINE,COMPOUND_A,COMPOUND_B,COMBINATION_ID\n')
-        fout.write('%s,%s,%s,%s\n' % (celltype, drugs[0], 
-            drugs[1],".".join(drugs)))
-
-    csv_outputfile = tempfile.mktemp()
-    # csv_outputfile = 'untracked_output.csv'    
-    run_csv(csv_inputfile, csv_outputfile)
-
-    dataframe = pd.read_csv(csv_outputfile)
-
-    # #row of dataframe should be one. 
-    assert dataframe.shape[0] == 1
-
-    data = {'synergy': dataframe.loc[0, 'PREDICTION']} 
-
-    with open(outputjson, 'w') as foutjson:
-        json.dump(data, foutjson, indent=4, sort_keys=True, 
-            separators=(',', ':'))
-
-
-def run_csv(therapy_user, predfile, userid='undefined_uid'):
-
-    match_user_run(therapy_user, overwrite=True) 
-
-    mixedmodel(codelist, 'STEP3_FULL', predfile, [], [], 
-        inputfilename=therapy_user, userid_=userid, with_small=False, 
-        overwrite=True, nrepeats=1, alpha=1.0, online=True)
-
-
 def mixedmodel(feature_codes, label, predfile = 'output_pred.csv', trainids=[], 
     testids=[], inputfilename='', userid_=0, coefmode='coef(min)', 
     with_small=False, overwrite=False, train_ratio=0.66, nfolds=10, nrepeats=1, 
     threshold=1000, alpha=1.0, ncores=1, clear=False, testfile=None, 
-    online=False):
+    online=False, repeat=1, sigma=0.0):
 
     dst_dir = '.'
 
@@ -132,7 +90,9 @@ def mixedmodel(feature_codes, label, predfile = 'output_pred.csv', trainids=[],
 
     rndeffval2 = calc_randomeffect2(TRAIN_SET) 
 
+    # if model_json == None : 
     model_json = join(dirname(__file__), 'code-with-inputdata', 'STEP3_FULL.json')
+
     # model_json = '/data/platform_scripts/models/dream2015/code-with-inputdata/STEP3_FULL.json'
     
     model3 = json.load(open(model_json))
@@ -165,12 +125,20 @@ def mixedmodel(feature_codes, label, predfile = 'output_pred.csv', trainids=[],
     TEST_SET = pd.read_csv(inputfilename)
     PREDICTION = TEST_SET.copy() 
     PREDICTION['SYNERGY_SCORE'] = np.nan
-    Yprediction = predict(PREDICTION, XTEST, coefmin, rndeffval2) 
-    PREDICTION['PREDICTION'] = Yprediction
-    PREDICTION[['CELL_LINE','COMBINATION_ID','PREDICTION']].to_csv( \
-            predfile, index=False)
 
+    Yprediction = predict(PREDICTION, XTEST, coefmin, rndeffval2, sigma=sigma, repeat=repeat) 
     
+    if len(Yprediction) == 1: 
+        PREDICTION['PREDICTION'] = Yprediction[0]
+        PREDICTION[['CELL_LINE','COMBINATION_ID','PREDICTION']].to_csv(predfile, index=False)
+    else: 
+        for i in range(len(Yprediction)): 
+            PREDICTION['PREDICTION%d'%i] = Yprediction[i]
+
+        PREDICTION[['CELL_LINE','COMBINATION_ID'] + 
+            ['PREDICTION%d'%i for i in range(len(Yprediction))]].to_csv(predfile, index=False)
+
+
 def calc_randomeffect2(therapyAll):
     
     rndeff_combination_id = {'mean':{}, 'std':{}, 'points':{}} 
@@ -298,7 +266,7 @@ def model_training(xDatafile, yDatafile, model_json, with_small=False, \
                 sort_keys=True, indent=2) 
 
 
-def predict(dfTherapy, dfX, coef0, randeffect):
+def predict(dfTherapy, dfX, coef0, randeffect, sigma=0.0, repeat=1):
 
     coef = {} 
     for k in coef0.keys():
@@ -320,16 +288,33 @@ def predict(dfTherapy, dfX, coef0, randeffect):
     
     Xvalues = dfX[coefnames].values
 
-    yhat = Xvalues.dot(np.array(coefvalues)) + intercept 
+    # now, we consider random normal noise in model paramters. 
+    # coefvalues = [c + np.random.randn()*sigma for c in coefvalues]
+    # intercept = intercept + np.random.randn()*sigma
 
-    if randeffect == None: 
-        return yhat
+    coefvalues = np.array(coefvalues)
+    intercept = np.array(intercept)
+    yhat_list = []
+    for j in range(repeat):
+        if j == 0: 
+            r1 = 0.0
+            r2 = 0.0 
+        else: 
+            r1 = np.random.randn(coefvalues.shape[0])*sigma
+            r2 = np.random.randn(Xvalues.shape[0])*sigma
+            
+        yhat = Xvalues.dot(coefvalues + r1) + (intercept + r2)
 
-    for k, i in enumerate(dfTherapy.index): 
-        a_series = dfTherapy.loc[i] 
-        yhat[k] += estimate_rndeff(randeffect, a_series)
+        if randeffect == None: 
+            return yhat
 
-    return yhat 
+        for k, i in enumerate(dfTherapy.index): 
+            a_series = dfTherapy.loc[i] 
+            yhat[k] += estimate_rndeff(randeffect, a_series)
+
+        yhat_list.append(yhat)
+
+    return yhat_list 
 
 
 def update_therapy_data_with_kdrug(therapyfile, KGROUP):
@@ -413,3 +398,49 @@ def match_user_run(therapy_user, overwrite=False):
     
     match_smoothed_drugeffect(therapy_user, smoothed_drugeffect_STRING,
             matcheduser_drugeffect, overwrite=overwrite)
+
+
+
+def run(inputjson, outputjson, model_json=None, sigma=0.0):
+
+    with open(inputjson,'r') as fobj:
+        inputdata = json.load(fobj)
+        celltype = inputdata['input']['celltype']
+        drugs = inputdata['input']['drugs']
+
+    """ only two drugs combination is supported by this module. """
+    assert len(drugs) == 2
+
+    csv_inputfile = tempfile.mktemp()
+
+    with open(csv_inputfile, 'w') as fout: 
+        fout.write('CELL_LINE,COMPOUND_A,COMPOUND_B,COMBINATION_ID\n')
+        fout.write('%s,%s,%s,%s\n' % (celltype, drugs[0], 
+            drugs[1],".".join(drugs)))
+
+    csv_outputfile = tempfile.mktemp()
+    # csv_outputfile = 'untracked_output.csv'    
+    run_csv(csv_inputfile, csv_outputfile, model_json=model_json, sigma=sigma)
+
+    dataframe = pd.read_csv(csv_outputfile)
+
+    # #row of dataframe should be one. 
+    assert dataframe.shape[0] == 1
+
+    data = {'synergy': dataframe.loc[0, 'PREDICTION']} 
+
+    with open(outputjson, 'w') as foutjson:
+        json.dump(data, foutjson, indent=4, sort_keys=True, 
+            separators=(',', ':'))
+
+
+def run_csv(therapy_user, predfile, userid='undefined_uid', model_json=None, 
+    repeat=1, sigma=0.0):
+
+    match_user_run(therapy_user, overwrite=True) 
+
+    mixedmodel(codelist, 'STEP3_FULL', predfile, [], [], 
+        inputfilename=therapy_user, userid_=userid, with_small=False, 
+        overwrite=True, nrepeats=1, alpha=1.0, online=True, repeat=repeat, sigma=sigma)
+
+
