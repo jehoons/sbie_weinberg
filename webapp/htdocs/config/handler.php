@@ -9,7 +9,7 @@ header, menu, footer 를 구성하고  main은  modules의 페이지가 차지�
 //__CL__ 정의 되지 않았다면 false 를 return.
 if(!defined('__CL__')) exit();
 
-//세션값이 있다면 회원정보 쿼리. $signinrow['mb_fullname'] 형식으로 사용.
+//세션값이 있다면 로그인한 상태이므로 회원정보 쿼리. $signinrow['mb_fullname'] 형식으로 사용.
 if($_SESSION["mb_rowid"]){
 	$mbrowid = $_SESSION['mb_rowid'];
 
@@ -21,9 +21,13 @@ if($_SESSION["mb_rowid"]){
 	";
 	$result = $conn->query($sql);
 	$signinrow = $result->fetch_assoc();
+	
+	/*
+	mb_code가  1이면 일반회원, 10이면 탈퇴회원, 100이면 괸리자.
+	 */
 }	
 
-//작업모드이면 작업 페이지 호출
+//작업모드('_work.php'로 끝나는 파일은 디자인이 필요없는 백그라운드 작업페이지이다)이면 작업 페이지 호출.
 if(substr($_GET["act"],-9,9) == "_work.php"){
 	$url = _CL_PATH_.'modules/'.$_GET["module"].'/'.$_GET["act"];
 	require $url;
@@ -45,6 +49,7 @@ if(substr($_GET["act"],-9,9) == "_work.php"){
 	<script src="<?php echo _CL_PATH_HOST_;?>common/js/modernizr.js"></script> <!-- Modernizr -->
 	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
 	<script src='https://www.google.com/recaptcha/api.js'></script>
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
   	
 	<title>Anti-cancer drug recommendation platform</title>
 </head>
@@ -52,7 +57,7 @@ if(substr($_GET["act"],-9,9) == "_work.php"){
 
 <body>
 	<header>
-		<div id="logo">SBIE<!-- <img src="<?php echo _CL_PATH_HOST_;?>common/img/cl-logo.svg" alt="Homepage"> --></div>
+		<div id="logo"><a href="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>?module=index&act=list.php" style="color:#FFFFFF;">SBIE</a><!-- <img src="<?php echo _CL_PATH_HOST_;?>common/img/cl-logo.svg" alt="Homepage"> --></div>
 
 		<div id="cl-hamburger-menu"><a class="cl-img-replace" href="#0">Menu</a></div>
 <?php 
@@ -69,7 +74,7 @@ if(!$mbrowid){
 		
 	</header>
 <?php
-// module 은 해당 폴더, act 는 해당 페이지.
+// '_work.php'로 끝나지 않는 파일 호출. module 은 해당 폴더, act 는 해당 페이지.
 if($_GET["module"] && $_GET["act"]){
 	$url = _CL_PATH_.'modules/'.$_GET["module"].'/'.$_GET["act"];
 }else{
@@ -80,7 +85,7 @@ if($_GET["module"] && $_GET["act"]){
 		<ul>
 			<li><a <?php if(($_GET["module"] == "index" && $_GET["act"] == "list.php") || !$_GET["module"]){?>class="current"<?php }?> href="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>?module=index&act=list.php">Home</a></li>
 			<li><a <?php if($_GET["module"] == "about" && $_GET["act"] == "list.php"){?>class="current"<?php }?> href="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>?module=about&act=list.php">About</a></li>
-			<li><a <?php if($_GET["module"] == "services" && $_GET["act"] == "list.php"){?>class="current"<?php }?> href="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>?module=services&act=list.php">Services</a></li>
+			<li><a <?php if($_GET["module"] == "services" && $_GET["act"] == "list.php"){?>class="current"<?php }?> href="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>?module=simulation&act=list.php">Simulation</a></li>
 			<li><a <?php if($_GET["module"] == "board" && $_GET["act"] == "list.php"){?>class="current"<?php }?> href="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>?module=board&act=list.php">Board</a></li>
 			<li><a <?php if($_GET["module"] == "contact" && $_GET["act"] == "list.php"){?>class="current"<?php }?> href="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>?module=contact&act=list.php">Contact</a></li>
 		</ul>
@@ -96,7 +101,7 @@ require $url;
 	<div id="cl-shadow-layer"></div>
 
 	<div id="cl-cart">
-		<h2>Account <?php echo $signinrow[mb_name];?></h2>
+		<h2>Account (<?php echo $signinrow[mb_name];?>)</h2>
 		<ul class="cl-cart-items">
 <?php 
 if(!$mbrowid){
@@ -118,7 +123,8 @@ if(!$mbrowid){
 			<li>
 				<a href="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>?module=member&act=logout_work.php&logout=true">Log out</a>
 			</li>
-	<?php 
+	<?php
+	//관리자만 볼 수 있도록
 	if($signinrow[mb_code] >= 100){
 	?>
 			<li>
@@ -138,7 +144,7 @@ if($mbrowid){
 		
 		<ul class="cl-cart-items">
 			<li>
-				Results
+				Simulation Results
 			</li>
 		</ul>
 <?php

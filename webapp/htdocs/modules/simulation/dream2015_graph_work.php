@@ -1,0 +1,45 @@
+<?php
+/* --------------------------------
+
+module/simulation/dream2015_graph_work.php
+dream2015 module의 cellline 쿼리 get 방식의 ajax 페이지.
+
+*ajax 오류 점검 :
+1. form action에 정확한 주소가 입력 되었는가?
+2. 전송하는 데이터가 잘 들어가는가?
+3. 해당 주소의 페이지가 정당한 json 형식을 가지는가?
+
+-------------------------------- */
+
+//__CL__ 정의 되지 않았다면 false 를 return.
+if(!defined('__CL__')) exit();
+
+// php 페이지 로딩 시간을 최대 5분(60*5)으로 연장. default는 30초.
+ini_set('max_execution_time', 300);
+
+$cellline = $_GET["cellline"];
+$drug1 = $_GET["drug1"];
+$drug2 = $_GET["drug2"];
+
+// choonlog_member, choonlog_book 쿼리
+$sql = "
+SELECT *
+FROM dream2015
+WHERE CELL_LINE = '$cellline' AND COMPOUND_A='$drug1' AND COMPOUND_B='$drug2'
+UNION
+SELECT *
+FROM dream2015
+WHERE CELL_LINE = '$cellline' AND COMPOUND_A='$drug2' AND COMPOUND_B='$drug1'
+";
+$result = $conn->query($sql);
+
+
+$outp = "[";
+while($row = $result->fetch_assoc()) {
+    if ($outp != "[") {$outp .= ",";}
+    $outp .= '{"PREDICTION":"'  . $row["PREDICTION"] . '"}'; 
+}
+$outp .="]";
+	
+echo $outp;
+?>

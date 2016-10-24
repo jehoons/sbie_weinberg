@@ -2,13 +2,12 @@
 /* --------------------------------
 
 module/member/join_work.php
-회원가입 ajax 페이지.
+회원가입 post 방식의 ajax 페이지.
 
 *ajax 오류 점검 :
 1. form action에 정확한 주소가 입력 되었는가?
 2. 전송하는 데이터가 잘 들어가는가?
 3. 해당 주소의 페이지가 정당한 json 형식을 가지는가?
-
 
 -------------------------------- */
 
@@ -16,7 +15,7 @@ module/member/join_work.php
 if(!defined('__CL__')) exit();
 
 //'로봇이 아닙니다' 체크
-$secret = '6LdKjwgUAAAAALzz3tAMjCpvuOHIl96IvH-ypAaI';
+$secret = '6LdibQgUAAAAAEVf1t7pmer5s179sGqJ7b8jIc-R';
 //get verify response data
 $verifyResponse = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret='.$secret.'&response='.$_POST['g-recaptcha-response']);
 $responseData = json_decode($verifyResponse);

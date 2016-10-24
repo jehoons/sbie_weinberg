@@ -69,6 +69,64 @@ jQuery(document).ready(function($){
 		 sendCheckMessage("삭제된 자료는 복구가 불가능합니다.<br /><br />삭제하시겠습니까?",$(this).data("urldata"),"삭제");
 		
 	})
+	
+	//Simulation 에서 module change
+	$('#cl-simul-module').change(function(){
+		 
+		if($("#cl-simul-module").val() == "dream2015"){
+			
+			//Get 방식으로 전송하기 위해 주소를 파라미터로.
+			callSimulAjax($("#clpathhost").val() + "index.php?module=simulation&act=dream2015_cellline_work.php","dream2015_cellline");
+			
+			$("#cl-simul-sfa").hide();
+			$("#cl-simul-attractor").hide();
+			
+		}else if($("#cl-simul-module").val() == "sfa"){
+			
+			$("#cl-simul-dream2015").hide();
+			$("#cl-simul-sfa").show();
+			$("#cl-simul-attractor").hide();
+			
+		}else if($("#cl-simul-module").val() == "attractor"){
+			
+			$("#cl-simul-dream2015").hide();
+			$("#cl-simul-sfa").hide();
+			$("#cl-simul-attractor").show();
+		}
+	})
+	
+	//Simulation 에서 dream2015 cellline change
+	$('#cl-simul-dream2015-cellline').change(function(){
+		
+		
+		var cellline = $('#cl-simul-dream2015-cellline').val();
+		
+		//Get 방식으로 전송하기 위해 주소를 파라미터로.
+		callSimulAjax($("#clpathhost").val() + "index.php?module=simulation&act=dream2015_drug1_work.php&cellline=" + cellline,"dream2015_drug1");
+	})
+	
+	//Simulation 에서 dream2015 drug1 change
+	$('#cl-simul-dream2015-drug1').change(function(){
+		
+		var cellline = $('#cl-simul-dream2015-cellline').val();
+		var drug1 = $('#cl-simul-dream2015-drug1').val();
+		
+		//Get 방식으로 전송하기 위해 주소를 파라미터로.
+		callSimulAjax($("#clpathhost").val() + "index.php?module=simulation&act=dream2015_drug2_work.php&cellline=" + cellline + "&drug1=" + drug1,"dream2015_drug2");
+	})
+	
+	//Simulation 에서 dream2015 drug2 change
+	$('#cl-simul-dream2015-drug2').change(function(){
+		
+		var cellline = $('#cl-simul-dream2015-cellline').val();
+		var drug1 = $('#cl-simul-dream2015-drug1').val();
+		var drug2 = $('#cl-simul-dream2015-drug2').val();
+		
+		//Get 방식으로 전송하기 위해 주소를 파라미터로.
+		callSimulAjax($("#clpathhost").val() + "index.php?module=simulation&act=dream2015_graph_work.php&cellline=" + cellline + "&drug1=" + drug1 + "&drug2=" + drug2,"dream2015_graph");
+	})
+	
+	
 });
 
 function toggle_panel_visibility ($lateral_panel, $background_layer, $body) {
@@ -106,49 +164,29 @@ function move_navigation( $navigation, $MQ) {
 //안내방송
 function sendMessage(msg,val){
 	
-	//로그인 창에서 뜬다면.
-	if($('#cl-login-veil').length){
-		var loginTrue = true;
-		$('#cl-login-veil').remove();
-	}
-	
 	$("body").append("<div id='cl-message-veil'></div> <div id='cl-message'> <div class='message-title'>Notification</div> <div class='message-content'> "+msg+" </div> <div class='message-button'><a href='#0' id='messagebutton'>닫기</a></div> </div>");
 	$('#messagebutton').focus();
 	
 	$('#cl-message-veil').click(function(){
 		$('#cl-message-veil').remove();
 		$('#cl-message').remove();
-		if(loginTrue){
-			$("body").append("<div id='cl-login-veil'></div>");
-			
-			$('#cl-login-veil').click(function(){
-				$('#cl-login-veil').remove();
-				$('#cl-login').remove();
-				$('#cl-form-login').remove();
-			});
-			
+		if(val){
+			val.focus();
 		}
-		val.focus();
+		
 	});
 	
 	$('#messagebutton').click(function(){
 		$('#cl-message-veil').remove();
 		$('#cl-message').remove();
-		if(loginTrue){
-			$("body").append("<div id='cl-login-veil'></div>");
-			
-			$('#cl-login-veil').click(function(){
-				$('#cl-login-veil').remove();
-				$('#cl-login').remove();
-				$('#cl-form-login').remove();
-			});
+		if(val){
+			val.focus();
 		}
-		val.focus();
 	});
 	
 }
 
-//체크 안내방송
+//체크 안내방송  - 삭제와 같이 확인여부를 물을 때 사용
 function sendCheckMessage(msg,move,option){
 	
 	$("body").append("<div id='cl-message-veil'></div> <div id='cl-message'> <div class='message-title'>안내방송</div> <div class='message-content'> "+msg+" </div> <div class='message-button'><a href='#0' id='messagebutton'>닫기</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#0' id='deletebutton'> "+option+" </a></div> </div>");
@@ -171,6 +209,53 @@ function sendCheckMessage(msg,move,option){
 		callGetAjax(move);
 	});
 	
+}
+
+//AJax 호출 이후 안내방송
+function sendAjaxMessage(msg,work,address){
+
+	$("body").append("<div id='cl-message-veil'></div> <div id='cl-message'> <div class='message-title'>Notification</div> <div class='message-content'> "+msg+" </div> <div class='message-button'><a href='#0' id='messagebutton'>확인</a></div> </div>");
+	$('#messagebutton').focus();
+	
+	$('#cl-message-veil').click(function(){
+		
+		//move는 이동
+		if(work == "move"){
+			
+			window.location.assign(address);
+		
+		//close는 닫기
+		}else if(work == "close"){
+			
+			$('#cl-message-veil').remove();
+			$('#cl-message').remove();
+			
+		//나머지
+		}else{
+			
+		}
+		
+	});
+	
+	$('#messagebutton').click(function(){
+		
+		//move는 이동
+		if(work == "move"){
+			
+			window.location.assign(address);
+		
+		//close는 닫기
+		}else if(work == "close"){
+			
+			$('#cl-message-veil').remove();
+			$('#cl-message').remove();
+			
+		//나머지
+		}else{
+			
+		}
+		
+	});
 }
 
 //데이터 전송 전 유효 검사(모든 데이터에 적용 가능하는 일괄처리 장치) : text, email, id, pwd, password1, select, radio, isbn 순으로 검사.
@@ -413,7 +498,7 @@ function callGetAjax(val){
 	    	
 	  
 	    	sendAjaxMessage(result.afterMessage.replace(/\\/gi, ""), result.afterWork, result.afterAddress);
-
+	    	
 	
 	    },
 	    error:function (xhr, ajaxOptions, thrownError){
@@ -425,49 +510,118 @@ function callGetAjax(val){
 	});
 }
 
-//AJax 호출 이후 안내방송
-function sendAjaxMessage(msg,work,address){
-
-	$("body").append("<div id='cl-message-veil'></div> <div id='cl-message'> <div class='message-title'>Notification</div> <div class='message-content'> "+msg+" </div> <div class='message-button'><a href='#0' id='messagebutton'>확인</a></div> </div>");
-	$('#messagebutton').focus();
+//Simulation GET 방식의 Ajax 호출
+function callSimulAjax(val,mode){
 	
-	$('#cl-message-veil').click(function(){
-		
-		//move는 이동
-		if(work == "move"){
-			
-			window.location.assign(address);
-		
-		//close는 닫기
-		}else if(work == "close"){
-			
-			$('#cl-message-veil').remove();
-			$('#cl-message').remove();
-			
-		//나머지
-		}else{
-			
-		}
-		
+	//ajax 시작.
+	$.ajaxSetup({
+		cache : false
+	  });
+	
+	$(document).ajaxError(function(){
+	    alert("An error occured!");
 	});
 	
-	$('#messagebutton').click(function(){
+	$(document).ajaxStart(function(){
+		$("#cl-slmul-loading-veil").remove();
+		$("body").append("<div id='cl-slmul-loading-veil'></div>");
+		$("body").append("<img src='" + $("#clpathhost").val() + "common/img/cl_loading.gif' id='cl-loading' />");
 		
-		//move는 이동
-		if(work == "move"){
-			
-			window.location.assign(address);
-		
-		//close는 닫기
-		}else if(work == "close"){
-			
-			$('#cl-message-veil').remove();
-			$('#cl-message').remove();
-			
-		//나머지
-		}else{
-			
-		}
-		
+	});
+	$(document).ajaxComplete(function(){
+		$("#cl-slmul-loading-veil").remove();
+	    $('#cl-loading').remove();
+	});
+	
+	$.ajax({
+	    url:encodeURI(val),
+	    dataType:'json',
+	    type:'GET',
+	    success:function(result){
+	    	
+	    	if(mode == "dream2015_cellline"){
+	    		
+	    		//해당 Select 박스의 option이 1이상이면 그 이하의 종속 selects를 reset 한다.
+	    		if($('#cl-simul-dream2015-cellline option').size() > 1){
+	    			$('#cl-simul-dream2015-cellline option').remove();
+	    			$('#cl-simul-dream2015-cellline').append("<option value=''>--- Module ---</option>");
+	    			
+	    			$('#cl-simul-dream2015-drug1 option').remove();
+	    			$('#cl-simul-dream2015-drug1').append("<option value=''>--- Drug 1 ---</option>");
+	    			
+	    			$('#cl-simul-dream2015-drug2 option').remove();
+	    			$('#cl-simul-dream2015-drug2').append("<option value=''>--- Drug 2 ---</option>");
+	    		}
+	    		
+	    		//Ajax로 받아온 JSON data format 파일을 for문으로 돌려 option으로 넣는다. 
+	    		for(i = 0; i < result.length; i++){
+			    	$('#cl-simul-dream2015-cellline').append("<option value='" + result[i].CELL_LINE + "'>" + result[i].CELL_LINE + "</option>");
+		    	}
+	    		
+	    		//dream2015 div가 보이도록.
+				$("#cl-simul-dream2015").fadeIn();
+				
+				//cellline으로 포커스 이동.
+				$("#cl-simul-dream2015-cellline").focus();
+				
+	    	}else if(mode == "dream2015_drug1"){
+	    		
+	    		//해당 Select 박스의 option이 1이상이면 그 이하의 종속 selects를 reset 한다.
+	    		if($('#cl-simul-dream2015-cellline option').size() > 1){
+	    			$('#cl-simul-dream2015-drug1 option').remove();
+	    			$('#cl-simul-dream2015-drug1').append("<option value=''>--- Drug 1 ---</option>");
+	    			
+	    			$('#cl-simul-dream2015-drug2 option').remove();
+	    			$('#cl-simul-dream2015-drug2').append("<option value=''>--- Drug 2 ---</option>");
+	    		}
+	    		
+	    		//Ajax로 받아온 JSON data format 파일을 for문으로 돌려 option으로 넣는다.
+	    		for(i = 0; i < result.length; i++){
+			    	$('#cl-simul-dream2015-drug1').append("<option value='" + result[i].COMPOUND_A + "'>" + result[i].COMPOUND_A + "</option>");
+		    	}
+	    		
+	    		//cellline으로 포커스 이동.
+	    		$("#cl-simul-dream2015-drug1").focus();
+	    		
+	    	}else if(mode == "dream2015_drug2"){
+	    		
+	    		//해당 Select 박스의 option이 1이상이면 그 이하의 종속 selects를 reset 한다.
+	    		if($('#cl-simul-dream2015-cellline option').size() > 1){
+	    			$('#cl-simul-dream2015-drug2 option').remove();
+	    			$('#cl-simul-dream2015-drug2').append("<option value=''>--- Drug 2 ---</option>");
+	    		}
+	    		
+	    		//Ajax로 받아온 JSON data format 파일을 for문으로 돌려 option으로 넣는다.
+	    		for(i = 0; i < result.length; i++){
+			    	$('#cl-simul-dream2015-drug2').append("<option value='" + result[i].COMPOUND_B + "'>" + result[i].COMPOUND_B + "</option>");
+		    	}
+	    		
+	    		//cellline으로 포커스 이동.
+	    		$("#cl-simul-dream2015-drug2").focus();
+	    		
+	    	}else if(mode == "dream2015_graph"){
+	    		
+	    		$('#cl-simul-dream2015-graph').append("<table>");
+	    		
+	    		for(i = 0; i < result.length; i++){
+			    	$('#cl-simul-dream2015-graph').append("<tr><td>" + result[i].PREDICTION + "</tr></td>");
+		    	}
+	    		
+	    		$('#cl-simul-dream2015-graph').append("</table>");
+	    		
+	    		$("#cl-simul-dream2015-graph").fadeIn();
+	    	}
+	    	
+		    
+	
+	    },
+	    
+	    error:function (xhr, ajaxOptions, thrownError){
+	        alert(xhr.status);
+	        alert(xhr.statusText);
+	        alert(xhr.responseText);
+	    }
+	    
 	});
 }
+

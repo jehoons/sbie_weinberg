@@ -2,7 +2,7 @@
 /* --------------------------------
 
 module/member/join.php
-회원가입 페이지
+회원가입 페이지.
 
 -------------------------------- */
 
@@ -19,7 +19,7 @@ if(!defined('__CL__')) exit();
 		<input type='password' name="mb_pwd2" placeholder='Re-enter password' class='cl-text'  data-formdata='password2'>
 		<input type='text' name="mb_name" placeholder='Full name' class='cl-text'  data-formdata='text'>
 		<input type='text' name="mb_organization" placeholder='Organization' class='cl-text'  data-formdata='text'>
-		<div class="g-recaptcha" data-sitekey="6LdKjwgUAAAAAPYbC-zaaGB0C2S9Ezyf5JFHLmMF"></div>
+		<div class="g-recaptcha" data-sitekey="6LdibQgUAAAAAKWZ3PJq2VBONxDjYvcKRjz0ptfb"></div>
 		
 		<input type="submit" class="cl-btn" value="Sign up" />
 		<span class="cl-form-span">By signing up, you agree to the <a href="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>?module=member&act=terms.php">Terms of Service</a> and <a href="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>?module=member&act=privacy.php">Privacy Policy</a>.</span>
