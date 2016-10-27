@@ -30,16 +30,32 @@ UNION
 SELECT *
 FROM dream2015
 WHERE CELL_LINE = '$cellline' AND COMPOUND_A='$drug2' AND COMPOUND_B='$drug1'
+ORDER BY PREDICTION ASC
 ";
 $result = $conn->query($sql);
 
 
-$outp = "[";
+$outp = '{"cols":[{"type":"string"},{"type":"number"}],"rows": [';
 while($row = $result->fetch_assoc()) {
-    if ($outp != "[") {$outp .= ",";}
-    $outp .= '{"PREDICTION":"'  . $row["PREDICTION"] . '"}'; 
+    if ($outp != '{"cols":[{"type":"string"},{"type":"number"}],"rows": [') {$outp .= ",";}
+    $outp .= '{"c":[{"v":"'. $row["CELL_LINE"] .', '. $row["COMPOUND_A"] .', '. $row["COMPOUND_B"] . '"},{"v":' . $row["PREDICTION"] . '}]}';
 }
-$outp .="]";
-	
+$outp .="]}";
+
 echo $outp;
+
+/* 아래와 같은 JSON 구조가 되어야 한다.
+$outp = '{
+	"cols": [
+	{"type":"string"},{"type":"number"}
+	],
+	"rows": [
+	{"c":[{"v":"Mushrooms"},{"v":3}]},
+	{"c":[{"v":"Mushrooms"},{"v":4}]},
+	{"c":[{"v":"Mushrooms"},{"v":5}]},
+	{"c":[{"v":"Mushrooms"},{"v":6}]},
+	{"c":[{"v":"Mushrooms"},{"v":7}]}
+	]
+}';
+*/
 ?>

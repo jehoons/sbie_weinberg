@@ -6,6 +6,9 @@ module/contact/list.php
 
 -------------------------------- */
 
+//localhost : AIzaSyBlYB78wO_eK7_a0sFfo1Pxk-KKMi4eD8M
+//weinberg.kaist.ac.kr : AIzaSyCVGNlTE_Hu8Iw9CYV5EwI7OB845Qv9oAc
+
 //__CL__ 정의 되지 않았다면 false 를 return.
 if(!defined('__CL__')) exit();
 ?>
@@ -34,7 +37,7 @@ if(!defined('__CL__')) exit();
 
     </script>
 
- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBlYB78wO_eK7_a0sFfo1Pxk-KKMi4eD8M&callback=initMap"
+ <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCVGNlTE_Hu8Iw9CYV5EwI7OB845Qv9oAc&callback=initMap"
         async defer></script>
 <pre>    
 Tel : +82-42-350-4325 (Professor Office), +82-42-867-4304 (Secretary), +82-42-350-4365/5365 (Laboratory)

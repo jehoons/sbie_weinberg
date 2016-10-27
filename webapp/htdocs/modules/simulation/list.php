@@ -49,13 +49,10 @@ if(!defined('__CL__')) exit();
 				
 			</div>
 		</div>
-<script type="text/javascript">
-google.charts.load('current', {packages: ['corechart', 'bar']});
-google.charts.setOnLoadCallback(drawBasic);
-</script>
+
 		<div class='col-8' style="padding-left: 1.5%;">
 			<div id='cl-simul-dream2015-graph' class='cl-shadowbox-all'>
-
+				<div id="example1" style="width: 100%; height: 700px"></div>
 			</div>
 		</div>
 	</div>

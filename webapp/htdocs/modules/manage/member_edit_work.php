@@ -2,7 +2,7 @@
 /* --------------------------------
 
 module/manage/member_edit_work.php
-관리자 회원관리 수정 post 방식의 ajax  페이지.
+관리자 회원관리 수정 post 방식의 ajax 페이지.
 
 *ajax 오류 점검 :
 1. form action에 정확한 주소가 입력 되었는가?

@@ -573,6 +573,7 @@ function callSimulAjax(val,mode){
 	    			
 	    			$('#cl-simul-dream2015-drug2 option').remove();
 	    			$('#cl-simul-dream2015-drug2').append("<option value=''>--- Drug 2 ---</option>");
+	    			
 	    		}
 	    		
 	    		//Ajax로 받아온 JSON data format 파일을 for문으로 돌려 option으로 넣는다.
@@ -601,19 +602,17 @@ function callSimulAjax(val,mode){
 	    		
 	    	}else if(mode == "dream2015_graph"){
 	    		
-	    		$('#cl-simul-dream2015-graph').append("<table>");
+	    		// Load the Visualization API and the piechart package.
+				google.charts.load('upcoming', {packages:['corechart']});
+				
+				// Set a callback to run when the Google Visualization API is loaded. result를 파라미터로 보내주기 위해 아래와 같이 사용.
+				google.charts.setOnLoadCallback(function() { drawChart(result); });
 	    		
-	    		for(i = 0; i < result.length; i++){
-			    	$('#cl-simul-dream2015-graph').append("<tr><td>" + result[i].PREDICTION + "</tr></td>");
-		    	}
-	    		
-	    		$('#cl-simul-dream2015-graph').append("</table>");
-	    		
+				// Fadein으로 showing
 	    		$("#cl-simul-dream2015-graph").fadeIn();
+	    		
 	    	}
 	    	
-		    
-	
 	    },
 	    
 	    error:function (xhr, ajaxOptions, thrownError){
@@ -624,4 +623,19 @@ function callSimulAjax(val,mode){
 	    
 	});
 }
+
+//google chart 그리기.
+function drawChart(result) {
+	var data = new google.visualization.DataTable(result);
+
+	  var options = {
+	    title: 'Prediction',
+	    legend: { position: 'none' },
+	    colors: ['#1A70DB'],
+	  };
+
+	  var chart = new google.visualization.Histogram(document.getElementById('example1'));
+
+	  chart.draw(data, options);
+	}
 
