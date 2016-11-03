@@ -10,6 +10,11 @@
 
 ## Update history
 
+### 2016. 11. 3
+* Complete initial simulation for signal flow analysis [Result](http://gofile.me/3gpVt/3G1y2N9Mv)
+* Complete UI draft for attractor
+* Complete database for attractor 
+
 ### 2016. 10. 21
 Simulation data for Boolean network model (Fumia) is completed as follows:
 * [Model information](http://gofile.me/3gpVt/y2dxkMQqC)

@@ -18,7 +18,7 @@ import numpy as np
 import pandas as pd
 import pytest
 import sys
-dir_sfa = abspath(join(dirname(__file__), 'sfa'))
+dir_sfa = abspath(join(dirname(__file__), 'sfa/sfa'))
 sys.path.append(dir_sfa)
 import sfa
 from sbie_weinberg.module.sfa.sfa_fumia import simulator as sfa_simulator
@@ -33,28 +33,25 @@ if not exists(join(dirname(__file__), 'untracked')):
 def test_single_inputjson():
 
     inputjson = join(abspath(dirname(__file__)), 'test_input.json')
-    outputjson = join(abspath(dirname(__file__)), 'untracked/output.json')
+    outputjson = join(abspath(dirname(__file__)), 'untracked_test_output.json')
 
     sfa_simulator.run(inputjson, outputjson)
 
     print ('output:', outputjson)
 
-    assert True 
+    assert True
 
-    
+
 def test_many_inputjson():
 
     files = glob.glob(join(dirname(demo.__file__), 'demoinput*.json'))
 
     for inputjson in files:
         filename = basename(inputjson)
-        outputjson = join(abspath(dirname(__file__)), 'untracked', 
+        outputjson = join(abspath(dirname(__file__)), 'untracked',
             'out_' + filename)
         sfa_simulator.run(inputjson, outputjson)
 
         print ('output:', outputjson)
 
-    assert True 
-
-
-        
+    assert True
