@@ -63,6 +63,14 @@ jQuery(document).ready(function($){
 		
 	});
 	
+	//Ajax를 이용하는 simulation attractor form 데이터 전송.
+	$('#cl-simul-attractor-form').submit(function(){
+		
+		callSimulAjax($('#cl-simul-attractor-form'));
+		return false;
+		
+	});
+	
 	//삭제 모드 delete
 	$('.delete-open').click(function(){
 		 
@@ -76,22 +84,37 @@ jQuery(document).ready(function($){
 		if($("#cl-simul-module").val() == "dream2015"){
 			
 			//Get 방식으로 전송하기 위해 주소를 파라미터로.
-			callSimulAjax($("#clpathhost").val() + "index.php?module=simulation&act=dream2015_cellline_work.php","dream2015_cellline");
+			callGetSimulAjax($("#clpathhost").val() + "index.php?module=simulation&act=dream2015_cellline_work.php","dream2015_cellline");
 			
 			$("#cl-simul-sfa").hide();
 			$("#cl-simul-attractor").hide();
+			$("#cl-simul-attractor-graph").hide();
+			
 			
 		}else if($("#cl-simul-module").val() == "sfa"){
 			
-			$("#cl-simul-dream2015").hide();
 			$("#cl-simul-sfa").show();
+			
+			$("#cl-simul-dream2015").hide();
+			$("#cl-simul-dream2015-graph").hide();
 			$("#cl-simul-attractor").hide();
+			$("#cl-simul-attractor-graph").hide();
 			
 		}else if($("#cl-simul-module").val() == "attractor"){
 			
+			//Get 방식으로 전송하기 위해 주소를 파라미터로.
+			callGetSimulAjax($("#clpathhost").val() + "index.php?module=simulation&act=attractor_target1_work.php","attractor_target1");
+			
 			$("#cl-simul-dream2015").hide();
+			$("#cl-simul-dream2015-graph").hide();
 			$("#cl-simul-sfa").hide();
-			$("#cl-simul-attractor").show();
+			
+			//체크박스 초기화
+			$("#cl-simul-attractor-node1").attr('checked', false); 
+			$("#cl-simul-attractor-node2").attr('checked', false); 
+			$("#cl-simul-attractor-node3").attr('checked', false); 
+			$("#cl-simul-attractor-node4").attr('checked', false); 
+			$("#cl-simul-attractor-node5").attr('checked', false); 
 		}
 	})
 	
@@ -102,7 +125,7 @@ jQuery(document).ready(function($){
 		var cellline = $('#cl-simul-dream2015-cellline').val();
 		
 		//Get 방식으로 전송하기 위해 주소를 파라미터로.
-		callSimulAjax($("#clpathhost").val() + "index.php?module=simulation&act=dream2015_drug1_work.php&cellline=" + cellline,"dream2015_drug1");
+		callGetSimulAjax($("#clpathhost").val() + "index.php?module=simulation&act=dream2015_drug1_work.php&cellline=" + cellline,"dream2015_drug1");
 	})
 	
 	//Simulation 에서 dream2015 drug1 change
@@ -112,7 +135,7 @@ jQuery(document).ready(function($){
 		var drug1 = $('#cl-simul-dream2015-drug1').val();
 		
 		//Get 방식으로 전송하기 위해 주소를 파라미터로.
-		callSimulAjax($("#clpathhost").val() + "index.php?module=simulation&act=dream2015_drug2_work.php&cellline=" + cellline + "&drug1=" + drug1,"dream2015_drug2");
+		callGetSimulAjax($("#clpathhost").val() + "index.php?module=simulation&act=dream2015_drug2_work.php&cellline=" + cellline + "&drug1=" + drug1,"dream2015_drug2");
 	})
 	
 	//Simulation 에서 dream2015 drug2 change
@@ -123,7 +146,17 @@ jQuery(document).ready(function($){
 		var drug2 = $('#cl-simul-dream2015-drug2').val();
 		
 		//Get 방식으로 전송하기 위해 주소를 파라미터로.
-		callSimulAjax($("#clpathhost").val() + "index.php?module=simulation&act=dream2015_graph_work.php&cellline=" + cellline + "&drug1=" + drug1 + "&drug2=" + drug2,"dream2015_graph");
+		callGetSimulAjax($("#clpathhost").val() + "index.php?module=simulation&act=dream2015_graph_work.php&cellline=" + cellline + "&drug1=" + drug1 + "&drug2=" + drug2,"dream2015_graph");
+	})
+	
+	//Simulation 에서 attractor target1 change
+	$('#cl-simul-attractor-target1').change(function(){
+		
+		
+		var target1 = $('#cl-simul-attractor-target1').val();
+		
+		//Get 방식으로 전송하기 위해 주소를 파라미터로.
+		callGetSimulAjax($("#clpathhost").val() + "index.php?module=simulation&act=attractor_target2_work.php&target1=" + target1,"attractor_target2");
 	})
 	
 	
@@ -471,6 +504,96 @@ function callAjax(val){
 	});
 }
 
+//POST 방식의 Ajax 호출
+function callAjax(val){
+	
+	// seriallize() : ie8이상. form 안에 있는 value를 정리해서 반환.
+	var formData = val.serialize();
+	var formAction = val.attr("action");
+	
+	//ajax 시작.
+	$.ajaxSetup({
+		cache : false
+	  });
+	
+	$(document).ajaxError(function(){
+	    alert("An error occured!");
+	});
+	
+	$(document).ajaxStart(function(){
+		$("body").append("<img src='" + $("#clpathhost").val() + "common/img/cl_wait.gif' id='cl-wait' />");
+	});
+	$(document).ajaxComplete(function(){
+	    $('#cl-wait').remove();
+	});
+	
+	$.ajax({
+	    url:encodeURI(formAction),
+	    dataType:'json',
+	    type:'POST',
+	    data:formData,
+	    success:function(result){
+	    	
+	    	sendAjaxMessage(result.afterMessage.replace(/\\/gi, ""), result.afterWork, result.afterAddress);
+	
+	    },
+	    error:function (xhr, ajaxOptions, thrownError){
+	        alert(xhr.status);
+	        alert(xhr.statusText);
+	        alert(xhr.responseText);
+	    }
+	    
+	});
+}
+
+//POST 방식의 Simulation Ajax 호출
+function callSimulAjax(val){
+	
+	// seriallize() : ie8이상. form 안에 있는 value를 정리해서 반환.
+	var formData = val.serialize();
+	var formAction = val.attr("action");
+	
+	//ajax 시작.
+	$.ajaxSetup({
+		cache : false
+	  });
+	
+	$(document).ajaxError(function(){
+	    alert("An error occured!");
+	});
+	
+	$(document).ajaxStart(function(){
+		$("#cl-slmul-loading-veil").remove();
+		$("body").append("<div id='cl-slmul-loading-veil'></div>");
+		$("body").append("<img src='" + $("#clpathhost").val() + "common/img/cl_loading.gif' id='cl-loading' />");
+		
+	});
+	$(document).ajaxComplete(function(){
+		$("#cl-slmul-loading-veil").remove();
+	    $('#cl-loading').remove();
+	});
+	
+	$.ajax({
+	    url:encodeURI(formAction),
+	    dataType:'json',
+	    type:'POST',
+	    data:formData,
+	    success:function(result){
+	    	
+	    	$('#cl-simul-attractor-graph').html("node1" + result['node1'] + "<br />node2" + result['node2'] + "<br />node3" + result['node3'] + "<br />node4" + result['node4'] + "<br />node5" + result['node5'] + "<br />target1" + result['target1'] + "<br />target1_on" + result['target1_on'] + "<br />target2" + result['target2'] + "<br />target2_on" + result['target2_on']);
+	    	
+	    	$('#cl-simul-attractor-graph').fadeIn();
+	
+	    },
+	    error:function (xhr, ajaxOptions, thrownError){
+	        alert(xhr.status);
+	        alert(xhr.statusText);
+	        alert(xhr.responseText);
+	    }
+	    
+	});
+}
+
 //GET 방식의 Ajax 호출
 function callGetAjax(val){
 
@@ -510,8 +633,8 @@ function callGetAjax(val){
 	});
 }
 
-//Simulation GET 방식의 Ajax 호출
-function callSimulAjax(val,mode){
+//GET 방식의 Simulation Ajax 호출
+function callGetSimulAjax(val,mode){
 	
 	//ajax 시작.
 	$.ajaxSetup({
@@ -567,7 +690,7 @@ function callSimulAjax(val,mode){
 	    	}else if(mode == "dream2015_drug1"){
 	    		
 	    		//해당 Select 박스의 option이 1이상이면 그 이하의 종속 selects를 reset 한다.
-	    		if($('#cl-simul-dream2015-cellline option').size() > 1){
+	    		if($('#cl-simul-dream2015-drug1 option').size() > 1){
 	    			$('#cl-simul-dream2015-drug1 option').remove();
 	    			$('#cl-simul-dream2015-drug1').append("<option value=''>--- Drug 1 ---</option>");
 	    			
@@ -578,7 +701,7 @@ function callSimulAjax(val,mode){
 	    		
 	    		//Ajax로 받아온 JSON data format 파일을 for문으로 돌려 option으로 넣는다.
 	    		for(i = 0; i < result.length; i++){
-			    	$('#cl-simul-dream2015-drug1').append("<option value='" + result[i].COMPOUND_A + "'>" + result[i].COMPOUND_A + "</option>");
+			    	$('#cl-simul-dream2015-drug1').append("<option value='" + result[i].COMPOUND_A + "'>" + result[i].COMPOUND_A + "(" + result[i].TARGET + ")</option>");
 		    	}
 	    		
 	    		//cellline으로 포커스 이동.
@@ -587,20 +710,22 @@ function callSimulAjax(val,mode){
 	    	}else if(mode == "dream2015_drug2"){
 	    		
 	    		//해당 Select 박스의 option이 1이상이면 그 이하의 종속 selects를 reset 한다.
-	    		if($('#cl-simul-dream2015-cellline option').size() > 1){
+	    		if($('#cl-simul-dream2015-drug2 option').size() > 1){
 	    			$('#cl-simul-dream2015-drug2 option').remove();
 	    			$('#cl-simul-dream2015-drug2').append("<option value=''>--- Drug 2 ---</option>");
 	    		}
 	    		
 	    		//Ajax로 받아온 JSON data format 파일을 for문으로 돌려 option으로 넣는다.
 	    		for(i = 0; i < result.length; i++){
-			    	$('#cl-simul-dream2015-drug2').append("<option value='" + result[i].COMPOUND_B + "'>" + result[i].COMPOUND_B + "</option>");
+			    	$('#cl-simul-dream2015-drug2').append("<option value='" + result[i].COMPOUND_B + "'>" + result[i].COMPOUND_B + "(" + result[i].TARGET + ")</option>");
 		    	}
 	    		
 	    		//cellline으로 포커스 이동.
 	    		$("#cl-simul-dream2015-drug2").focus();
 	    		
 	    	}else if(mode == "dream2015_graph"){
+	    		// Fadein으로 showing
+	    		$("#cl-simul-dream2015-graph").fadeIn();
 	    		
 	    		// Load the Visualization API and the piechart package.
 				google.charts.load('upcoming', {packages:['corechart']});
@@ -608,8 +733,69 @@ function callSimulAjax(val,mode){
 				// Set a callback to run when the Google Visualization API is loaded. result를 파라미터로 보내주기 위해 아래와 같이 사용.
 				google.charts.setOnLoadCallback(function() { drawChart(result); });
 	    		
-				// Fadein으로 showing
-	    		$("#cl-simul-dream2015-graph").fadeIn();
+	    		var rowlength = result["rows"].length; //row수
+	    		var total = 0; //모두 더한 값 
+	    		var totalSubtractMean = 0; 
+	    		var mean; //평균 
+	    		var variance; //분산
+	    		var deviation; //표준편차
+	    		
+	    		//값 다 더하기
+	    		for(i = 0; i < rowlength; i++){
+	    			total += Number(result["rows"][i]["c"][1]["v"]);
+		    	}
+	    		
+	    		//평균 구하기
+	    		mean = Number(total/rowlength);
+	    		//소수점 두 자리
+	    		meanRound = Math.round(mean*100)/100;
+	    		
+	    		for(j = 0; j < rowlength; j++){
+	    			totalSubtractMean += Math.pow(Number(result["rows"][j]["c"][1]["v"]) - mean, 2);
+		    	}
+	    		
+	    		variance = totalSubtractMean/rowlength;
+	    		deviation = Math.sqrt(variance);
+	    		deviationRound = Math.round(deviation*100)/100;
+	    		
+	    		$("#meandeviation").html("Mean : "+meanRound+"<br />Standard Deviation : "+deviationRound);
+	    	}else if(mode == "attractor_target1"){
+	    		
+	    		//해당 Select 박스의 option이 1이상이면 그 이하의 종속 selects를 reset 한다.
+	    		if($('#cl-simul-attractor-target1 option').size() > 1){
+	    			$('#cl-simul-attractor-target1 option').remove();
+	    			$('#cl-simul-attractor-target1').append("<option value=''>--- target 1 ---</option>");
+	    			
+	    			$('#cl-simul-attractor-target2 option').remove();
+	    			$('#cl-simul-attractor-target2').append("<option value=''>--- target 2 ---</option>");
+	    		}
+	    		
+	    		//Ajax로 받아온 JSON data format 파일을 for문으로 돌려 option으로 넣는다. 
+	    		for(i = 0; i < result.length; i++){
+			    	$('#cl-simul-attractor-target1').append("<option value='" + result[i].target1 + "'>" + result[i].target1 + "</option>");
+		    	}
+	    		
+	    		//dream2015 div가 보이도록.
+				$("#cl-simul-attractor").fadeIn();
+				
+				//cellline으로 포커스 이동.
+				$("#cl-simul-attractor-target1").focus();
+	    		
+	    	}else if(mode == "attractor_target2"){
+	    		
+	    		//해당 Select 박스의 option이 1이상이면 그 이하의 종속 selects를 reset 한다.
+	    		if($('#cl-simul-attractor-target2 option').size() > 1){
+	    			$('#cl-simul-attractor-target2 option').remove();
+	    			$('#cl-simul-attractor-target2').append("<option value=''>--- target 2 ---</option>");
+	    		}
+	    		
+	    		//Ajax로 받아온 JSON data format 파일을 for문으로 돌려 option으로 넣는다. 
+	    		for(i = 0; i < result.length; i++){
+			    	$('#cl-simul-attractor-target2').append("<option value='" + result[i].target2 + "'>" + result[i].target2 + "</option>");
+		    	}
+	    		
+				//target2로 포커스 이동.
+				$("#cl-simul-attractor-target2").focus();
 	    		
 	    	}
 	    	

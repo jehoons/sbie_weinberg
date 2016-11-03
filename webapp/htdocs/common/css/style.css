@@ -1394,7 +1394,10 @@ Simulation
 #cl-simul-attractor {
   display:none;
 }
-#cl-simul-dream2015-graph{
+#cl-simul-dream2015-graph {
+  display:none;
+}
+#cl-simul-attractor-graph {
   display:none;
 }
 #cl-slmul-loading-veil {

@@ -2,7 +2,7 @@
 /* --------------------------------
 
 module/simulation/dream2015_drug1_work.php
-dream2015 module의 drug1 쿼리 get 방식의 ajax 페이지.
+dream2015 drug1을 가져오는 ajax 페이지
 
 *ajax 오류 점검 :
 1. form action에 정확한 주소가 입력 되었는가?
@@ -19,12 +19,16 @@ ini_set('max_execution_time', 300);
 
 $cellline = $_GET["cellline"];
 
-// choonlog_member, choonlog_book 쿼리
+
 $sql = "
-SELECT COMPOUND_A
+SELECT dr.src_targets, dm.COMPOUND_A
+FROM drugs AS dr INNER JOIN 
+(SELECT COMPOUND_A
 FROM dream2015
 WHERE CELL_LINE = '$cellline'
-GROUP BY COMPOUND_A
+GROUP BY COMPOUND_A) AS dm
+ON dr.src_id = dm.COMPOUND_A
+ORDER BY dm.COMPOUND_A ASC
 ";
 $result = $conn->query($sql);
 
@@ -32,7 +36,7 @@ $result = $conn->query($sql);
 $outp = "[";
 while($row = $result->fetch_assoc()) {
     if ($outp != "[") {$outp .= ",";}
-    $outp .= '{"COMPOUND_A":"'  . $row["COMPOUND_A"] . '"}'; 
+    $outp .= '{"COMPOUND_A":"'  . $row["COMPOUND_A"] . '", "TARGET":"'  . $row["src_targets"] . '"}'; 
 }
 $outp .="]";
 	

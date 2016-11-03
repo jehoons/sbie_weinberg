@@ -101,7 +101,7 @@ require $url;
 	<div id="cl-shadow-layer"></div>
 
 	<div id="cl-cart">
-		<h2>Account (<?php echo $signinrow[mb_name];?>)</h2>
+		<h2>Account <?php if($signinrow[mb_name]) echo "(".$signinrow[mb_name].")";?></h2>
 		<ul class="cl-cart-items">
 <?php 
 if(!$mbrowid){

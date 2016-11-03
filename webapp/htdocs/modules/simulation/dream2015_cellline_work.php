@@ -2,7 +2,7 @@
 /* --------------------------------
 
 module/simulation/dream2015_cellline_work.php
-dream2015 module의 cellline 쿼리 get 방식의 ajax 페이지.
+dream2015 cell line을 가져오는 ajax 페이지.
 
 *ajax 오류 점검 :
 1. form action에 정확한 주소가 입력 되었는가?
@@ -17,7 +17,7 @@ if(!defined('__CL__')) exit();
 // php 페이지 로딩 시간을 최대 5분(60*5)으로 연장. default는 30초.
 ini_set('max_execution_time', 300);
 
-// choonlog_member, choonlog_book 쿼리
+
 $sql = "
 SELECT CELL_LINE
 FROM dream2015

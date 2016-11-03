@@ -2,7 +2,7 @@
 /* --------------------------------
 
 module/simulation/dream2015_graph_work.php
-dream2015 module의 cellline 쿼리 get 방식의 ajax 페이지.
+dream2015 그래프를 그리는 ajax 페이지.
 
 *ajax 오류 점검 :
 1. form action에 정확한 주소가 입력 되었는가?
@@ -21,7 +21,7 @@ $cellline = $_GET["cellline"];
 $drug1 = $_GET["drug1"];
 $drug2 = $_GET["drug2"];
 
-// choonlog_member, choonlog_book 쿼리
+
 $sql = "
 SELECT *
 FROM dream2015

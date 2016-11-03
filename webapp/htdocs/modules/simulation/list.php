@@ -44,7 +44,27 @@ if(!defined('__CL__')) exit();
 				</div>
 				
 				<div id="cl-simul-attractor">
-					2. Attractor
+<form action='<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>?module=simulation&act=attractor_graph_work.php' method='POST' target='_self' accept-charset='UTF-8' enctype='application/x-www-form-urlencoded' autocomplete='on' id="cl-simul-attractor-form">				
+					Please select input nodes and targets<br />
+					<input id="cl-simul-attractor-node1" name="node1" type="checkbox" value="1"><label for='cl-simul-attractor-node1' style="display: inline;">S_Mutagen</label>
+					<input id="cl-simul-attractor-node2" name="node2" type="checkbox" value="1"><label for='cl-simul-attractor-node2' style="display: inline;">S_GFs</label>
+					<input id="cl-simul-attractor-node3" name="node3" type="checkbox" value="1"><label for='cl-simul-attractor-node3' style="display: inline;">S_Nutrients</label>
+					<input id="cl-simul-attractor-node4" name="node4" type="checkbox" value="1"><label for='cl-simul-attractor-node4' style="display: inline;">S_TNFalpha</label>
+					<input id="cl-simul-attractor-node5" name="node5" type="checkbox" value="1"><label for='cl-simul-attractor-node5' style="display: inline;">S_Hypoxia</label>
+					<br /><br />
+					<div>
+						<select id="cl-simul-attractor-target1" name="target1" class="cl-select" style="margin-bottom:1em; width:30%; float:left;">
+							<option value=''>--- Target 1 ---</option>						
+						</select>
+						
+						<input id="cl-simul-attractor-target1-on" name="target1_on" value="1" type="checkbox" style=""><label for='cl-simul-attractor-target1-on' style="display: inline;">On</label>
+						
+						<select id="cl-simul-attractor-target2" name="target2" class="cl-select" style="width:30%;">
+							<option value=''>--- Target 2 ---</option>
+						</select><input id="cl-simul-attractor-target2-on" name="target2_on" value="1" type="checkbox"><label for='cl-simul-attractor-target2-on' style="display: inline;">On</label>						
+					</div>
+					<input type="submit" class="cl-btn" value="Submit" />
+</form>						
 				</div>
 				
 			</div>
@@ -53,6 +73,10 @@ if(!defined('__CL__')) exit();
 		<div class='col-8' style="padding-left: 1.5%;">
 			<div id='cl-simul-dream2015-graph' class='cl-shadowbox-all'>
 				<div id="example1" style="width: 100%; height: 700px"></div>
+				<div id="meandeviation"></div>
+			</div>
+			
+			<div id='cl-simul-attractor-graph' class='cl-shadowbox-all'>
 			</div>
 		</div>
 	</div>

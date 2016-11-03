@@ -24,10 +24,8 @@ if(!defined('__CL__')) exit();
 		<input type='text' name="mb_organization" placeholder='Organization' class='cl-text'  data-formdata='text'>
 		<div class="g-recaptcha" data-sitekey="6LdKjwgUAAAAALzz3tAMjCpvuOHIl96IvH-ypAaI"></div>
 		
-		<input type="submit" class="cl-btn" value="Sign up" />
+		<input type="submit" class="cl-btn-inner" value="Sign up" />
 		<span class="cl-form-span">By signing up, you agree to the <a href="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>?module=member&act=terms.php">Terms of Service</a> and <a href="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>?module=member&act=privacy.php">Privacy Policy</a>.</span>
 </form>			 
 	</div>
-
-
 </div>
