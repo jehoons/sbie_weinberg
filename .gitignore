@@ -5,4 +5,5 @@ scratch/
 tmp/
 __pycache__/
 .cache/
+untracked_*
 files/session/sess_*
