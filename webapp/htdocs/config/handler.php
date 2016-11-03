@@ -47,6 +47,8 @@ if(substr($_GET["act"],-9,9) == "_work.php"){
 	<link rel="stylesheet" href="<?php echo _CL_PATH_HOST_;?>common/css/style.css"> <!-- Resource style -->
 	<link rel="stylesheet" type="text/css" href="<?php echo _CL_PATH_HOST_;?>common/css/component.css" /> <!-- Form style -->
 	<script src="<?php echo _CL_PATH_HOST_;?>common/js/modernizr.js"></script> <!-- Modernizr -->
+	<script src="<?php echo _CL_PATH_HOST_;?>common/js/node_modules/vis/examples/network/exampleUtil.js"></script> <!-- Modernizr -->
+	<script src="<?php echo _CL_PATH_HOST_;?>common/js/node_modules/vis/dist/vis.js"></script> <!-- Modernizr -->
 	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
 	<script src='https://www.google.com/recaptcha/api.js'></script>
 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>

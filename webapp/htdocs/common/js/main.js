@@ -580,7 +580,7 @@ function callSimulAjax(val){
 	    data:formData,
 	    success:function(result){
 	    	
-	    	$('#cl-simul-attractor-graph').html("node1" + result['node1'] + "<br />node2" + result['node2'] + "<br />node3" + result['node3'] + "<br />node4" + result['node4'] + "<br />node5" + result['node5'] + "<br />target1" + result['target1'] + "<br />target1_on" + result['target1_on'] + "<br />target2" + result['target2'] + "<br />target2_on" + result['target2_on']);
+	    	$('#cl-simul-attractor-graph').html("node1" + result['node1'] + "<br />node2" + result['node2'] + "<br />node3" + result['node3'] + "<br />node4" + result['node4'] + "<br />node5" + result['node5'] + "<br />target1" + result['target1'] + "<br />target1_on" + result['target1_on'] + "<br />target2" + result['target2'] + "<br />target2_on" + result['target2_on'] + "<br />input_nodes" + result['input_nodes'] + "<br />attractors" + result['attractors'] + "<br />state_key" + result['state_key']);
 	    	
 	    	$('#cl-simul-attractor-graph').fadeIn();
 	
