@@ -18,7 +18,7 @@ import numpy as np
 import pandas as pd
 import pytest
 import sys
-dir_sfa = abspath(join(dirname(__file__), 'sfa'))
+dir_sfa = abspath(join(dirname(__file__), 'sfa/sfa'))
 sys.path.append(dir_sfa)
 import sfa
 from sbie_weinberg.module.sfa.sfa_fumia import simulator as sfa_simulator

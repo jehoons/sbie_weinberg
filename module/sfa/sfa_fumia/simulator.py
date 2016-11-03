@@ -4,7 +4,7 @@ Created on Thu Aug 25 15:01:33 2016
 
 @author: dwlee
 """
-
+from ipdb import set_trace
 import os
 import re
 import json
@@ -13,11 +13,16 @@ import argparse
 import numpy as np
 import pandas as pd
 
-if __name__ == '__main__':
-    import sys
-    sys.path.append('sfa')
+#if __name__ == '__main__':
+#    import sys
+#    sys.path.append('sfa')
+
+import sbie_weinberg 
 
 import sfa
+
+set_trace()
+
 
 def parse_args():    
     parser = argparse.ArgumentParser()    
