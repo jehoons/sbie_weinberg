@@ -62,7 +62,7 @@ if(substr($_GET["act"],-9,9) == "_work.php"){
 
 <body>
 	<header>
-		<div id="logo"><a href="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>?module=index&act=list.php" style="color:#FFFFFF;">SBIE</a><!-- <img src="<?php echo _CL_PATH_HOST_;?>common/img/cl-logo.svg" alt="Homepage"> --></div>
+		<div id="logo"><a href="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>?module=index&act=list.php" style="color:#FFFFFF;">SBiE</a><!-- <img src="<?php echo _CL_PATH_HOST_;?>common/img/cl-logo.svg" alt="Homepage"> --></div>
 
 		<div id="cl-hamburger-menu"><a class="cl-img-replace" href="#0">Menu</a></div>
 <?php 
