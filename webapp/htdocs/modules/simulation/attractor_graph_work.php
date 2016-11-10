@@ -24,9 +24,9 @@ $node4 = $_POST["node4"]; // On is 1, Off is null
 $node5 = $_POST["node5"]; // On is 1, Off is null
 
 $target1 = $_POST["target1"];
-$target1_on = $_POST["target1_on"]; // On is 1, Off is null
+$target1_on = $_POST["target1_on"]; // Free is Free, On is 1, Off is 0
 $target2 = $_POST["target2"];
-$target2_on = $_POST["target2_on"]; // On is 1, Off is null
+$target2_on = $_POST["target2_on"]; // Free is Free, On is 1, Off is 0
 
 /*
 $sql = "
@@ -35,7 +35,7 @@ FROM attractor
 WHERE 
 select attractors, state_key from attractor where input_nodes='00000' and column_get(target1, 'target1' as char)='S_Gli' and column_get(target1, 'target1_state' as char)='0' and column_get(target2,'target2' as char)='' and column_get(target2, 'target2_state' as char)='0';
 ";
-$result = $conn->query($s ql);
+$result = $conn->query($sql);
 */
 
 echo '{"node1":"'.$node1.'", "node2":"'.$node2.'", "node3":"'.$node3.'" , "node4":"'.$node4.'" , "node5":"'.$node5.'" , "target1":"'.$target1.'" , "target1_on":"'.$target1_on.'" , "target2":"'.$target2.'" , "target2_on":"'.$target2_on.'" }';

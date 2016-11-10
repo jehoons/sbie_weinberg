@@ -53,15 +53,20 @@ if(!defined('__CL__')) exit();
 					<input id="cl-simul-attractor-node5" name="node5" type="checkbox" value="1"><label for='cl-simul-attractor-node5' style="display: inline;">S_Hypoxia</label>
 					<br /><br />
 					<div>
+						<div style="height:60px;">
 						<select id="cl-simul-attractor-target1" name="target1" class="cl-select" style="margin-bottom:1em; width:30%; float:left;">
 							<option value=''>--- Target 1 ---</option>						
 						</select>
 						
-						<input id="cl-simul-attractor-target1-on" name="target1_on" value="1" type="checkbox" style=""><label for='cl-simul-attractor-target1-on' style="display: inline;">On</label>
+						<input id="cl-simul-attractor-target1-on1" name="target1_on" value="free" type="radio" style=""><label for='cl-simul-attractor-target1-on1' style="display: inline;">Free</label><input id="cl-simul-attractor-target1-on2" name="target1_on" value="1" type="radio" style=""><label for='cl-simul-attractor-target1-on2' style="display: inline;">On</label><input id="cl-simul-attractor-target1-on3" name="target1_on" value="0" type="radio" style=""><label for='cl-simul-attractor-target1-on3' style="display: inline;">Off</label>
+						</div>
 						
+						
+						<div style="height:70px;">
 						<select id="cl-simul-attractor-target2" name="target2" class="cl-select" style="width:30%;">
 							<option value=''>--- Target 2 ---</option>
-						</select><input id="cl-simul-attractor-target2-on" name="target2_on" value="1" type="checkbox"><label for='cl-simul-attractor-target2-on' style="display: inline;">On</label>						
+						</select><input id="cl-simul-attractor-target2-on1" name="target2_on" value="free" type="radio" style=""><label for='cl-simul-attractor-target2-on1' style="display: inline;">Free</label><input id="cl-simul-attractor-target2-on2" name="target2_on" value="1" type="radio" style=""><label for='cl-simul-attractor-target2-on2' style="display: inline;">On</label><input id="cl-simul-attractor-target2-on3" name="target2_on" value="0" type="radio" style=""><label for='cl-simul-attractor-target2-on3' style="display: inline;">Off</label>
+						</div>	
 					</div>
 					<input type="submit" class="cl-btn" value="Submit" />
 </form>						

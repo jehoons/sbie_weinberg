@@ -504,48 +504,6 @@ function callAjax(val){
 	});
 }
 
-//POST 방식의 Ajax 호출
-function callAjax(val){
-	
-	// seriallize() : ie8이상. form 안에 있는 value를 정리해서 반환.
-	var formData = val.serialize();
-	var formAction = val.attr("action");
-	
-	//ajax 시작.
-	$.ajaxSetup({
-		cache : false
-	  });
-	
-	$(document).ajaxError(function(){
-	    alert("An error occured!");
-	});
-	
-	$(document).ajaxStart(function(){
-		$("body").append("<img src='" + $("#clpathhost").val() + "common/img/cl_wait.gif' id='cl-wait' />");
-	});
-	$(document).ajaxComplete(function(){
-	    $('#cl-wait').remove();
-	});
-	
-	$.ajax({
-	    url:encodeURI(formAction),
-	    dataType:'json',
-	    type:'POST',
-	    data:formData,
-	    success:function(result){
-	    	
-	    	sendAjaxMessage(result.afterMessage.replace(/\\/gi, ""), result.afterWork, result.afterAddress);
-	
-	    },
-	    error:function (xhr, ajaxOptions, thrownError){
-	        alert(xhr.status);
-	        alert(xhr.statusText);
-	        alert(xhr.responseText);
-	    }
-	    
-	});
-}
-
 //POST 방식의 Simulation Ajax 호출
 function callSimulAjax(val){
 	
@@ -701,7 +659,7 @@ function callGetSimulAjax(val,mode){
 	    		
 	    		//Ajax로 받아온 JSON data format 파일을 for문으로 돌려 option으로 넣는다.
 	    		for(i = 0; i < result.length; i++){
-			    	$('#cl-simul-dream2015-drug1').append("<option value='" + result[i].COMPOUND_A + "'>" + result[i].COMPOUND_A + "(" + result[i].TARGET + ")</option>");
+			    	$('#cl-simul-dream2015-drug1').append("<option value='" + result[i].COMPOUND_A + "'>" + result[i].COMPOUND_A + " (" + result[i].TARGET + ")</option>");
 		    	}
 	    		
 	    		//cellline으로 포커스 이동.
@@ -717,7 +675,7 @@ function callGetSimulAjax(val,mode){
 	    		
 	    		//Ajax로 받아온 JSON data format 파일을 for문으로 돌려 option으로 넣는다.
 	    		for(i = 0; i < result.length; i++){
-			    	$('#cl-simul-dream2015-drug2').append("<option value='" + result[i].COMPOUND_B + "'>" + result[i].COMPOUND_B + "(" + result[i].TARGET + ")</option>");
+			    	$('#cl-simul-dream2015-drug2').append("<option value='" + result[i].COMPOUND_B + "'>" + result[i].COMPOUND_B + " (" + result[i].TARGET + ")</option>");
 		    	}
 	    		
 	    		//cellline으로 포커스 이동.
