@@ -82,6 +82,17 @@ if(!defined('__CL__')) exit();
 			</div>
 			
 			<div id='cl-simul-attractor-graph' class='cl-shadowbox-all'>
+                <div id="wrapper">
+                    <div id="mynetwork"></div>
+                    <div id="loadingBar">
+                         <div class="outerBorder">
+                             <div id="text">0%</div>
+                             <div id="border">
+                                <div id="bar"></div>
+                            </div>
+                         </div>
+                    </div>
+                </div>
 			</div>
 		</div>
 	</div>
