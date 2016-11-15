@@ -541,7 +541,14 @@ function callSimulAjax(val){
 	    	//$('#cl-simul-attractor-graph').html("node1" + result['node1'] + "<br />node2" + result['node2'] + "<br />node3" + result['node3'] + "<br />node4" + result['node4'] + "<br />node5" + result['node5'] + "<br />target1" + result['target1'] + "<br />target1_on" + result['target1_on'] + "<br />target2" + result['target2'] + "<br />target2_on" + result['target2_on'] + "<br />input_nodes" + result['input_nodes'] + "<br />attractors" + result['attractors'] + "<br />state_key" + result['state_key']);
 	    	
 	    	$('#cl-simul-attractor-graph').fadeIn();
-            drawNetwork(result)
+            drawNetwork(result);
+
+            google.charts.load('upcoming', {packages:['corechart']});
+
+            // Set a callback to run when the Google Visualization API is loaded. result를 파라미터로 보내주기 위
+            google.charts.setOnLoadCallback(function() { attControlDrawChart(result); });
+            google.charts.setOnLoadCallback(function() { attExpDrawChart(result); });
+
 	
 	    },
 	    error:function (xhr, ajaxOptions, thrownError){
@@ -784,8 +791,45 @@ function drawChart(result) {
 	  chart.draw(data, options);
 	}
 
+function attControlDrawChart(result) {
+    var data = new google.visualization.DataTable(result['att_control']);
+
+      var options = {
+        title: 'Attractors - control',
+        legend: { position: 'none' },
+        colors: ['#1A70DB'],
+        vAxis: {
+            minValue: 0,
+            maxValue: 1
+        }
+      };
+
+      var chart = new google.visualization.ColumnChart(document.getElementById('atthist_control'));
+
+      chart.draw(data, options);
+    }
+
+function attExpDrawChart(result) {
+    var data = new google.visualization.DataTable(result['att_exp']);
+
+      var options = {
+        title: 'Attractors - simulation',
+        legend: { position: 'none' },
+        colors: ['#1A70DB'],
+        vAxis: {
+            minValue: 0,
+            maxValue: 1
+        }
+      };
+
+      var chart = new google.visualization.ColumnChart(document.getElementById('atthist_exp'));
+
+      chart.draw(data, options);
+    }
 
 //vis
+var att;
+var att_con;
 function drawNetwork(result) {
     // load the JSON file containing the Gephi network.
     //var gephiJSON = loadJSON("./fumia.json"); // code in importing_from_gephi.
@@ -897,4 +941,6 @@ function drawNetwork(result) {
         selnodes = params['nodes'];
         //console.log(params['edges']);
     });
+    this.att = result['att_exp'];
+    this.att_con = result['att_control'];
 }
