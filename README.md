@@ -9,6 +9,9 @@
 * Provide web-based UI interface
 
 ## Update history
+### 2016. 11. 17
+* Fix node names of fumia (regulation) network
+* Add draft plot for attractor analysis 
 
 ### 2016. 11. 3
 * Complete initial simulation for signal flow analysis [Result](http://gofile.me/3gpVt/3G1y2N9Mv)
