@@ -1,9 +1,8 @@
-*.pyc
-*.json
-untracked/
 scratch/
 tmp/
 __pycache__/
 .cache/
+untracked_*/
 untracked_*
 files/session/sess_*
+*.pyc
