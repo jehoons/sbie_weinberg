@@ -14,7 +14,7 @@ def test_make_range_demo():
     data.make_range_demo(outfile='range.json')
     
     data.make_inputdata_combination(infile='range.json', \
-        combi_numbers=[1,2], outputheader='demoinput_') 
+        combi_numbers=[1,2], outputheader='demoinput_sfa_') 
 
     assert True 
 

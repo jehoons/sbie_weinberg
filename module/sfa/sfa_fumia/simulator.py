@@ -183,6 +183,7 @@ def run_sfa(ALG, CELL_NAME, DRUGS, INPUTS, outputfilename):
     #print("Drug data loaded: ", drug_data)
     #print("Cellline data loaded: ", cellline_data)
 
+    # set_trace()
 
     """
     Create and apply algorithm to the data
@@ -195,13 +196,14 @@ def run_sfa(ALG, CELL_NAME, DRUGS, INPUTS, outputfilename):
     alg.data = data
     alg.initialize(init_data=False)
 
-
     # Prepare basal activity vector
     b = create_basal_activity(data.A.shape[0],  # Number of nodes
                               data.n2i,
                               cellline_data)
 
+    ''' 여기서는 GF등과 같은 입력조건을 반영한다 '''
     apply_inputs(input_data, data.n2i, b)
+    # set_trace()
 
     # Perform the calculation of signal propagation algorithm
     x = alg.compute(b)  # x is a vector of stationary state
@@ -263,8 +265,6 @@ def run(inputjson, outputjson):
     drugs = [name.upper() for name in drugs]
 
     celltype = inputdata['input']['celltype']
-
-    # pdb.set_trace()
 
     default_alg = 'SP'
     default_ic = ['GFs']

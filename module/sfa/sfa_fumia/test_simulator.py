@@ -39,14 +39,12 @@ def test_single_inputjson():
 
     print ('output:', outputjson)
 
-    assert True
-
 
 def test_many_inputjson():
-
-    files = glob.glob(join(dirname(demo.__file__), 'demoinput*.json'))
-
+    files = glob.glob(join(dirname(demo.__file__), 'demoinput_sfa_*.json'))
+    print('files: ', files)
     for inputjson in files:
+        print ('input:', inputjson)
         filename = basename(inputjson)
         outputjson = join(abspath(dirname(__file__)), 'untracked',
             'out_' + filename)
@@ -54,4 +52,4 @@ def test_many_inputjson():
 
         print ('output:', outputjson)
 
-    assert True
+    # assert True
