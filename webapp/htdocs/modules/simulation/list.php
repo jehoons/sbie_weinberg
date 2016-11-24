@@ -50,7 +50,7 @@ if(!defined('__CL__')) exit();
 					<br /><br />
 					<div>
 						<div style="height:60px;">
-						<select id="cl-simul-sfa-target1" name="target1" class="cl-select" style="margin-bottom:1em; width:30%; float:left;">
+						<select id="cl-simul-sfa-target1" name="target1" class="cl-select" style="margin-bottom:1em; width:50%; float:left;">
 							<option value=''>--- Target 1 ---</option>						
 						</select>
 						
@@ -59,7 +59,7 @@ if(!defined('__CL__')) exit();
 						
 						
 						<div style="height:70px;">
-						<select id="cl-simul-sfa-target2" name="target2" class="cl-select" style="width:30%;">
+						<select id="cl-simul-sfa-target2" name="target2" class="cl-select" style="width:50%;">
 							<option value=''>--- Target 2 ---</option>
 						</select><input id="cl-simul-sfa-target2-on2" name="target2_on" value="1" type="radio" style=""><label for='cl-simul-sfa-target2-on2' style="display: inline;">On</label><input id="cl-simul-sfa-target2-on3" name="target2_on" value="0" type="radio" style=""><label for='cl-simul-sfa-target2-on3' style="display: inline;">Off</label>
 						</div>	
@@ -79,7 +79,7 @@ if(!defined('__CL__')) exit();
 					<br /><br />
 					<div>
 						<div style="height:60px;">
-						<select id="cl-simul-attractor-target1" name="target1" class="cl-select" style="margin-bottom:1em; width:30%; float:left;">
+						<select id="cl-simul-attractor-target1" name="target1" class="cl-select" style="margin-bottom:1em; width:50%; float:left;">
 							<option value=''>--- Target 1 ---</option>						
 						</select>
 						
@@ -88,7 +88,7 @@ if(!defined('__CL__')) exit();
 						
 						
 						<div style="height:70px;">
-						<select id="cl-simul-attractor-target2" name="target2" class="cl-select" style="width:30%;">
+						<select id="cl-simul-attractor-target2" name="target2" class="cl-select" style="width:50%;">
 							<option value=''>--- Target 2 ---</option>
 						</select><input id="cl-simul-attractor-target2-on2" name="target2_on" value="1" type="radio" style=""><label for='cl-simul-attractor-target2-on2' style="display: inline;">On</label><input id="cl-simul-attractor-target2-on3" name="target2_on" value="0" type="radio" style=""><label for='cl-simul-attractor-target2-on3' style="display: inline;">Off</label>
 						</div>	
