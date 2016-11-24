@@ -1,5 +1,5 @@
-### Table S1. Fumia network: Attractor analysis
+### Table S1. Attractor analysis: Fumia model
 
-### Table S2. Fumia network: Signal flow analysis
+### Table S2. Signal flow analysis: Fumia model
 
-### Table S3. Dream challenge 2015 model prediction
+### Table S3. Machine learning prediction: Dream challenge 2015 model

@@ -1,4 +1,4 @@
-### Table S2. Fumia network: Signal flow analysis
+### Table S2. Signal flow analysis: Fumia model
 
 #### Table S2A. Fumia SIF network for Signal Flow Analysis (SFA)
 [download](http://gofile.me/3gpVt/5xXgg2JKH)

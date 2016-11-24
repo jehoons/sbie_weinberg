@@ -1,4 +1,4 @@
-### Table S1. Fumia network: Attractor analysis
+### Table S1. Attractor analysis: Fumia model
 사용된 모델은 어트렉터 시뮬레이션 데모테스트를 위한 (Fumia, 2013)모델의 마이너 업데이트 모델이다.
 
 #### Table S1A. Logical network model
