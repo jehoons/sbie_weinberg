@@ -93,7 +93,8 @@ jQuery(document).ready(function($){
 			
 		}else if($("#cl-simul-module").val() == "sfa"){
 			
-			$("#cl-simul-sfa").show();
+			//Get 방식으로 전송하기 위해 주소를 파라미터로.
+			callGetSimulAjax($("#clpathhost").val() + "index.php?module=simulation&act=sfa_target1_work.php","sfa_target1");
 			
 			$("#cl-simul-dream2015").hide();
 			$("#cl-simul-dream2015-graph").hide();
@@ -108,6 +109,7 @@ jQuery(document).ready(function($){
 			$("#cl-simul-dream2015").hide();
 			$("#cl-simul-dream2015-graph").hide();
 			$("#cl-simul-sfa").hide();
+			$("#cl-simul-sfa-graph").hide();
 			
 			//체크박스 초기화
 			$("#cl-simul-attractor-node1").attr('checked', false); 
@@ -157,6 +159,16 @@ jQuery(document).ready(function($){
 		
 		//Get 방식으로 전송하기 위해 주소를 파라미터로.
 		callGetSimulAjax($("#clpathhost").val() + "index.php?module=simulation&act=attractor_target2_work.php&target1=" + target1,"attractor_target2");
+	})
+	
+	//Simulation 에서 sfa target1 change
+	$('#cl-simul-sfa-target1').change(function(){
+		
+		
+		var target1 = $('#cl-simul-sfa-target1').val();
+		
+		//Get 방식으로 전송하기 위해 주소를 파라미터로.
+		callGetSimulAjax($("#clpathhost").val() + "index.php?module=simulation&act=sfa_target2_work.php&target1=" + target1,"sfa_target2");
 	})
 	
 	
@@ -628,6 +640,7 @@ function callGetSimulAjax(val,mode){
 	    type:'GET',
 	    success:function(result){
 	    	
+	    	//Dream2015
 	    	if(mode == "dream2015_cellline"){
 	    		
 	    		//해당 Select 박스의 option이 1이상이면 그 이하의 종속 selects를 reset 한다.
@@ -725,6 +738,8 @@ function callGetSimulAjax(val,mode){
 	    		deviationRound = Math.round(deviation*100)/100;
 	    		
 	    		$("#meandeviation").html("Mean : "+meanRound+"<br />Standard Deviation : "+deviationRound);
+	    		
+	    	//Attractor
 	    	}else if(mode == "attractor_target1"){
 	    		
 	    		//해당 Select 박스의 option이 1이상이면 그 이하의 종속 selects를 reset 한다.
@@ -735,6 +750,8 @@ function callGetSimulAjax(val,mode){
 	    			$('#cl-simul-attractor-target2 option').remove();
 	    			$('#cl-simul-attractor-target2').append("<option value=''>--- target 2 ---</option>");
 	    		}
+	    		
+	    		$('#cl-simul-attractor-target1').append("<option value='free'>선택안함</option>");
 	    		
 	    		//Ajax로 받아온 JSON data format 파일을 for문으로 돌려 option으로 넣는다. 
 	    		for(i = 0; i < result.length; i++){
@@ -755,6 +772,8 @@ function callGetSimulAjax(val,mode){
 	    			$('#cl-simul-attractor-target2').append("<option value=''>--- target 2 ---</option>");
 	    		}
 	    		
+	    		$('#cl-simul-attractor-target2').append("<option value='free'>선택안함</option>");
+	    		
 	    		//Ajax로 받아온 JSON data format 파일을 for문으로 돌려 option으로 넣는다. 
 	    		for(i = 0; i < result.length; i++){
 			    	$('#cl-simul-attractor-target2').append("<option value='" + result[i].target2 + "'>" + result[i].target2 + "</option>");
@@ -762,6 +781,49 @@ function callGetSimulAjax(val,mode){
 	    		
 				//target2로 포커스 이동.
 				$("#cl-simul-attractor-target2").focus();
+	    		
+			//SFA
+	    	}else if(mode == "sfa_target1"){
+	    		
+	    		//해당 Select 박스의 option이 1이상이면 그 이하의 종속 selects를 reset 한다.
+	    		if($('#cl-simul-sfa-target1 option').size() > 1){
+	    			$('#cl-simul-sfa-target1 option').remove();
+	    			$('#cl-simul-sfa-target1').append("<option value=''>--- target 1 ---</option>");
+	    			
+	    			$('#cl-simul-sfa-target2 option').remove();
+	    			$('#cl-simul-sfa-target2').append("<option value=''>--- target 2 ---</option>");
+	    		}
+	    		
+	    		$('#cl-simul-sfa-target1').append("<option value='free'>선택안함</option>");
+	    		
+	    		//Ajax로 받아온 JSON data format 파일을 for문으로 돌려 option으로 넣는다. 
+	    		for(i = 0; i < result.length; i++){
+			    	$('#cl-simul-sfa-target1').append("<option value='" + result[i].target1 + "'>" + result[i].target1 + "</option>");
+		    	}
+	    		
+	    		//dream2015 div가 보이도록.
+				$("#cl-simul-sfa").fadeIn();
+				
+				//cellline으로 포커스 이동.
+				$("#cl-simul-sfa-target1").focus();
+	    		
+	    	}else if(mode == "sfa_target2"){
+	    		
+	    		//해당 Select 박스의 option이 1이상이면 그 이하의 종속 selects를 reset 한다.
+	    		if($('#cl-simul-sfa-target2 option').size() > 1){
+	    			$('#cl-simul-sfa-target2 option').remove();
+	    			$('#cl-simul-sfa-target2').append("<option value=''>--- target 2 ---</option>");
+	    		}
+	    		
+	    		$('#cl-simul-sfa-target2').append("<option value='free'>선택안함</option>");
+	    		
+	    		//Ajax로 받아온 JSON data format 파일을 for문으로 돌려 option으로 넣는다. 
+	    		for(i = 0; i < result.length; i++){
+			    	$('#cl-simul-sfa-target2').append("<option value='" + result[i].target2 + "'>" + result[i].target2 + "</option>");
+		    	}
+	    		
+				//target2로 포커스 이동.
+				$("#cl-simul-sfa-target2").focus();
 	    		
 	    	}
 	    	

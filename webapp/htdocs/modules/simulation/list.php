@@ -40,7 +40,32 @@ if(!defined('__CL__')) exit();
 				</div>
 				
 				<div id="cl-simul-sfa">
-					2. SFA
+<form action='<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>?module=simulation&act=sfa_graph_work.php' method='POST' target='_self' accept-charset='UTF-8' enctype='application/x-www-form-urlencoded' autocomplete='on' id="cl-simul-sfa-form">				
+					Please select input nodes and targets<br />
+					<input id="cl-simul-sfa-node1" name="node1" type="checkbox" value="1"><label for='cl-simul-sfa-node1' style="display: inline;">S_Mutagen</label>
+					<input id="cl-simul-sfa-node2" name="node2" type="checkbox" value="1"><label for='cl-simul-sfa-node2' style="display: inline;">S_GFs</label>
+					<input id="cl-simul-sfa-node3" name="node3" type="checkbox" value="1"><label for='cl-simul-sfa-node3' style="display: inline;">S_Nutrients</label>
+					<input id="cl-simul-sfa-node4" name="node4" type="checkbox" value="1"><label for='cl-simul-sfa-node4' style="display: inline;">S_TNFalpha</label>
+					<input id="cl-simul-sfa-node5" name="node5" type="checkbox" value="1"><label for='cl-simul-sfa-node5' style="display: inline;">S_Hypoxia</label>
+					<br /><br />
+					<div>
+						<div style="height:60px;">
+						<select id="cl-simul-sfa-target1" name="target1" class="cl-select" style="margin-bottom:1em; width:30%; float:left;">
+							<option value=''>--- Target 1 ---</option>						
+						</select>
+						
+						<input id="cl-simul-sfa-target1-on2" name="target1_on" value="1" type="radio" style=""><label for='cl-simul-sfa-target1-on2' style="display: inline;">On</label><input id="cl-simul-sfa-target1-on3" name="target1_on" value="0" type="radio" style=""><label for='cl-simul-sfa-target1-on3' style="display: inline;">Off</label>
+						</div>
+						
+						
+						<div style="height:70px;">
+						<select id="cl-simul-sfa-target2" name="target2" class="cl-select" style="width:30%;">
+							<option value=''>--- Target 2 ---</option>
+						</select><input id="cl-simul-sfa-target2-on2" name="target2_on" value="1" type="radio" style=""><label for='cl-simul-sfa-target2-on2' style="display: inline;">On</label><input id="cl-simul-sfa-target2-on3" name="target2_on" value="0" type="radio" style=""><label for='cl-simul-sfa-target2-on3' style="display: inline;">Off</label>
+						</div>	
+					</div>
+					<input type="submit" class="cl-btn" value="Submit" />
+</form>
 				</div>
 				
 				<div id="cl-simul-attractor">
@@ -58,14 +83,14 @@ if(!defined('__CL__')) exit();
 							<option value=''>--- Target 1 ---</option>						
 						</select>
 						
-						<input id="cl-simul-attractor-target1-on1" name="target1_on" value="free" type="radio" style=""><label for='cl-simul-attractor-target1-on1' style="display: inline;">Free</label><input id="cl-simul-attractor-target1-on2" name="target1_on" value="1" type="radio" style=""><label for='cl-simul-attractor-target1-on2' style="display: inline;">On</label><input id="cl-simul-attractor-target1-on3" name="target1_on" value="0" type="radio" style=""><label for='cl-simul-attractor-target1-on3' style="display: inline;">Off</label>
+						<input id="cl-simul-attractor-target1-on2" name="target1_on" value="1" type="radio" style=""><label for='cl-simul-attractor-target1-on2' style="display: inline;">On</label><input id="cl-simul-attractor-target1-on3" name="target1_on" value="0" type="radio" style=""><label for='cl-simul-attractor-target1-on3' style="display: inline;">Off</label>
 						</div>
 						
 						
 						<div style="height:70px;">
 						<select id="cl-simul-attractor-target2" name="target2" class="cl-select" style="width:30%;">
 							<option value=''>--- Target 2 ---</option>
-						</select><input id="cl-simul-attractor-target2-on1" name="target2_on" value="free" type="radio" style=""><label for='cl-simul-attractor-target2-on1' style="display: inline;">Free</label><input id="cl-simul-attractor-target2-on2" name="target2_on" value="1" type="radio" style=""><label for='cl-simul-attractor-target2-on2' style="display: inline;">On</label><input id="cl-simul-attractor-target2-on3" name="target2_on" value="0" type="radio" style=""><label for='cl-simul-attractor-target2-on3' style="display: inline;">Off</label>
+						</select><input id="cl-simul-attractor-target2-on2" name="target2_on" value="1" type="radio" style=""><label for='cl-simul-attractor-target2-on2' style="display: inline;">On</label><input id="cl-simul-attractor-target2-on3" name="target2_on" value="0" type="radio" style=""><label for='cl-simul-attractor-target2-on3' style="display: inline;">Off</label>
 						</div>	
 					</div>
 					<input type="submit" class="cl-btn" value="Submit" />
