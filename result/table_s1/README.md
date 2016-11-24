@@ -5,6 +5,8 @@
 
 #### Table S1B. Regulation network model
 
-#### Table S1C. [Input combinations](http://gofile.me/3gpVt/mxCUuWNwI)
+#### Table S1C. Input combinations
+[download](http://gofile.me/3gpVt/mxCUuWNwI)
 
-#### Table S1D. [Scanning results](http://gofile.me/3gpVt/d7CONnt4k)
+#### Table S1D. Scanning results
+[download](http://gofile.me/3gpVt/d7CONnt4k)
