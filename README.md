@@ -9,7 +9,7 @@
 ## Update history
 ### 2016. 12. 1
 * Front image is prepared(Figure S1.)
-* Attractor clustering result is prepared in Table S1E. [download](http://gofile.me/3gpVt/1uv2Z01Ki)
+* Attractor clustering result is prepared in Table S1E([download](http://gofile.me/3gpVt/1uv2Z01Ki)).
 
 ### 2016. 11. 17
 * Fix node names of fumia (regulation) network
