@@ -10,3 +10,8 @@
 
 #### D. Scanning results
 [download](http://gofile.me/3gpVt/d7CONnt4k)
+
+#### E. Clustering results 
+[k-modes algorithm](https://github.com/nicodv/kmodes) is applied to cluster the attractors. 
+
+[download](http://gofile.me/3gpVt/Zjn9r4LBq)
