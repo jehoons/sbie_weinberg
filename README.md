@@ -1,20 +1,22 @@
 # Weinberg
-
 * Weinberg is a simulation platform for discovering anti-cancer drugs.
 
-## Goal  
-
+## Goal
 * Simulate anti-cancer drug's efficacy
 * Support single or multiple drug treatment
 * Provide web-based UI interface
 
 ## Update history
+### 2016. 12. 1
+* Front image is prepared(Figure S1.)
+* Attractors clustering [download](http://gofile.me/3gpVt/1uv2Z01Ki)
+
 ### 2016. 11. 17
 * Fix node names of fumia (regulation) network
 * Add draft plot for attractor analysis 
 
 ### 2016. 11. 3
-* Complete initial simulation for signal flow analysis [Result](http://gofile.me/3gpVt/3G1y2N9Mv)
+* Complete initial simulation for signal flow analysis [download](http://gofile.me/3gpVt/3G1y2N9Mv)
 * Complete UI draft for attractor
 * Complete database for attractor 
 
