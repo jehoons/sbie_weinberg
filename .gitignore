@@ -1,7 +1,8 @@
-scratch/
 tmp/
+scratch/
 __pycache__/
 .cache/
-untracked*/
-untracked*
 *.pyc
+untracked*
+dataset
+output
