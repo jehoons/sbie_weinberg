@@ -4,4 +4,5 @@
 * (C) [Input combinations](http://gofile.me/3gpVt/22dLExupy)
 * (D) [Scanning results](http://gofile.me/3gpVt/S7pEKuTSO)
 * (E) [k-modes 클러스터링을 이용한 attractor clustering](http://gofile.me/3gpVt/xWxbItXeK)
-* (F) [Scanning results with class ids] (in progress...)
+* (F) [Scanning results with class ids] (http://gofile.me/3gpVt/34a6JhCel)
+ 
