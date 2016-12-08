@@ -125,14 +125,16 @@ def create_basal_activity(N, n2i, cellline_data):
 # end of def
 
 
-def apply_inputs(input_data, n2i, b):
+def set_basal_activity(n2v, n2i, b):
     """
-    b is modified in this function.
+    n2v: name to values
+    n2i: name to index
+    b: basal activity, which is modified in this function.
     """
-    if input_data is None:
+    if n2v is None:
         return
 
-    for name, val in input_data.items():
+    for name, val in n2v.items():
         idx = n2i[name]
         b[idx] = val
     # end of for
@@ -202,7 +204,8 @@ def run_sfa(ALG, CELL_NAME, DRUGS, INPUTS, outputfilename):
                               cellline_data)
 
     ''' 여기서는 GF등과 같은 입력조건을 반영한다 '''
-    apply_inputs(input_data, data.n2i, b)
+    set_basal_activity(input_data, data.n2i, b)
+    set_basal_activity(drug_data, data.n2i, b)
     # set_trace()
 
     # Perform the calculation of signal propagation algorithm
