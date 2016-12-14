@@ -54,7 +54,6 @@ if($_POST['signinemail'] && $_POST['signinpwd']){
 				SET
 				
 				mb_visitnum = mb_visitnum + 1
-				,mb_score = mb_score + 1
 				
 				WHERE mb_email = '$signinemail' AND mb_pwd = password('$signinpwd')";
 				$conn->query($sql);
