@@ -40,16 +40,16 @@ def test_single_inputjson():
     print ('output:', outputjson)
 
 
-def test_many_inputjson():
-    files = glob.glob(join(dirname(demo.__file__), 'demoinput_sfa_*.json'))
-    print('files: ', files)
-    for inputjson in files:
-        print ('input:', inputjson)
-        filename = basename(inputjson)
-        outputjson = join(abspath(dirname(__file__)), 'untracked',
-            'out_' + filename)
-        sfa_simulator.run(inputjson, outputjson)
-
-        print ('output:', outputjson)
+# def test_many_inputjson():
+#     files = glob.glob(join(dirname(demo.__file__), 'demoinput_sfa_*.json'))
+#     print('files: ', files)
+#     for inputjson in files:
+#         print ('input:', inputjson)
+#         filename = basename(inputjson)
+#         outputjson = join(abspath(dirname(__file__)), 'untracked',
+#             'out_' + filename)
+#         sfa_simulator.run(inputjson, outputjson)
+#
+#         print ('output:', outputjson)
 
     # assert True
