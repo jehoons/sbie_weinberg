@@ -909,6 +909,7 @@ function attExpDrawChart(result) {
 //vis
 var att;
 var att_con;
+var network;
 function drawNetwork(result) {
     // load the JSON file containing the Gephi network.
     //var gephiJSON = loadJSON("./fumia.json"); // code in importing_from_gephi.
@@ -974,6 +975,17 @@ function drawNetwork(result) {
     //selEdge.color = '#ff0000';
     //data.edges.update(selEdge);
     //data.edges[0]['color'] = '#ff0000';
+    edgeIds = data.edges.getIds()
+    for (var i = 0; i < edgeIds.length; i++) {
+        var temp = data.edges.get(edgeIds[i]);
+        temp.arrows = 'to';
+        data.edges.update(temp);
+    }
+    // Edge scaling
+    temp = data.edges.get(0);
+    //temp.from == 'node1' & temp.to == 'node2';
+    temp.value = 0.3;
+    //data.edges.update(temp);
 
     // create a network
     var options = {
@@ -1022,4 +1034,5 @@ function drawNetwork(result) {
     });
     this.att = result['att_exp'];
     this.att_con = result['att_control'];
+    this.network = data;
 }
