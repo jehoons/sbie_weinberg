@@ -516,6 +516,19 @@ Intro Section
   	padding-top: 200px;
   }
 }
+#indeximg {
+  display: block;
+  margin: auto;
+  width: 90%;
+  max-width: 1200px;
+}
+#indexshadowbox-all {
+	width:100%;
+	padding: 1em 1em 1em 1em;
+	background-color:#FFFFFF;
+	
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
 
 /* -------------------------------- 
 

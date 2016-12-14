@@ -78,6 +78,23 @@ jQuery(document).ready(function($){
 		
 	})
 	
+	//로그인 클릭하면.
+	$('.login-open').click(function(){
+
+		$("body").append("<div id='cl-message-veil'></div> <div id='cl-message'> <div class='message-title'>Notification</div> <div class='message-content'>로그인이 필요한 서비스입니다.</div> <div class='message-button'><a href='#0' id='messagebutton'>로그인</a></div> </div>");
+		$('#messagebutton').focus();
+		
+		$('#cl-message-veil').click(function(){
+			$('#cl-message-veil').remove();
+			$('#cl-message').remove();
+		});
+		
+		$('#messagebutton').click(function(){
+			window.location.assign($("#clpathhost").val() + "index.php?module=member&act=login.php");
+		});
+			
+	});	
+	
 	//Simulation 에서 module change
 	$('#cl-simul-module').change(function(){
 		 
