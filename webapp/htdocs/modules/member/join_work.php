@@ -15,7 +15,7 @@ module/member/join_work.php
 if(!defined('__CL__')) exit();
 
 //'로봇이 아닙니다' 체크
-$secret = '6LdibQgUAAAAAEVf1t7pmer5s179sGqJ7b8jIc-R';
+$secret = '6LdKjwgUAAAAALzz3tAMjCpvuOHIl96IvH-ypAaI';
 //get verify response data
 $verifyResponse = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret='.$secret.'&response='.$_POST['g-recaptcha-response']);
 $responseData = json_decode($verifyResponse);
