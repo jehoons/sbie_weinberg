@@ -134,9 +134,9 @@ def set_basal_activity(n2v, n2i, b):
     n2i: name to index
     b: basal activity, which is modified in this function.
     """
-    pprint.pprint(n2v)
-    pprint.pprint(n2i)
-    
+    #pprint.pprint(n2v)
+    #pprint.pprint(n2i)
+
     if n2v is None:
         return
 
