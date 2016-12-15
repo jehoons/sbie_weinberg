@@ -9,15 +9,18 @@ import os
 import re
 import json
 import argparse
+import pprint
 
 import numpy as np
 import pandas as pd
+
+
 
 #if __name__ == '__main__':
 #    import sys
 #    sys.path.append('sfa')
 
-import sbie_weinberg
+# import sbie_weinberg
 
 import sfa
 
@@ -131,6 +134,9 @@ def set_basal_activity(n2v, n2i, b):
     n2i: name to index
     b: basal activity, which is modified in this function.
     """
+    pprint.pprint(n2v)
+    pprint.pprint(n2i)
+    
     if n2v is None:
         return
 
@@ -181,6 +187,7 @@ def run_sfa(ALG, CELL_NAME, DRUGS, INPUTS, outputfilename):
     cellline_data = load_cellline_data(dir_cellline, CELL_NAME)
     input_data = load_input_data(INPUTS)
 
+
     # For testing purpose
     #print("Drug data loaded: ", drug_data)
     #print("Cellline data loaded: ", cellline_data)
@@ -205,7 +212,12 @@ def run_sfa(ALG, CELL_NAME, DRUGS, INPUTS, outputfilename):
 
     ''' 여기서는 GF등과 같은 입력조건을 반영한다 '''
     set_basal_activity(input_data, data.n2i, b)
-    set_basal_activity(drug_data, data.n2i, b)
+
+    drug_vals = {}
+    for drug_info in drug_data:
+        name = drug_info['target']
+        drug_vals[name] = -1
+    set_basal_activity(drug_vals, data.n2i, b)
     # set_trace()
 
     # Perform the calculation of signal propagation algorithm
@@ -266,10 +278,12 @@ def run(inputjson, outputjson):
 
     drugs = inputdata['input']['drugs']
     drugs = [name.upper() for name in drugs]
+    #drugs = {name.upper():-1 for name in drugs}
 
     celltype = inputdata['input']['celltype']
 
     default_alg = 'SP'
     default_ic = ['GFs']
+    #default_ic = {}'GFs': 1}
 
     run_sfa(default_alg, celltype, drugs, default_ic, outputjson)

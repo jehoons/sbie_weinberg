@@ -7,18 +7,21 @@
 * Provide web-based UI interface
 
 ## Update history
+### 2016. 12. 15
+* Updated result for signal flow analysis [download](http://gofile.me/3gpVt/3G1y2N9Mv)
+
 ### 2016. 12. 1
 * Front image is prepared(Figure S1.)
 * Attractor clustering result is prepared in Table S1E([download](http://gofile.me/3gpVt/ndBCw8CFP)).
 
 ### 2016. 11. 17
 * Fix node names of fumia (regulation) network
-* Add draft plot for attractor analysis 
+* Add draft plot for attractor analysis
 
 ### 2016. 11. 3
 * Complete initial simulation for signal flow analysis [download](http://gofile.me/3gpVt/3G1y2N9Mv)
 * Complete UI draft for attractor
-* Complete database for attractor 
+* Complete database for attractor
 
 ### 2016. 10. 21
 Simulation data for Boolean network model (Fumia) is completed as follows:
