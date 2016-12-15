@@ -1,18 +1,23 @@
 
 ### Installation
 
-Installation process is described here: 
+Installation process is described here:
 
-Step 1. Execute in command line 
+Step 1. Execute in command line
 
-```bash 
+```bash
 sudo cp -rv htdocs/ /var/www/html/
 cd /var/www/html
 sudo ln -s htdocs v2
 ```
 
-Step 2. Put following command into browser
+Step 2. Permission setting of session folder
+```
+chgrp www-data /var/www/html/v2/files/session
+chmod g+rwx /var/www/html/v2/files/session
+```
 
+Step 3. Put following command into browser
 ```
 http:address/index.php?module=install&act=install.php
 ```
@@ -31,8 +36,3 @@ data visualization
 data manipulation
 
 * [jsdata](http://learnjsdata.com/)
-
-
-
-
-
