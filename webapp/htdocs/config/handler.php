@@ -90,13 +90,9 @@ if($_GET["module"] && $_GET["act"]){
 		<ul>
 			<li><a <?php if(($_GET["module"] == "index" && $_GET["act"] == "list.php") || !$_GET["module"]){?>class="current"<?php }?> href="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>?module=index&act=list.php">Home</a></li>
 			<li><a <?php if($_GET["module"] == "about" && $_GET["act"] == "list.php"){?>class="current"<?php }?> href="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>?module=about&act=list.php">About</a></li>
-<?php 
-if(!$mbrowid){
-?>
-			<li><a href="#0" class="login-open">Simulation</a></li>
-<?php }else{?>
+
 			<li><a <?php if($_GET["module"] == "simulation" && $_GET["act"] == "list.php"){?>class="current"<?php }?> href="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>?module=simulation&act=list.php">Simulation</a></li>
-<?php }
+<?php
 if(!$mbrowid){
 ?>			
 			<li><a href="#0" class="login-open">Board</a></li>
