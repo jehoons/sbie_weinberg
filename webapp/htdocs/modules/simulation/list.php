@@ -105,6 +105,21 @@ if(!defined('__CL__')) exit();
 				<div id="example1" style="width: 100%; height: 700px"></div>
 				<div id="meandeviation"></div>
 			</div>
+
+            <div id='cl-simul-sfa-graph' class='cl-shadowbox-all'>
+                <div id="wrapper" style="width: 100%; height: 700px">
+                    <div id="mynetwork_sfa" style="width: 100%; height: 700px"></div>
+                    <div id="loadingBar">
+                         <div class="outerBorder">
+                             <div id="text">0%</div>
+                             <div id="border">
+                                <div id="bar"></div>
+                            </div>
+                         </div>
+                    </div>
+                </div>
+            </div>
+
 			
 			<div id='cl-simul-attractor-graph' class='cl-shadowbox-all'>
                 <div id="wrapper" style="width: 100%; height: 700px">

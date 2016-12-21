@@ -63,6 +63,14 @@ jQuery(document).ready(function($){
 		
 	});
 	
+    //Ajax를 이용하는 simulation sfa form 데이터 전송.
+    $('#cl-simul-sfa-form').submit(function(){
+
+        callSimulAjaxSfa($('#cl-simul-sfa-form'));
+        return false;
+
+    });
+
 	//Ajax를 이용하는 simulation attractor form 데이터 전송.
 	$('#cl-simul-attractor-form').submit(function(){
 		
@@ -104,6 +112,7 @@ jQuery(document).ready(function($){
 			callGetSimulAjax($("#clpathhost").val() + "index.php?module=simulation&act=dream2015_cellline_work.php","dream2015_cellline");
 			
 			$("#cl-simul-sfa").hide();
+			$("#cl-simul-sfa-graph").hide();
 			$("#cl-simul-attractor").hide();
 			$("#cl-simul-attractor-graph").hide();
 			
@@ -532,6 +541,54 @@ function callAjax(val){
 	    
 	});
 }
+
+function callSimulAjaxSfa(val){
+
+    // seriallize() : ie8이상. form 안에 있는 value를 정리해서 반환.
+    var formData = val.serialize();
+    var formAction = val.attr("action");
+
+    //ajax 시작.
+    $.ajaxSetup({
+        cache : false
+      });
+
+    $(document).ajaxError(function(){
+        alert("An error occured!");
+    });
+
+    $(document).ajaxStart(function(){
+        $("#cl-slmul-loading-veil").remove();
+        $("body").append("<div id='cl-slmul-loading-veil'></div>");
+        $("body").append("<img src='" + $("#clpathhost").val() + "common/img/cl_loading.gif' id='cl-loading' />");
+
+    });
+    $(document).ajaxComplete(function(){
+        $("#cl-slmul-loading-veil").remove();
+        $('#cl-loading').remove();
+    });
+
+    $.ajax({
+        url:encodeURI(formAction),
+        dataType:'json',
+        type:'POST',
+        data:formData,
+        success:function(result){
+
+
+            $('#cl-simul-sfa-graph').fadeIn();
+            drawNetworkSfa(result);
+
+        },
+        error:function (xhr, ajaxOptions, thrownError){
+            alert(xhr.status);
+            alert(xhr.statusText);
+            alert(xhr.responseText);
+        }
+
+    });
+}
+
 
 //POST 방식의 Simulation Ajax 호출
 function callSimulAjax(val){
@@ -1036,3 +1093,145 @@ function drawNetwork(result) {
     this.att_con = result['att_control'];
     this.network = data;
 }
+
+
+
+var signal;
+var network;
+function drawNetworkSfa(result) {
+    // load the JSON file containing the Gephi network.
+    //var gephiJSON = loadJSON("./fumia.json"); // code in importing_from_gephi.
+    var gephiJSON = netfile_sfa; // code in importing_from_gephi.
+
+    // you can customize the result like with these options. These are explained below.
+    // These are the default options.
+    var parserOptions = {
+        edges: {
+            inheritColors: false
+        },
+        nodes: {
+            fixed: true,
+            parseColor: false
+        }
+    }
+
+    // parse the gephi file to receive an object
+    // containing nodes and edges in vis format.
+    var parsed = vis.network.convertGephi(gephiJSON, parserOptions);
+
+    // provide data in the normal fashion
+    var data = {
+        nodes: new vis.DataSet(parsed.nodes),
+        edges: new vis.DataSet(parsed.edges)
+    };
+
+    // Node color
+    nodeIds = data.nodes.getIds()
+    for (var i = 0; i < nodeIds.length; i++) {
+        var temp = data.nodes.get(nodeIds[i]);
+        temp.color = {
+            background: '#3333FF',
+            border: '#3333FF'
+        }
+        data.nodes.update(temp);
+    }
+
+    if (result['drug1_target']!='') {
+        S = result['drug1_target'];
+        var selNode = data.nodes.get(String(S));
+        selNode.color = { 
+            background: '#CC3333',
+            border: '#CC3333'
+        }   
+        data.nodes.update(selNode);
+    }
+    if (result['drug2_target']!='') {
+        S = result['drug2_target'];
+        var selNode = data.nodes.get(String(S));
+        selNode.color = {
+            background: '#CC3333',
+            border: '#CC3333'
+        }
+        data.nodes.update(selNode);
+    }
+    //data.nodes[0]['color']['background'] = '#00ff00';
+    //data.nodes[0]['color']['border'] = '#00ff00';
+
+
+    // Edge color
+    //var selEdge = data.edges.get('134');
+    //selEdge.color = '#ff0000';
+    //data.edges.update(selEdge);
+    //data.edges[0]['color'] = '#ff0000';
+    edgeIds = data.edges.getIds()
+    for (var i = 0; i < edgeIds.length; i++) {
+        var temp = data.edges.get(edgeIds[i]);
+        temp.arrows = 'to';
+        temp.width = 3;
+        //temp.value = 2;
+        data.edges.update(temp);
+    }
+    // Edge scaling
+    signal_flow = result['signal'];
+    signal_len = signal_flow.length;
+    for (var i = 0; i < signal_len; i++) {
+        for (var j = 0; j < edgeIds.length; j++) {
+            var temp = data.edges.get(edgeIds[j]);
+            if (temp.from == signal_flow[i][0] & temp.to == signal_flow[i][1]) {
+                //temp.value = 2 * ((10**signal_flow[i][2])**5);
+                temp.width = 3 * ((10**signal_flow[i][2])**4);
+                data.edges.update(temp);
+                break;
+            }
+        }
+    }
+
+    // create a network
+    var options = {
+        nodes: {
+            font: {
+                color: '#ffffff'
+            },
+            borderWidthSelected: 4
+        },
+        edges: {
+            color: '#000000'
+        },
+        interaction: {
+            // longheld click or control-click
+            multiselect: true,
+            hover: true
+        }
+    };
+    var container = document.getElementById('mynetwork_sfa');
+    var network = new vis.Network(container, data, options);
+
+    // network load progress bar
+    network.on("stabilizationProgress", function(params) {
+        var maxWidth = 496;
+        var minWidth = 20;
+        var widthFactor = params.iterations/params.total;
+        var width = Math.max(minWidth,maxWidth * widthFactor);
+        document.getElementById('bar').style.width = width + 'px';
+        document.getElementById('text').innerHTML = Math.round(widthFactor*100) + '%';
+    });
+    network.once("stabilizationIterationsDone", function() {
+        document.getElementById('text').innerHTML = '100%';
+        document.getElementById('bar').style.width = '496px';
+        document.getElementById('loadingBar').style.opacity = 0;
+        // really clean the dom element
+        setTimeout(function () {document.getElementById('loadingBar').style.display = 'none';}, 500);
+    });
+
+    var selnodes = [];
+    // event catch
+    network.on("click", function (params) {
+        //console.log(JSON.stringify(params));
+        console.log(params['nodes']);
+        selnodes = params['nodes'];
+        //console.log(params['edges']);
+    });
+    this.signal = result['signal'];
+    this.network = data;
+}
+

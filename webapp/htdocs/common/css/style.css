@@ -1410,6 +1410,9 @@ Simulation
 #cl-simul-dream2015-graph {
   display:none;
 }
+#cl-simul-sfa-graph {
+  display:none;
+}
 #cl-simul-attractor-graph {
   display:none;
 }

@@ -31,8 +31,10 @@ $input_nodes = $node1.$node2.$node3.$node4.$node5;
 
 $target1 = $_POST["target1"];
 $target1_on = $_POST["target1_on"]; // On is 1, Off is 0
+$target1_on = ($target1_on == NULL)?'0':'1';
 $target2 = $_POST["target2"];
 $target2_on = $_POST["target2_on"]; // On is 1, Off is 0
+$target2_on = ($target2_on == NULL)?'0':'1';
 
 
 $sql_control = "
