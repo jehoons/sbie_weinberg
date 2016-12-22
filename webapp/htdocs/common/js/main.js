@@ -1130,8 +1130,8 @@ function drawNetworkSfa(result) {
     for (var i = 0; i < nodeIds.length; i++) {
         var temp = data.nodes.get(nodeIds[i]);
         temp.color = {
-            background: '#3333FF',
-            border: '#3333FF'
+            background: '#0011FF',
+            border: '#0011FF'
         }
         data.nodes.update(temp);
     }
@@ -1168,7 +1168,7 @@ function drawNetworkSfa(result) {
         var temp = data.edges.get(edgeIds[i]);
         temp.arrows = 'to';
         temp.width = 3;
-        //temp.value = 2;
+        //temp.value = 1;
         data.edges.update(temp);
     }
     // Edge scaling
@@ -1179,7 +1179,10 @@ function drawNetworkSfa(result) {
             var temp = data.edges.get(edgeIds[j]);
             if (temp.from == signal_flow[i][0] & temp.to == signal_flow[i][1]) {
                 //temp.value = 2 * ((10**signal_flow[i][2])**5);
-                temp.width = 3 * ((10**signal_flow[i][2])**4);
+                temp.width = 3 * ((10**Math.abs(signal_flow[i][2]))**3);
+                if (signal_flow[i][2] < 0) {
+                    temp.color = '#0066FF';
+                }
                 data.edges.update(temp);
                 break;
             }
