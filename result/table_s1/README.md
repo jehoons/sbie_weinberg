@@ -10,5 +10,5 @@
 
 #### E. [k-modes 클러스터링을 이용한 attractor clustering](http://gofile.me/3gpVt/xWxbItXeK)
 
-#### F. [Scanning results with class ids] (in progress...)
+#### F. [Scanning results with class ids] (http://gofile.me/3gpVt/6auTQA0QJ)
 
