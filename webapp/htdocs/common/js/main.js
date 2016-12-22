@@ -1215,15 +1215,15 @@ function drawNetworkSfa(result) {
         var minWidth = 20;
         var widthFactor = params.iterations/params.total;
         var width = Math.max(minWidth,maxWidth * widthFactor);
-        document.getElementById('bar').style.width = width + 'px';
-        document.getElementById('text').innerHTML = Math.round(widthFactor*100) + '%';
+        document.getElementById('bar_sfa').style.width = width + 'px';
+        document.getElementById('text_sfa').innerHTML = Math.round(widthFactor*100) + '%';
     });
     network.once("stabilizationIterationsDone", function() {
-        document.getElementById('text').innerHTML = '100%';
-        document.getElementById('bar').style.width = '496px';
-        document.getElementById('loadingBar').style.opacity = 0;
+        document.getElementById('text_sfa').innerHTML = '100%';
+        document.getElementById('bar_sfa').style.width = '496px';
+        document.getElementById('loadingBar_sfa').style.opacity = 0;
         // really clean the dom element
-        setTimeout(function () {document.getElementById('loadingBar').style.display = 'none';}, 500);
+        setTimeout(function () {document.getElementById('loadingBar_sfa').style.display = 'none';}, 500);
     });
 
     var selnodes = [];

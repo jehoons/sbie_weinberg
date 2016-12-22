@@ -107,13 +107,13 @@ if(!defined('__CL__')) exit();
 			</div>
 
             <div id='cl-simul-sfa-graph' class='cl-shadowbox-all'>
-                <div id="wrapper" style="width: 100%; height: 700px">
+                <div id="wrapper_sfa" style="width: 100%; height: 700px">
                     <div id="mynetwork_sfa" style="width: 100%; height: 700px"></div>
-                    <div id="loadingBar">
-                         <div class="outerBorder">
-                             <div id="text">0%</div>
-                             <div id="border">
-                                <div id="bar"></div>
+                    <div id="loadingBar_sfa">
+                         <div class="outerBorder_sfa">
+                             <div id="text_sfa">0%</div>
+                             <div id="border_sfa">
+                                <div id="bar_sfa"></div>
                             </div>
                          </div>
                     </div>
