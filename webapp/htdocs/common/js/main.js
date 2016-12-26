@@ -1169,6 +1169,9 @@ function drawNetworkSfa(result) {
         temp.arrows = 'to';
         temp.width = 3;
         //temp.value = 1;
+        if (temp.attributes.attribute == "-") {
+            temp.color = '#0066FF';
+        }
         data.edges.update(temp);
     }
     // Edge scaling
