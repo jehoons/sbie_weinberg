@@ -7,6 +7,10 @@
 * Provide web-based UI interface
 
 ## Update history
+
+### 2016. 12. 29
+* Paper study, Realistic control
+
 ### 2016. 12. 15
 * Updated result for signal flow analysis [download](http://gofile.me/3gpVt/efKiqIypS)
 
