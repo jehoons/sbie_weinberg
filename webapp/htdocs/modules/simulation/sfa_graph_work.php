@@ -17,9 +17,9 @@ if(!defined('__CL__')) exit();
 // php 페이지 로딩 시간을 최대 5분(60*5)으로 연장. default는 30초.
 ini_set('max_execution_time', 300);
 
-$cell_name = "SW48";
-$drug1 = "RAF265";
-$drug2 = "Nutlin-3";
+$cell_name = $_POST["cell"];
+$drug1 = $_POST["target1"];
+$drug2 = $_POST["target2"];;
 $sql = "
 SELECT signal_flow, column_get(drug1, 'drug1_target' as char) AS dt1, column_get(drug2, 'drug2_target' as char) AS dt2
 FROM sfa

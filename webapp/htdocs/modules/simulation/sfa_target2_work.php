@@ -15,11 +15,13 @@ sfa target2를 가져오는 ajax 페이지.
 if(!defined('__CL__')) exit();
 
 $target1 = $_GET["target1"];
+$cell = $_GET["cell"];
 
 $sql = "
-SELECT *
-FROM targets
-WHERE ta_target <> '$target1'
+SELECT column_get(drug2, 'drug2' as char) AS drug
+FROM sfa
+WHERE column_get(drug1, 'drug1' as char)='$target1' AND cell_name='$cell'
+GROUP BY column_get(drug2, 'drug2' as char)
 ";
 $result = $conn->query($sql);
 
@@ -27,7 +29,7 @@ $result = $conn->query($sql);
 $outp = "[";
 while($row = $result->fetch_assoc()) {
     if ($outp != "[") {$outp .= ",";}
-    $outp .= '{"target2":"'  . $row["ta_target"] . '"}'; 
+    $outp .= '{"target2":"'  . $row["drug"] . '"}'; 
 }
 $outp .="]";
 	

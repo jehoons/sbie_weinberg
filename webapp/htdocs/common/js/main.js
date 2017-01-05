@@ -187,14 +187,25 @@ jQuery(document).ready(function($){
 		callGetSimulAjax($("#clpathhost").val() + "index.php?module=simulation&act=attractor_target2_work.php&target1=" + target1,"attractor_target2");
 	})
 	
+    //Simulation 에서 sfa cellline change
+    $('#cl-simul-sfa-cellline').change(function(){
+
+
+        var cellline = $(':radio[name="cell"]:checked').val();
+
+        //Get 방식으로 전송하기 위해 주소를 파라미터로.
+        callGetSimulAjax($("#clpathhost").val() + "index.php?module=simulation&act=sfa_target1_work.php&&cell="  + cellline,"sfa_target1");
+    })
+
 	//Simulation 에서 sfa target1 change
 	$('#cl-simul-sfa-target1').change(function(){
 		
 		
 		var target1 = $('#cl-simul-sfa-target1').val();
+        var cellline = $(':radio[name="cell"]:checked').val();
 		
 		//Get 방식으로 전송하기 위해 주소를 파라미터로.
-		callGetSimulAjax($("#clpathhost").val() + "index.php?module=simulation&act=sfa_target2_work.php&target1=" + target1,"sfa_target2");
+		callGetSimulAjax($("#clpathhost").val() + "index.php?module=simulation&act=sfa_target2_work.php&target1=" + target1 + "&cell="  + cellline,"sfa_target2");
 	})
 	
 	

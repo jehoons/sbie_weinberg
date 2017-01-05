@@ -41,6 +41,12 @@ if(!defined('__CL__')) exit();
 				
 				<div id="cl-simul-sfa">
 <form action='<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>?module=simulation&act=sfa_graph_work.php' method='POST' target='_self' accept-charset='UTF-8' enctype='application/x-www-form-urlencoded' autocomplete='on' id="cl-simul-sfa-form">				
+
+					Please select cell lines<br />
+                    <div id="cl-simul-sfa-cellline">
+					    <input id="cl-simul-sfa-cell1" name="cell" type="radio" value="SW48"><label for='cl-simul-sfa-cell1' style="display: inline;">SW48</label>
+    					<input id="cl-simul-sfa-cell2" name="cell" type="radio" value="COLO205"><label for='cl-simul-sfa-cell2' style="display: inline;">COLO205</label>
+                    </div>
 					Please select input nodes and targets<br />
 					<input id="cl-simul-sfa-node1" name="node1" type="checkbox" value="1"><label for='cl-simul-sfa-node1' style="display: inline;">S_Mutagen</label>
 					<input id="cl-simul-sfa-node2" name="node2" type="checkbox" value="1"><label for='cl-simul-sfa-node2' style="display: inline;">S_GFs</label>
