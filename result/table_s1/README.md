@@ -8,4 +8,5 @@ All data files can be found [here](http://gofile.me/3gpVt/4oNQHplpK).
 #### F. Scanning results with class
 #### G. Input combinations on APC mutated cell
 #### H. Scanning results with APC mutated cell
-#### E. k-modes clustering on H
+#### I. k-modes clustering on APC mutated cell
+#### J. Scanning results with class on APC mutated cell
