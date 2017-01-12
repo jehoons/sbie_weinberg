@@ -836,7 +836,7 @@ function callGetSimulAjax(val,mode){
 	    			$('#cl-simul-attractor-target2').append("<option value=''>--- target 2 ---</option>");
 	    		}
 	    		
-	    		$('#cl-simul-attractor-target1').append("<option value='free'>선택안함</option>");
+	    		$('#cl-simul-attractor-target1').append("<option value=''>선택안함</option>");
 	    		
 	    		//Ajax로 받아온 JSON data format 파일을 for문으로 돌려 option으로 넣는다. 
 	    		for(i = 0; i < result.length; i++){
@@ -857,7 +857,7 @@ function callGetSimulAjax(val,mode){
 	    			$('#cl-simul-attractor-target2').append("<option value=''>--- target 2 ---</option>");
 	    		}
 	    		
-	    		$('#cl-simul-attractor-target2').append("<option value='free'>선택안함</option>");
+	    		$('#cl-simul-attractor-target2').append("<option value=''>선택안함</option>");
 	    		
 	    		//Ajax로 받아온 JSON data format 파일을 for문으로 돌려 option으로 넣는다. 
 	    		for(i = 0; i < result.length; i++){
@@ -879,7 +879,7 @@ function callGetSimulAjax(val,mode){
 	    			$('#cl-simul-sfa-target2').append("<option value=''>--- target 2 ---</option>");
 	    		}
 	    		
-	    		$('#cl-simul-sfa-target1').append("<option value='free'>선택안함</option>");
+	    		$('#cl-simul-sfa-target1').append("<option value=''>선택안함</option>");
 	    		
 	    		//Ajax로 받아온 JSON data format 파일을 for문으로 돌려 option으로 넣는다. 
 	    		for(i = 0; i < result.length; i++){
@@ -900,7 +900,7 @@ function callGetSimulAjax(val,mode){
 	    			$('#cl-simul-sfa-target2').append("<option value=''>--- target 2 ---</option>");
 	    		}
 	    		
-	    		$('#cl-simul-sfa-target2').append("<option value='free'>선택안함</option>");
+	    		$('#cl-simul-sfa-target2').append("<option value=''>선택안함</option>");
 	    		
 	    		//Ajax로 받아온 JSON data format 파일을 for문으로 돌려 option으로 넣는다. 
 	    		for(i = 0; i < result.length; i++){

@@ -89,14 +89,14 @@ if(!defined('__CL__')) exit();
 							<option value=''>--- Target 1 ---</option>						
 						</select>
 						
-						<input id="cl-simul-attractor-target1-on2" name="target1_on" value="1" type="radio" style=""><label for='cl-simul-attractor-target1-on2' style="display: inline;">On</label><input id="cl-simul-attractor-target1-on3" name="target1_on" value="0" type="radio" style=""><label for='cl-simul-attractor-target1-on3' style="display: inline;">Off</label>
+						<input id="cl-simul-attractor-target1-on2" name="target1_on" value="1" type="radio" style=""><label for='cl-simul-attractor-target1-on2' style="display: inline;">On</label><input id="cl-simul-attractor-target1-on3" name="target1_on" value="" type="radio" style=""><label for='cl-simul-attractor-target1-on3' style="display: inline;">Off</label>
 						</div>
 						
 						
 						<div style="height:70px;">
 						<select id="cl-simul-attractor-target2" name="target2" class="cl-select" style="width:50%;">
 							<option value=''>--- Target 2 ---</option>
-						</select><input id="cl-simul-attractor-target2-on2" name="target2_on" value="1" type="radio" style=""><label for='cl-simul-attractor-target2-on2' style="display: inline;">On</label><input id="cl-simul-attractor-target2-on3" name="target2_on" value="0" type="radio" style=""><label for='cl-simul-attractor-target2-on3' style="display: inline;">Off</label>
+						</select><input id="cl-simul-attractor-target2-on2" name="target2_on" value="1" type="radio" style=""><label for='cl-simul-attractor-target2-on2' style="display: inline;">On</label><input id="cl-simul-attractor-target2-on3" name="target2_on" value="" type="radio" style=""><label for='cl-simul-attractor-target2-on3' style="display: inline;">Off</label>
 						</div>	
 					</div>
 					<input type="submit" class="cl-btn" value="Submit" />
