@@ -1,0 +1,6 @@
+collect_att.py      ->      total_atts.p
+extract unique attractors
+
+clustering.py       ->      att_cluster.p
+k-modes clustering
+att_cluster.p : label for each attractor + total_atts.p
