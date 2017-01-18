@@ -36,10 +36,15 @@ $target2 = $_POST["target2"];
 $target2_on = $_POST["target2_on"]; // On is 1, Off is 0
 $target2_on = ($target2_on == NULL)?'0':'1';
 
+$mutation = $_POST["mutation"];
+if ($mutation == NULL) {
+    $mutation = "normal";
+}
+$tablename = ($mutation == "normal")?"attractor":"attractor_apc";
 
 $sql_control = "
 SELECT attractors, state_key
-FROM attractor
+FROM $tablename
 WHERE input_nodes='$input_nodes'
 AND column_get(target1, 'target1' as char)=''
 AND column_get(target2,'target2' as char)=''
@@ -70,7 +75,7 @@ foreach($att_con as $key=>$val) {
 
 $sql = "
 SELECT attractors, state_key
-FROM attractor
+FROM $tablename
 WHERE input_nodes='$input_nodes'
 AND column_get(target1, 'target1' as char)='$target1'
 AND column_get(target1, 'target1_state' as char)='$target1_on'
@@ -78,7 +83,7 @@ AND column_get(target2,'target2' as char)='$target2'
 AND column_get(target2, 'target2_state' as char)='$target2_on'
 UNION
 SELECT attractors, state_key
-FROM attractor
+FROM $tablename
 WHERE input_nodes='$input_nodes'
 AND column_get(target1, 'target1' as char)='$target2'
 AND column_get(target1, 'target1_state' as char)='$target2_on'

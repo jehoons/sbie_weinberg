@@ -82,7 +82,13 @@ if(!defined('__CL__')) exit();
 					<input id="cl-simul-attractor-node3" name="node3" type="checkbox" value="1"><label for='cl-simul-attractor-node3' style="display: inline;">S_Nutrients</label>
 					<input id="cl-simul-attractor-node4" name="node4" type="checkbox" value="1"><label for='cl-simul-attractor-node4' style="display: inline;">S_TNFalpha</label>
 					<input id="cl-simul-attractor-node5" name="node5" type="checkbox" value="1"><label for='cl-simul-attractor-node5' style="display: inline;">S_Hypoxia</label>
-					<br /><br />
+					<br />
+                    Please select mutation (default : normal)<br />
+                    <div id="cl-simul-attractor-mutation">
+                        <input id="cl-simul-attractor-normal" name="mutation" type="radio" value="normal"><label for='cl-simul-attractor-normal' style="display: inline;">normal</label>
+                        <input id="cl-simul-attractor-apc" name="mutation" type="radio" value="apc"><label for='cl-simul-attractor-apc' style="display: inline;">APC</label>
+                    </div>
+					<br />
 					<div>
 						<div style="height:60px;">
 						<select id="cl-simul-attractor-target1" name="target1" class="cl-select" style="margin-bottom:1em; width:50%; float:left;">
