@@ -126,6 +126,9 @@ jQuery(document).ready(function($){
 			$("#cl-simul-dream2015-graph").hide();
 			$("#cl-simul-attractor").hide();
 			$("#cl-simul-attractor-graph").hide();
+
+			$("#cl-simul-sfa-cell1").attr('checked', false); 
+			$("#cl-simul-sfa-cell2").attr('checked', false); 
 			
 		}else if($("#cl-simul-module").val() == "attractor"){
 			
@@ -143,6 +146,8 @@ jQuery(document).ready(function($){
 			$("#cl-simul-attractor-node3").attr('checked', false); 
 			$("#cl-simul-attractor-node4").attr('checked', false); 
 			$("#cl-simul-attractor-node5").attr('checked', false); 
+			$("#cl-simul-attractor-normal").attr('checked', false); 
+			$("#cl-simul-attractor-apc").attr('checked', false); 
 		}
 	})
 	
@@ -588,6 +593,7 @@ function callSimulAjaxSfa(val){
 
 
             $('#cl-simul-sfa-graph').fadeIn();
+            $('#loadingBar_sfa').fadeTo("fast",1);
             drawNetworkSfa(result);
 
         },
@@ -638,6 +644,7 @@ function callSimulAjax(val){
 	    	//$('#cl-simul-attractor-graph').html("node1" + result['node1'] + "<br />node2" + result['node2'] + "<br />node3" + result['node3'] + "<br />node4" + result['node4'] + "<br />node5" + result['node5'] + "<br />target1" + result['target1'] + "<br />target1_on" + result['target1_on'] + "<br />target2" + result['target2'] + "<br />target2_on" + result['target2_on'] + "<br />input_nodes" + result['input_nodes'] + "<br />attractors" + result['attractors'] + "<br />state_key" + result['state_key']);
 	    	
 	    	$('#cl-simul-attractor-graph').fadeIn();
+            $('#loadingBar').fadeTo("fast",1);
             drawNetwork(result);
 
             google.charts.load('upcoming', {packages:['corechart']});
