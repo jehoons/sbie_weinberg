@@ -8,6 +8,9 @@
 
 ## Update history
 
+### 2017. 2. 2
+* Demo play
+
 ### 2016. 12. 29
 * Paper study, Realistic control
 
