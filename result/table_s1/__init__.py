@@ -42,6 +42,18 @@ def load_table(cid):
 
         return dict_data
 
+    elif cid == 'h':
+        with open(config['tables'][cid], 'r') as f:
+            dict_data = json.load(f)
+
+        return dict_data
+
+    elif cid == 'i':
+        with open(config['tables'][cid], 'rb') as f:
+            dict_data = pickle.load(f, encoding='utf-8')
+
+        return dict_data
+
     else:
         assert False
 
@@ -51,9 +63,15 @@ config = {
     'tables': {
         'a': join(get_savedir(), 'Table-S1A-Fumia-processed.csv'),
         'b': join(get_savedir(), 'Table-S1B-Fumia-regulation-network.csv'),
-        # 'c': get_savedir()+'/Table-S1B-Fumia-regulation-network.csv',
+        # for normal cell
+        'c': join(get_savedir(), 'Table-S1C-Input-combinations.json'),
         'd': join(get_savedir(), 'Table-S1D-Scanning-results.json'),
         'e': join(get_savedir(), 'Table-S1E-Clustering.p'),
         'f': join(get_savedir(), 'Table-S1F-Scanning-results-with-class.json'),
+        # for APC-mutated cell
+        'g': join(get_savedir(), 'Table-S1G-Input-combinations-APC.json'),
+        'h': join(get_savedir(), 'Table-S1H-Scanning-results-APC.json'),
+        'i': join(get_savedir(), 'Table-S1I-Clustering-APC.p'),
+        'j': join(get_savedir(), 'Table-S1J-Scanning-results-with-class-APC.json'),
         }
     }

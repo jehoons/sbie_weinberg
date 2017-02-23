@@ -66,7 +66,7 @@ if not exists(join(dirname(__file__), 'untracked')):
 def test_combination_with_two_nodes():
     # simulation with node perturbation
     outputjson = join(abspath(dirname(__file__)), 'untracked', 'test_result.json')
-    inputs = [] #['GFs']  # Add node names to be activated
-    targets = ['RAF', 'p53']
+    inputs = ['GFs']  # Add node names to be activated
+    targets = ['RAF', 'PI3K'] # ['RAF', 'p53']
     sfa_simulator_comb.run(inputs, targets, outputjson)
     # pass
