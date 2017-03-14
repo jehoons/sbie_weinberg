@@ -34,6 +34,16 @@ ORDER BY PREDICTION ASC
 ";
 $result = $conn->query($sql);
 
+$optimal_combi_sql = "
+SELECT COMPOUND_A, COMPOUND_B, max(PREDICTION) AS maxVal
+FROM dream2015
+WHERE CELL_LINE='22RV1'
+GROUP BY COMPOUND_A, COMPOUND_B
+ORDER BY maxVal DESC
+LIMIT 5
+";
+$result_opt = $conn->query($optimal_combi_sql);
+
 
 $outp = '{"cols":[{"type":"string"},{"type":"number"}],"rows": [';
 while($row = $result->fetch_assoc()) {
