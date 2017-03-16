@@ -13,4 +13,7 @@ define ( '__CL__', TRUE );
 
 // 환경설정을 위해 config/config.inc.php 를 require.
 require dirname ( __FILE__ ) . '/config/config.php';
+
+
+
 ?>
