@@ -1,5 +1,5 @@
-#### Table S1. Attractor analysis: Fumia model
-
-#### Table S2. Signal flow analysis: Fumia model
-
-#### Table S3. Machine learning prediction: Dream challenge 2015 model
+#### [Table S1. Attractor analysis: Fumia model](https://github.com/jehoons/sbie_weinberg/tree/master/result/table_s1)
+#### [Table S2. Signal flow analysis: Fumia model](https://github.com/jehoons/sbie_weinberg/tree/master/result/table_s2)
+#### [Table S3. Machine learning prediction: Dream challenge 2015 model](https://github.com/jehoons/sbie_weinberg/tree/master/result/table_s3)
+#### [Table S4. Using GSEA data, classify the attractors](https://github.com/jehoons/sbie_weinberg/tree/master/result/table_s4)
+#### [Table S5. Demo Cells](https://github.com/jehoons/sbie_weinberg/tree/master/result/table_s5)

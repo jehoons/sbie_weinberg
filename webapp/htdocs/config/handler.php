@@ -52,6 +52,8 @@ if(substr($_GET["act"],-9,9) == "_work.php"){
 	<script src="<?php echo _CL_PATH_HOST_;?>common/js/node_modules/vis/examples/network/exampleUtil.js"></script>
 	<script src="<?php echo _CL_PATH_HOST_;?>common/js/node_modules/vis/dist/vis.js"></script>
 	<script src="<?php echo _CL_PATH_HOST_;?>common/js/fumia.js"></script> 
+	<script src="<?php echo _CL_PATH_HOST_;?>common/js/att_net_draw.js"></script> 
+	<script src="<?php echo _CL_PATH_HOST_;?>common/js/sfa_net_draw.js"></script> 
 	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
 	<script src='https://www.google.com/recaptcha/api.js'></script>
 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>

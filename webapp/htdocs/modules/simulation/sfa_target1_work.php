@@ -14,9 +14,13 @@ sfa target1 값을 가져오는 ajax 페이지.
 //__CL__ 정의 되지 않았다면 false 를 return.
 if(!defined('__CL__')) exit();
 
+$cell = $_GET["cell"];
+
 $sql = "
-SELECT *
-FROM targets
+SELECT column_get(drug1, 'drug1' as char) AS drug
+FROM sfa
+WHERE cell_name='$cell'
+GROUP BY column_get(drug1, 'drug1' as char)
 ";
 $result = $conn->query($sql);
 
@@ -24,7 +28,7 @@ $result = $conn->query($sql);
 $outp = "[";
 while($row = $result->fetch_assoc()) {
     if ($outp != "[") {$outp .= ",";}
-    $outp .= '{"target1":"'  . $row["ta_target"] . '"}'; 
+    $outp .= '{"target1":"'  . $row["drug"] . '"}'; 
 }
 $outp .="]";
 	

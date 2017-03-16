@@ -17,5 +17,22 @@ if(!defined('__CL__')) exit();
 // php 페이지 로딩 시간을 최대 5분(60*5)으로 연장. default는 30초.
 ini_set('max_execution_time', 300);
 
+$cell_name = $_POST["cell"];
+$drug1 = $_POST["target1"];
+$drug2 = $_POST["target2"];;
+$sql = "
+SELECT signal_flow, column_get(drug1, 'drug1_target' as char) AS dt1, column_get(drug2, 'drug2_target' as char) AS dt2
+FROM sfa
+WHERE cell_name='$cell_name'
+AND column_get(drug1, 'drug1' as char)='$drug1'
+AND column_get(drug2, 'drug2' as char)='$drug2'
+";
+$result = $conn->query($sql);
+$record = $result->fetch_assoc();
+$signal = json_decode($record["signal_flow"]);
+$dt1 = $record["dt1"];
+$dt2 = $record["dt2"];
+
+echo '{"signal":'.json_encode($signal).', "drug1_target":"'.$dt1.'", "drug2_target":"'.$dt2.'"}';
 
 ?>

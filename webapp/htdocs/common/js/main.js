@@ -63,6 +63,14 @@ jQuery(document).ready(function($){
 		
 	});
 	
+    //Ajax를 이용하는 simulation sfa form 데이터 전송.
+    $('#cl-simul-sfa-form').submit(function(){
+
+        callSimulAjaxSfa($('#cl-simul-sfa-form'));
+        return false;
+
+    });
+
 	//Ajax를 이용하는 simulation attractor form 데이터 전송.
 	$('#cl-simul-attractor-form').submit(function(){
 		
@@ -104,6 +112,7 @@ jQuery(document).ready(function($){
 			callGetSimulAjax($("#clpathhost").val() + "index.php?module=simulation&act=dream2015_cellline_work.php","dream2015_cellline");
 			
 			$("#cl-simul-sfa").hide();
+			$("#cl-simul-sfa-graph").hide();
 			$("#cl-simul-attractor").hide();
 			$("#cl-simul-attractor-graph").hide();
 			
@@ -117,6 +126,9 @@ jQuery(document).ready(function($){
 			$("#cl-simul-dream2015-graph").hide();
 			$("#cl-simul-attractor").hide();
 			$("#cl-simul-attractor-graph").hide();
+
+			$("#cl-simul-sfa-cell1").attr('checked', false); 
+			$("#cl-simul-sfa-cell2").attr('checked', false); 
 			
 		}else if($("#cl-simul-module").val() == "attractor"){
 			
@@ -134,6 +146,8 @@ jQuery(document).ready(function($){
 			$("#cl-simul-attractor-node3").attr('checked', false); 
 			$("#cl-simul-attractor-node4").attr('checked', false); 
 			$("#cl-simul-attractor-node5").attr('checked', false); 
+			$("#cl-simul-attractor-normal").attr('checked', false); 
+			$("#cl-simul-attractor-apc").attr('checked', false); 
 		}
 	})
 	
@@ -178,14 +192,25 @@ jQuery(document).ready(function($){
 		callGetSimulAjax($("#clpathhost").val() + "index.php?module=simulation&act=attractor_target2_work.php&target1=" + target1,"attractor_target2");
 	})
 	
+    //Simulation 에서 sfa cellline change
+    $('#cl-simul-sfa-cellline').change(function(){
+
+
+        var cellline = $(':radio[name="cell"]:checked').val();
+
+        //Get 방식으로 전송하기 위해 주소를 파라미터로.
+        callGetSimulAjax($("#clpathhost").val() + "index.php?module=simulation&act=sfa_target1_work.php&&cell="  + cellline,"sfa_target1");
+    })
+
 	//Simulation 에서 sfa target1 change
 	$('#cl-simul-sfa-target1').change(function(){
 		
 		
 		var target1 = $('#cl-simul-sfa-target1').val();
+        var cellline = $(':radio[name="cell"]:checked').val();
 		
 		//Get 방식으로 전송하기 위해 주소를 파라미터로.
-		callGetSimulAjax($("#clpathhost").val() + "index.php?module=simulation&act=sfa_target2_work.php&target1=" + target1,"sfa_target2");
+		callGetSimulAjax($("#clpathhost").val() + "index.php?module=simulation&act=sfa_target2_work.php&target1=" + target1 + "&cell="  + cellline,"sfa_target2");
 	})
 	
 	
@@ -533,6 +558,55 @@ function callAjax(val){
 	});
 }
 
+function callSimulAjaxSfa(val){
+
+    // seriallize() : ie8이상. form 안에 있는 value를 정리해서 반환.
+    var formData = val.serialize();
+    var formAction = val.attr("action");
+
+    //ajax 시작.
+    $.ajaxSetup({
+        cache : false
+      });
+
+    $(document).ajaxError(function(){
+        alert("An error occured!");
+    });
+
+    $(document).ajaxStart(function(){
+        $("#cl-slmul-loading-veil").remove();
+        $("body").append("<div id='cl-slmul-loading-veil'></div>");
+        $("body").append("<img src='" + $("#clpathhost").val() + "common/img/cl_loading.gif' id='cl-loading' />");
+
+    });
+    $(document).ajaxComplete(function(){
+        $("#cl-slmul-loading-veil").remove();
+        $('#cl-loading').remove();
+    });
+
+    $.ajax({
+        url:encodeURI(formAction),
+        dataType:'json',
+        type:'POST',
+        data:formData,
+        success:function(result){
+
+
+            $('#cl-simul-sfa-graph').fadeIn();
+            $('#loadingBar_sfa').fadeTo("fast",1);
+            sfa_net_drawing(result);
+
+        },
+        error:function (xhr, ajaxOptions, thrownError){
+            alert(xhr.status);
+            alert(xhr.statusText);
+            alert(xhr.responseText);
+        }
+
+    });
+}
+
+
 //POST 방식의 Simulation Ajax 호출
 function callSimulAjax(val){
 	
@@ -570,7 +644,8 @@ function callSimulAjax(val){
 	    	//$('#cl-simul-attractor-graph').html("node1" + result['node1'] + "<br />node2" + result['node2'] + "<br />node3" + result['node3'] + "<br />node4" + result['node4'] + "<br />node5" + result['node5'] + "<br />target1" + result['target1'] + "<br />target1_on" + result['target1_on'] + "<br />target2" + result['target2'] + "<br />target2_on" + result['target2_on'] + "<br />input_nodes" + result['input_nodes'] + "<br />attractors" + result['attractors'] + "<br />state_key" + result['state_key']);
 	    	
 	    	$('#cl-simul-attractor-graph').fadeIn();
-            drawNetwork(result);
+            $('#loadingBar').fadeTo("fast",1);
+            att_net_drawing(result);
 
             google.charts.load('upcoming', {packages:['corechart']});
 
@@ -768,7 +843,7 @@ function callGetSimulAjax(val,mode){
 	    			$('#cl-simul-attractor-target2').append("<option value=''>--- target 2 ---</option>");
 	    		}
 	    		
-	    		$('#cl-simul-attractor-target1').append("<option value='free'>선택안함</option>");
+	    		$('#cl-simul-attractor-target1').append("<option value=''>선택안함</option>");
 	    		
 	    		//Ajax로 받아온 JSON data format 파일을 for문으로 돌려 option으로 넣는다. 
 	    		for(i = 0; i < result.length; i++){
@@ -789,7 +864,7 @@ function callGetSimulAjax(val,mode){
 	    			$('#cl-simul-attractor-target2').append("<option value=''>--- target 2 ---</option>");
 	    		}
 	    		
-	    		$('#cl-simul-attractor-target2').append("<option value='free'>선택안함</option>");
+	    		$('#cl-simul-attractor-target2').append("<option value=''>선택안함</option>");
 	    		
 	    		//Ajax로 받아온 JSON data format 파일을 for문으로 돌려 option으로 넣는다. 
 	    		for(i = 0; i < result.length; i++){
@@ -811,7 +886,7 @@ function callGetSimulAjax(val,mode){
 	    			$('#cl-simul-sfa-target2').append("<option value=''>--- target 2 ---</option>");
 	    		}
 	    		
-	    		$('#cl-simul-sfa-target1').append("<option value='free'>선택안함</option>");
+	    		$('#cl-simul-sfa-target1').append("<option value=''>선택안함</option>");
 	    		
 	    		//Ajax로 받아온 JSON data format 파일을 for문으로 돌려 option으로 넣는다. 
 	    		for(i = 0; i < result.length; i++){
@@ -832,7 +907,7 @@ function callGetSimulAjax(val,mode){
 	    			$('#cl-simul-sfa-target2').append("<option value=''>--- target 2 ---</option>");
 	    		}
 	    		
-	    		$('#cl-simul-sfa-target2').append("<option value='free'>선택안함</option>");
+	    		$('#cl-simul-sfa-target2').append("<option value=''>선택안함</option>");
 	    		
 	    		//Ajax로 받아온 JSON data format 파일을 for문으로 돌려 option으로 넣는다. 
 	    		for(i = 0; i < result.length; i++){
@@ -906,133 +981,3 @@ function attExpDrawChart(result) {
       chart.draw(data, options);
     }
 
-//vis
-var att;
-var att_con;
-var network;
-function drawNetwork(result) {
-    // load the JSON file containing the Gephi network.
-    //var gephiJSON = loadJSON("./fumia.json"); // code in importing_from_gephi.
-    var gephiJSON = netfile; // code in importing_from_gephi.
-
-    // you can customize the result like with these options. These are explained below.
-    // These are the default options.
-    var parserOptions = {
-        edges: {
-            inheritColors: false
-        },
-        nodes: {
-            fixed: true,
-            parseColor: false
-        }
-    }
-
-    // parse the gephi file to receive an object
-    // containing nodes and edges in vis format.
-    var parsed = vis.network.convertGephi(gephiJSON, parserOptions);
-
-    // provide data in the normal fashion
-    var data = {
-        nodes: new vis.DataSet(parsed.nodes),
-        edges: new vis.DataSet(parsed.edges)
-    };
-
-    // Node color
-    nodeIds = data.nodes.getIds()
-    for (var i = 0; i < nodeIds.length; i++) {
-        var temp = data.nodes.get(nodeIds[i]);
-        temp.color = {
-            background: '#3333FF',
-            border: '#3333FF'
-        }
-        data.nodes.update(temp);
-    }
-
-    if (result['target1']!='') {
-        S = result['target1'].slice(2);
-        var selNode = data.nodes.get(String(S));
-        selNode.color = { 
-            background: '#CC3333',
-            border: '#CC3333'
-        }   
-        data.nodes.update(selNode);
-    }
-    if (result['target2']!='') {
-        S = result['target2'].slice(2);
-        var selNode = data.nodes.get(String(S));
-        selNode.color = {
-            background: '#CC3333',
-            border: '#CC3333'
-        }
-        data.nodes.update(selNode);
-    }
-    //data.nodes[0]['color']['background'] = '#00ff00';
-    //data.nodes[0]['color']['border'] = '#00ff00';
-
-
-    // Edge color
-    //var selEdge = data.edges.get('134');
-    //selEdge.color = '#ff0000';
-    //data.edges.update(selEdge);
-    //data.edges[0]['color'] = '#ff0000';
-    edgeIds = data.edges.getIds()
-    for (var i = 0; i < edgeIds.length; i++) {
-        var temp = data.edges.get(edgeIds[i]);
-        temp.arrows = 'to';
-        data.edges.update(temp);
-    }
-    // Edge scaling
-    temp = data.edges.get(0);
-    //temp.from == 'node1' & temp.to == 'node2';
-    temp.value = 0.3;
-    //data.edges.update(temp);
-
-    // create a network
-    var options = {
-        nodes: {
-            font: {
-                color: '#ffffff'
-            },
-            borderWidthSelected: 4
-        },
-        edges: {
-            color: '#000000'
-        },
-        interaction: {
-            // longheld click or control-click
-            multiselect: true,
-            hover: true
-        }
-    };
-    var container = document.getElementById('mynetwork');
-    var network = new vis.Network(container, data, options);
-
-    // network load progress bar
-    network.on("stabilizationProgress", function(params) {
-        var maxWidth = 496;
-        var minWidth = 20;
-        var widthFactor = params.iterations/params.total;
-        var width = Math.max(minWidth,maxWidth * widthFactor);
-        document.getElementById('bar').style.width = width + 'px';
-        document.getElementById('text').innerHTML = Math.round(widthFactor*100) + '%';
-    });
-    network.once("stabilizationIterationsDone", function() {
-        document.getElementById('text').innerHTML = '100%';
-        document.getElementById('bar').style.width = '496px';
-        document.getElementById('loadingBar').style.opacity = 0;
-        // really clean the dom element
-        setTimeout(function () {document.getElementById('loadingBar').style.display = 'none';}, 500);
-    });
-
-    var selnodes = [];
-    // event catch
-    network.on("click", function (params) {
-        //console.log(JSON.stringify(params));
-        console.log(params['nodes']);
-        selnodes = params['nodes'];
-        //console.log(params['edges']);
-    });
-    this.att = result['att_exp'];
-    this.att_con = result['att_control'];
-    this.network = data;
-}
