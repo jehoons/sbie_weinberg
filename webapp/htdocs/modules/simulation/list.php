@@ -116,6 +116,7 @@ if(!defined('__CL__')) exit();
 			<div id='cl-simul-dream2015-graph' class='cl-shadowbox-all'>
 				<div id="example1" style="width: 100%; height: 700px"></div>
 				<div id="meandeviation"></div>
+				<div id="max"></div>
 			</div>
 
             <div id='cl-simul-sfa-graph' class='cl-shadowbox-all'>

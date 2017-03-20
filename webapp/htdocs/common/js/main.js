@@ -802,18 +802,20 @@ function callGetSimulAjax(val,mode){
 				google.charts.load('upcoming', {packages:['corechart']});
 				
 				// Set a callback to run when the Google Visualization API is loaded. result를 파라미터로 보내주기 위해 아래와 같이 사용.
-				google.charts.setOnLoadCallback(function() { drawChart(result); });
+				google.charts.setOnLoadCallback(function() { drawChart(result.histo); });
 	    		
-	    		var rowlength = result["rows"].length; //row수
+	    		var rowlength = result.histo["rows"].length; //row수
 	    		var total = 0; //모두 더한 값 
 	    		var totalSubtractMean = 0; 
 	    		var mean; //평균 
 	    		var variance; //분산
 	    		var deviation; //표준편차
+			var maxrowlength = result.max.length;
+			var table;
 	    		
 	    		//값 다 더하기
 	    		for(i = 0; i < rowlength; i++){
-	    			total += Number(result["rows"][i]["c"][1]["v"]);
+	    			total += Number(result.histo["rows"][i]["c"][1]["v"]);
 		    	}
 	    		
 	    		//평균 구하기
@@ -822,15 +824,23 @@ function callGetSimulAjax(val,mode){
 	    		meanRound = Math.round(mean*100)/100;
 	    		
 	    		for(j = 0; j < rowlength; j++){
-	    			totalSubtractMean += Math.pow(Number(result["rows"][j]["c"][1]["v"]) - mean, 2);
+	    			totalSubtractMean += Math.pow(Number(result.histo["rows"][j]["c"][1]["v"]) - mean, 2);
 		    	}
 	    		
 	    		variance = totalSubtractMean/rowlength;
 	    		deviation = Math.sqrt(variance);
 	    		deviationRound = Math.round(deviation*100)/100;
 	    		
-	    		$("#meandeviation").html("Mean : "+meanRound+"<br />Standard Deviation : "+deviationRound);
-	    		
+			table = "<table>";
+                        for(k = 0; k < maxrowlength; k++){
+                                table += "<tr><td width='100'  style='border-bottom:solid 1px #000000;'>"+result.max[k][0]+"</td><td width='200'   style='border-bottom:solid 1px #000000;'>"+result.max[k][1]+"</td><td width='200'   style='border-bottom:solid 1px #000000;'>"+result.max[k][2]+"</td><td width='200'   style='border-bottom:solid 1px #000000;'>"+result.max[k][3]+"</td></tr>";
+                        }
+                        table += "</table>";
+
+                        
+	    		$("#meandeviation").html("Mean : "+meanRound+"<br />Standard Deviation : "+deviationRound+"<br /><br />"+table);
+
+				    		
 	    	//Attractor
 	    	}else if(mode == "attractor_target1"){
 	    		
