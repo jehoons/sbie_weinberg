@@ -37,7 +37,7 @@ $result_opt = $conn->query($optimal_combi_sql);
 $outp = '{"histo":{"cols":[{"type":"string"},{"type":"number"}],"rows": [';
 while($row = $result->fetch_assoc()) {
     if ($outp != '{"histo":{"cols":[{"type":"string"},{"type":"number"}],"rows": [') {$outp .= ",";}
-    $outp .= '{"c":[{"v":"'. $row["CELL_LINE"] .', '. $row["COMPOUND_A"] .', '. $row["COMPOUND_B"] . '"},{"v":' . $row["PREDICTION"] . '}]}';
+    $outp .= '{"c":[{"v":""},{"v":' . $row["PREDICTION"] . '}]}';
 }
 $outp .=']},"max":[';
 

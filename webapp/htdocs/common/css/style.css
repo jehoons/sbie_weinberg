@@ -48,7 +48,7 @@ pre {
 }
 
 footer {
-	padding: 10em 1em 1em 1em;
+	padding: 1em 1em 1em 1em;
 	line-height: 20px;
 	text-align: center;
 	width: 100%;
@@ -102,9 +102,11 @@ header {
   left: 0;
   height: 50px;
   width: 100%;
-  background: #31353d;
+  background: -webkit-linear-gradient(left, #535353 , #79E1FF); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(right, #535353, #79E1FF); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(right, #535353, #79E1FF); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(to right, #535353 , #79E1FF); /* Standard syntax (must be last) */
   text-align: center;
-  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.1);
   z-index: 4;
 }
 @media only screen and (min-width: 1200px) {
@@ -153,7 +155,7 @@ header {
   left: 0;
 }
 #cl-hamburger-menu a {
-  background: #26292f url("../img/cl-hamburger-menu.svg") no-repeat center center;
+  background: #80DBF9 url("../img/cl-hamburger-menu.svg") no-repeat center center;
 }
 @media only screen and (min-width: 1200px) {
   #cl-hamburger-menu {
@@ -165,10 +167,10 @@ header {
   right: 0;
 }
 #cl-cart-trigger .cl-lock{
-  background: #26292f url("../img/cl-lock.svg") no-repeat center center;
+  background: #80DBF9 url("../img/cl-lock.svg") no-repeat center center;
 }
 #cl-cart-trigger .cl-user{
-  background: #26292f url("../img/cl-user.svg") no-repeat center center;
+  background: #80DBF9 url("../img/cl-user.svg") no-repeat center center;
 }
 @media only screen and (min-width: 1200px) {
   #cl-cart-trigger {
@@ -179,7 +181,7 @@ header {
     position: relative;
     width: 100px;
     border-left: none;
-    background-color: #26292f;
+    background-color: #80DBF9;
   }
 }
 
@@ -483,13 +485,14 @@ Intro Section
   display: table;
   width: 100%;
   margin-top: 0px;
-  height: 200px;
-  background: url(../img/img-1.jpg) no-repeat center center;
+  height: 150px;
+  background: url(../img/building.jpg) no-repeat center center;
   background-size: cover;
   
   text-align: center;
-  color: #E9E9E9;
+  color: #000000;
   font-size: 150%;
+  font-weight: bold;
   padding-top: 80px;
   
 }
@@ -501,7 +504,7 @@ Intro Section
 }
 @media only screen and (min-width: 768px) {
   .cl-hero {
-    height: 300px;
+    height: 200px;
     
     font-size: 250%;
   	padding-top: 110px;
@@ -509,7 +512,7 @@ Intro Section
 }
 @media only screen and (min-width: 1200px) {
   .cl-hero {
-    height: 500px;
+    height: 300px;
     margin-top: 0px;
     
     font-size: 350%;
@@ -524,7 +527,7 @@ Intro Section
 }
 #indexshadowbox-all {
 	width:100%;
-	padding: 1em 1em 1em 1em;
+	padding: 5em 1em 5em 1em;
 	background-color:#FFFFFF;
 	
 	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
@@ -597,10 +600,10 @@ Button
 	background-image: none;
 	border: 1px solid #144F98;
 	margin-bottom: 1em;
-	background: -webkit-linear-gradient(#3690FF, #1367D0); /* For Safari 5.1 to 6.0 */
-	background: -o-linear-gradient(#3690FF, #1367D0); /* For Opera 11.1 to 12.0 */
-	background: -moz-linear-gradient(#3690FF, #1367D0); /* For Firefox 3.6 to 15 */
-	background: linear-gradient(#3690FF, #1367D0); /* Standard syntax (must be last) */  	
+	background: -webkit-linear-gradient(#80DBF9, #68A1B2); /* For Safari 5.1 to 6.0 */
+	background: -o-linear-gradient(#80DBF9, #68A1B2); /* For Opera 11.1 to 12.0 */
+	background: -moz-linear-gradient(#80DBF9, #68A1B2); /* For Firefox 3.6 to 15 */
+	background: linear-gradient(#80DBF9, #68A1B2); /* Standard syntax (must be last) */  	
 	-webkit-transition: all 0.2s;
 	-moz-transition: all 0.5s;
 	transition: all 0.5s;
@@ -615,10 +618,10 @@ Button
 	border-radius: 0px;
 }
 .no-touch .cl-btn:hover {
-	background: -webkit-linear-gradient(#2A7ADD, #1358AE); /* For Safari 5.1 to 6.0 */
-	background: -o-linear-gradient(#2A7ADD, #1358AE); /* For Opera 11.1 to 12.0 */
-	background: -moz-linear-gradient(#2A7ADD, #1358AE); /* For Firefox 3.6 to 15 */
-	background: linear-gradient(#2A7ADD, #1358AE); /* Standard syntax (must be last) */  	
+	background: -webkit-linear-gradient(#80DBF9, #4FA3BC); /* For Safari 5.1 to 6.0 */
+	background: -o-linear-gradient(#80DBF9, #4FA3BC); /* For Opera 11.1 to 12.0 */
+	background: -moz-linear-gradient(#80DBF9, #4FA3BC); /* For Firefox 3.6 to 15 */
+	background: linear-gradient(#80DBF9, #4FA3BC); /* Standard syntax (must be last) */  	
 }
 .cl-btn-inner {
 	/* 흰 테두리 버튼 */

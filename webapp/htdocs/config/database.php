@@ -26,8 +26,8 @@ $dbname = "kaist";
 
 $servername = "localhost";
 $username = "root";
-$password = "sbl4365";
-$dbname = "weinberg";
+$password = "5262";
+$dbname = "kaist";
 
 // Connect
 $conn = new mysqli($servername, $username, $password, $dbname);

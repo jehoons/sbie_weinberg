@@ -810,8 +810,8 @@ function callGetSimulAjax(val,mode){
 	    		var mean; //평균 
 	    		var variance; //분산
 	    		var deviation; //표준편차
-			var maxrowlength = result.max.length;
-			var table;
+	    		var maxrowlength = result.max.length;
+	    		var table;
 	    		
 	    		//값 다 더하기
 	    		for(i = 0; i < rowlength; i++){
@@ -831,14 +831,15 @@ function callGetSimulAjax(val,mode){
 	    		deviation = Math.sqrt(variance);
 	    		deviationRound = Math.round(deviation*100)/100;
 	    		
-			table = "<table>";
+	    		table = "<table style='width:100%;'>"
+	    		table += "<tr height='40'; style='text-align: center; font-weight: bold; line-height: 40px; border-bottom:solid 1px #BBBBBB; background:#EEEEEE;'><td style='width:10%;'>No.</td><td style='width:30%;'>Drug1</td><td style='width:30%;'>Drug2</td><td style='width:30%;'>Avg. synergy score</td></tr>";
                         for(k = 0; k < maxrowlength; k++){
-                                table += "<tr><td width='100'  style='border-bottom:solid 1px #000000;'>"+result.max[k][0]+"</td><td width='200'   style='border-bottom:solid 1px #000000;'>"+result.max[k][1]+"</td><td width='200'   style='border-bottom:solid 1px #000000;'>"+result.max[k][2]+"</td><td width='200'   style='border-bottom:solid 1px #000000;'>"+result.max[k][3]+"</td></tr>";
+                                table += "<tr height='40' style='text-align: center; line-height: 40px; border-bottom:solid 1px #BBBBBB;'><td style=''>"+result.max[k][0]+"</td><td   style=''>"+result.max[k][1]+"</td><td style='border-bottom:solid 1px #BBBBBB;'>"+result.max[k][2]+"</td><td style=''>"+result.max[k][3]+"</td></tr>";
                         }
                         table += "</table>";
 
                         
-	    		$("#meandeviation").html("Mean : "+meanRound+"<br />Standard Deviation : "+deviationRound+"<br /><br />"+table);
+	    		$("#meandeviation").html("Thousands of synergistic score predicted values are calculated, including 10% noise in the model parameters. The more closely the profile of the predicted synergy score is distributed, the more robust the predictions are for the parameter changes of the model.<br /><br />Mean : "+meanRound+"<br />Standard Deviation : "+deviationRound+"<br /><br />"+table);
 
 				    		
 	    	//Attractor
@@ -945,9 +946,10 @@ function drawChart(result) {
 	var data = new google.visualization.DataTable(result);
 
 	  var options = {
-	    title: 'Prediction',
 	    legend: { position: 'none' },
-	    colors: ['#1A70DB'],
+	    colors: ['#4398B1'],
+	    vAxis: {title: 'Frequency', titleTextStyle: {color: '#FF0000', fontSize: '20', bold: '1'}},
+	    hAxis: {title: 'Synergy score', titleTextStyle: {color: '#FF0000', fontSize: '20', bold: '1'}},
 	  };
 
 	  var chart = new google.visualization.Histogram(document.getElementById('example1'));

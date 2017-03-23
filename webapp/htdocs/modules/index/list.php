@@ -17,8 +17,9 @@ if(!defined('__CL__')) exit();
 </section>
 */?>
 <!-- index 내용 -->
-<div id="cl-content">
 	<div id='indexshadowbox-all'>
 		<img src="<?php echo _CL_PATH_HOST_;?>common/img/Figure-S1B.jpg" id="indeximg"/>
+		<div style="border-bottom: 1px;"></div>
 	</div>
-</div>
+	
+	
