@@ -839,7 +839,7 @@ function callGetSimulAjax(val,mode){
                         table += "</table>";
 
                         
-	    		$("#meandeviation").html("Thousands of synergistic score predicted values are calculated, including 10% noise in the model parameters. The more closely the profile of the predicted synergy score is distributed, the more robust the predictions are for the parameter changes of the model.<br /><br />Mean : "+meanRound+"<br />Standard Deviation : "+deviationRound+"<br /><br />"+table);
+	    		$("#meandeviation").html("<span style='font-weight:bold; font-size:120%;'>Thousands of synergistic score predicted values are calculated, including 10% noise in the model parameters. The more closely the profile of the predicted synergy score is distributed, the more robust the predictions are for the parameter changes of the model.</span><br /><br />Mean : "+meanRound+"<br />Standard Deviation : "+deviationRound+"<br /><br />"+table);
 
 				    		
 	    	//Attractor
@@ -963,7 +963,7 @@ function attControlDrawChart(result) {
       var options = {
         title: 'Attractors - control',
         legend: { position: 'none' },
-        colors: ['#1A70DB'],
+        colors: ['#4398B1'],
         vAxis: {
             minValue: 0,
             maxValue: 1
@@ -981,7 +981,7 @@ function attExpDrawChart(result) {
       var options = {
         title: 'Attractors - simulation',
         legend: { position: 'none' },
-        colors: ['#1A70DB'],
+        colors: ['#4398B1'],
         vAxis: {
             minValue: 0,
             maxValue: 1
