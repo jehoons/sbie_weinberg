@@ -26,7 +26,7 @@ ORDER BY PREDICTION ASC
 ";
 $result = $conn->query($sql);
 $optimal_combi_sql = "
-SELECT COMPOUND_A, COMPOUND_B, max(PREDICTION) AS maxVal
+SELECT COMPOUND_A, COMPOUND_B, avg(PREDICTION) AS maxVal
 FROM dream2015
 WHERE CELL_LINE='$cellline'
 GROUP BY COMPOUND_A, COMPOUND_B

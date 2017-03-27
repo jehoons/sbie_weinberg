@@ -591,10 +591,22 @@ function callSimulAjaxSfa(val){
         data:formData,
         success:function(result){
 
+            var maxrowlength = result.max.length;
 
             $('#cl-simul-sfa-graph').fadeIn();
             $('#loadingBar_sfa').fadeTo("fast",1);
             sfa_net_drawing(result);
+
+            table = "<table style='width:100%;'>"
+            table += "<tr height='40'; style='text-align: center; font-weight: bold; line-height: 40px; border-bottom:solid 1px #BBBBBB; background:#EEEEEE;'><td style='width:10%;'>No.</td><td style='width:30%;'>Drug1</td><td style='width:30%;'>Drug2</td><td style='width:30%;'>Avg. synergy score</td></tr>";
+            for(k = 0; k < maxrowlength; k++){
+                table += "<tr height='40' style='text-align: center; line-height: 40px; border-bottom:solid 1px #BBBBBB;'><td style=''>"+result.max[k][0]+"</td><td   style=''>"+result.max[k][1]+"</td><td style='border-bottom:solid 1px #BBBBBB;'>"+result.max[k][2]+"</td><td style=''>"+result.max[k][3]+"</td></tr>";
+            }
+            table += "</table>";
+
+
+            $("#optimal_sfa").html(table)
+
 
         },
         error:function (xhr, ajaxOptions, thrownError){
@@ -642,6 +654,7 @@ function callSimulAjax(val){
 	    success:function(result){
 	    	
 	    	//$('#cl-simul-attractor-graph').html("node1" + result['node1'] + "<br />node2" + result['node2'] + "<br />node3" + result['node3'] + "<br />node4" + result['node4'] + "<br />node5" + result['node5'] + "<br />target1" + result['target1'] + "<br />target1_on" + result['target1_on'] + "<br />target2" + result['target2'] + "<br />target2_on" + result['target2_on'] + "<br />input_nodes" + result['input_nodes'] + "<br />attractors" + result['attractors'] + "<br />state_key" + result['state_key']);
+            var maxrowlength = result.max.length;
 	    	
 	    	$('#cl-simul-attractor-graph').fadeIn();
             $('#loadingBar').fadeTo("fast",1);
@@ -653,6 +666,15 @@ function callSimulAjax(val){
             google.charts.setOnLoadCallback(function() { attControlDrawChart(result); });
             google.charts.setOnLoadCallback(function() { attExpDrawChart(result); });
 
+            table = "<table style='width:100%;'>"
+            table += "<tr height='40'; style='text-align: center; font-weight: bold; line-height: 40px; border-bottom:solid 1px #BBBBBB; background:#EEEEEE;'><td style='width:10%;'>No.</td><td style='width:30%;'>Target1</td><td style='width:30%;'>Target2</td><td style='width:30%;'>Efficiency score</td></tr>";
+            for(k = 0; k < maxrowlength; k++){
+                table += "<tr height='40' style='text-align: center; line-height: 40px; border-bottom:solid 1px #BBBBBB;'><td style=''>"+result.max[k][0]+"</td><td   style=''>"+result.max[k][1]+"</td><td style='border-bottom:solid 1px #BBBBBB;'>"+result.max[k][2]+"</td><td style=''>"+result.max[k][3]+"</td></tr>";
+            }
+            table += "</table>";
+
+
+            $("#optimal_att").html(table)
 	
 	    },
 	    error:function (xhr, ajaxOptions, thrownError){

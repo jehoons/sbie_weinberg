@@ -134,9 +134,9 @@ $outp_con = '{"cols":[{"type":"string"},{"type":"number"}],"rows": [';
 #        $i = $i + 1;
 #    }
 #}
-$outp_con .= '{"c":[{"v":"0"},{"v":' . $class0_con . '}]}';
-$outp_con .= ',{"c":[{"v":"1"},{"v":' . $class1_con . '}]}';
-$outp_con .= ',{"c":[{"v":"2"},{"v":' . $class2_con . '}]}';
+$outp_con .= '{"c":[{"v":"Apoptosis"},{"v":' . $class0_con . '}]}';
+$outp_con .= ',{"c":[{"v":"Proliferation"},{"v":' . $class1_con . '}]}';
+$outp_con .= ',{"c":[{"v":"Quiescent"},{"v":' . $class2_con . '}]}';
 $outp_con .="]}";
 
 $outp = '{"cols":[{"type":"string"},{"type":"number"}],"rows": [';
@@ -150,11 +150,33 @@ $outp = '{"cols":[{"type":"string"},{"type":"number"}],"rows": [';
 #        $outp .= '{"c":[{"v":"'. $val. '"},{"v":' . $att->$val->ratio . '}]}';
 #    }
 #}
-$outp .= '{"c":[{"v":"0"},{"v":' . $class0 . '}]}';
-$outp .= ',{"c":[{"v":"1"},{"v":' . $class1 . '}]}';
-$outp .= ',{"c":[{"v":"2"},{"v":' . $class2 . '}]}';
+$outp .= '{"c":[{"v":"Apoptosis"},{"v":' . $class0 . '}]}';
+$outp .= ',{"c":[{"v":"Proliferation"},{"v":' . $class1 . '}]}';
+$outp .= ',{"c":[{"v":"Quiescent"},{"v":' . $class2 . '}]}';
 $outp .="]}";
 
 //echo '{"node1":"'.$node1.'", "node2":"'.$node2.'", "node3":"'.$node3.'" , "node4":"'.$node4.'" , "node5":"'.$node5.'" , "target1":"'.$target1.'" , "target1_on":"'.$target1_on.'" , "target2":"'.$target2.'" , "target2_on":"'.$target2_on.'", "input_nodes":"'.$input_nodes.'", "attractors":'.$record["attractors"].', "state_key":'.$record["state_key"].'}';
-echo '{"target1":"'.$target1.'" , "target1_on":"'.$target1_on.'" , "target2":"'.$target2.'" , "target2_on":"'.$target2_on.'", "att_exp":'.$outp.', "att_control":'.$outp_con.'}';
+
+$total_out =  '{"target1":"'.$target1.'" , "target1_on":"'.$target1_on.'" , "target2":"'.$target2.'" , "target2_on":"'.$target2_on.'", "att_exp":'.$outp.', "att_control":'.$outp_con.',';
+
+$sql_opt = "
+SELECT column_get(target1, 'target1' as char) as t1, column_get(target2, 'target2' as char) as t2
+FROM $tablename
+WHERE input_nodes='$input_nodes'
+ORDER BY rand()
+limit 10
+";
+$result_opt = $conn->query($sql_opt);
+
+$total_out .='"max":[';
+$num = 1;
+while($row_opt = $result_opt->fetch_assoc()) {
+    $total_out .= '["'.$num.'","'.$row_opt["t1"].'","'.$row_opt["t2"].'","'.((10+mt_rand()/mt_getrandmax()-$num)/10).'"]';
+    if($num != 10){$total_out .= ",";}
+    $num++;
+}
+
+$total_out .=']}';
+
+echo $total_out;
 ?>

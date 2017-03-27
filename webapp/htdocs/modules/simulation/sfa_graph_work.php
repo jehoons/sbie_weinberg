@@ -33,6 +33,24 @@ $signal = json_decode($record["signal_flow"]);
 $dt1 = $record["dt1"];
 $dt2 = $record["dt2"];
 
-echo '{"signal":'.json_encode($signal).', "drug1_target":"'.$dt1.'", "drug2_target":"'.$dt2.'"}';
+$sql_opt = "
+SELECT column_get(drug1, 'drug1' as char) AS d1, column_get(drug2, 'drug2' as char) AS d2
+FROM sfa
+LIMIT 10
+";
+$result_opt = $conn->query($sql_opt);
+
+$outp = '{"signal":'.json_encode($signal).', "drug1_target":"'.$dt1.'", "drug2_target":"'.$dt2.'",';
+$outp .='"max":[';
+$num = 1;
+while($row_opt = $result_opt->fetch_assoc()) {
+    $outp .= '["'.$num.'","'.$row_opt["d1"].'","'.$row_opt["d2"].'","'.(20+mt_rand()/mt_getrandmax()-$num).'"]';
+    if($num != 10){$outp .= ",";}
+    $num++;
+}
+
+$outp .=']}';
+
+echo $outp;
 
 ?>

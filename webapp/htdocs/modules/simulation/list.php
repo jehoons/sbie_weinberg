@@ -130,6 +130,7 @@ if(!defined('__CL__')) exit();
                          </div>
                     </div>
                 </div>
+                <div id="optimal_sfa"></div>
             </div>
 
 			
@@ -147,6 +148,7 @@ if(!defined('__CL__')) exit();
                 </div>
                 <div id="atthist_control" style="width: 100%; height: 300px"></div>
                 <div id="atthist_exp" style="width: 100%; height: 300px"></div>
+                <div id="optimal_att"></div>
 			</div>
 		</div>
 	</div>
