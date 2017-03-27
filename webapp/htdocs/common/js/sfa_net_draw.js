@@ -134,6 +134,7 @@ function sfa_net_drawing(result) {
         selnodes = params['nodes'];
         //console.log(params['edges']);
     });
+    network.moveTo({scale:1.3})
     this.signal = result['signal'];
     this.network = data;
 }
