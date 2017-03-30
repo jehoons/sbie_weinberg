@@ -597,7 +597,7 @@ function callSimulAjaxSfa(val){
             $('#loadingBar_sfa').fadeTo("fast",1);
             sfa_net_drawing(result);
 
-            table = "<span style='font-weight:bold; font-size:120%;'>Optimal drug combination cadidates</span><br /><table style='width:100%;'>"
+            table = "<br /><span style='font-weight:bold; font-size:120%;'>Optimal drug combination cadidates</span><br /><table style='width:100%;'>"
             table += "<tr height='40'; style='text-align: center; font-weight: bold; line-height: 40px; border-bottom:solid 1px #BBBBBB; background:#EEEEEE;'><td style='width:10%;'>No.</td><td style='width:30%;'>Drug1</td><td style='width:30%;'>Drug2</td><td style='width:30%;'>Efficiency score</td></tr>";
             for(k = 0; k < maxrowlength; k++){
                 table += "<tr height='40' style='text-align: center; line-height: 40px; border-bottom:solid 1px #BBBBBB;'><td style=''>"+result.max[k][0]+"</td><td   style=''>"+result.max[k][1]+"</td><td style='border-bottom:solid 1px #BBBBBB;'>"+result.max[k][2]+"</td><td style=''>"+result.max[k][3]+"</td></tr>";
