@@ -1022,10 +1022,10 @@ function callGetSimulAjax(val,mode){
 	    		//해당 Select 박스의 option이 1이상이면 그 이하의 종속 selects를 reset 한다.
 	    		if($('#cl-simul-attractor-target1 option').size() > 1){
 	    			$('#cl-simul-attractor-target1 option').remove();
-	    			$('#cl-simul-attractor-target1').append("<option value=''>--- target 1 ---</option>");
+	    			$('#cl-simul-attractor-target1').append("<option value=''>--- Drug 1 ---</option>");
 	    			
 	    			$('#cl-simul-attractor-target2 option').remove();
-	    			$('#cl-simul-attractor-target2').append("<option value=''>--- target 2 ---</option>");
+	    			$('#cl-simul-attractor-target2').append("<option value=''>--- Drug 2 ---</option>");
 	    		}
 	    		
 	    		$('#cl-simul-attractor-target1').append("<option value=''>선택안함</option>");

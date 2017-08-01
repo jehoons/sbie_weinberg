@@ -16,10 +16,15 @@ if(!defined('__CL__')) exit();
 
 $target1 = $_GET["target1"];
 
+#$sql = "
+#SELECT *
+#FROM targets
+#WHERE ta_target <> '$target1'
+#";
 $sql = "
-SELECT *
-FROM targets
-WHERE ta_target <> '$target1'
+SELECT drug_name
+FROM drug_chembl
+WHERE drug_name <> '$target1'
 ";
 $result = $conn->query($sql);
 
@@ -27,7 +32,8 @@ $result = $conn->query($sql);
 $outp = "[";
 while($row = $result->fetch_assoc()) {
     if ($outp != "[") {$outp .= ",";}
-    $outp .= '{"target2":"'  . $row["ta_target"] . '"}'; 
+    #$outp .= '{"target2":"'  . $row["ta_target"] . '"}'; 
+    $outp .= '{"target2":"'  . $row["drug_name"] . '"}'; 
 }
 $outp .="]";
 	

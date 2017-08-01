@@ -61,7 +61,7 @@ if(!defined('__CL__')) exit();
 
                     <div id="cl-simul-patient">
 <form action='<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>?module=simulation&act=patient_graph_work.php' method='POST' target='_self' accept-charset='UTF-8' enctype='application/x-www-form-urlencoded' autocomplete='on' id="cl-simul-patient-form">				
-                        Mutation
+                        <br>Mutation
                         <textarea id="cl-simul-mutation" name="mutation" class="cl-textarea"></textarea>
                         <div>
                             <select id="cl-simul-attractor-target1" name="target1" class="cl-select" style="margin-bottom:1em; width:49%; float:left; margin-right:2%;">

@@ -14,9 +14,13 @@ attractor target1 값을 가져오는 ajax 페이지.
 //__CL__ 정의 되지 않았다면 false 를 return.
 if(!defined('__CL__')) exit();
 
+#$sql = "
+#SELECT *
+#FROM targets
+#";
 $sql = "
-SELECT *
-FROM targets
+SELECT drug_name
+FROM drug_chembl
 ";
 $result = $conn->query($sql);
 
@@ -24,7 +28,8 @@ $result = $conn->query($sql);
 $outp = "[";
 while($row = $result->fetch_assoc()) {
     if ($outp != "[") {$outp .= ",";}
-    $outp .= '{"target1":"'  . $row["ta_target"] . '"}'; 
+    #$outp .= '{"target1":"'  . $row["ta_target"] . '"}'; 
+    $outp .= '{"target1":"'  . $row["drug_name"] . '"}'; 
 }
 $outp .="]";
 	

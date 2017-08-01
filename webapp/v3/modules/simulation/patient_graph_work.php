@@ -29,10 +29,16 @@ $json_output = array(
     'target1' => $target1,
     'target2' => $target2
 );
-$json_file = '/data/patient_input/input' . date("Y-m-d-H-i-s") . '.json';
+$now = DateTime::createFromFormat('U.u', number_format(microtime(true), 6, '.', ''));
+$local = $now->setTimeZone(new DateTimeZone('Asia/Seoul'));
+$cur_time = $local->format("Y-m-d-H-i-s.u");
+$json_file = '/data/patient_input/input' . $cur_time . '.json';
 $fp = fopen($json_file, 'w');
 fwrite($fp, json_encode($json_output));
 fclose($fp);
+
+$callpy = 'python3 /data/platform_scripts/python/v3_drug_target.py '. $json_file;
+exec($callpy);
 
 
 $outp = '{}';
