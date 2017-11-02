@@ -14,7 +14,7 @@ weinberg.kaist.ac.kr
 $servername = "localhost";
 $username = "root";
 $password = "sbl4365";
-$dbname = "weinberg";
+$dbname = "v4";
 
 localhost
 $servername = "localhost";
@@ -25,8 +25,8 @@ $dbname = "platform";
 
 $servername = "localhost";
 $username = "root";
-$password = "5262";
-$dbname = "platform";
+$password = "sbl4365";
+$dbname = "v4";
 
 // Connect
 $conn = new mysqli($servername, $username, $password, $dbname);
