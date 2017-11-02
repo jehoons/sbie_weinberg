@@ -18,9 +18,9 @@ if(!defined('__CL__')) exit();
 			<col width='70'>
 			<col width='100'>
 			<col width='100'>
-			<col width='100'>
-			<col width='100'>
-			<col width='100'>
+			<col width='200'>
+			<col width='200'>
+			<col width='200'>
 			<col width=''>
 			<col width='150'>
 			<col width='150'>
@@ -29,13 +29,13 @@ if(!defined('__CL__')) exit();
 		<tr style="background: #F2F2F2">
 			<td class="supervisor-td"></td>
 			<td class="supervisor-td">Number</td>
-			<td class="supervisor-td">Patient</td>
-			<td class="supervisor-td">Cancer type</td>
-			<td class="supervisor-td">Expression</td>
-			<td class="supervisor-td">Mutation</td>
-			<td class="supervisor-td">CNV</td>
+			<td class="supervisor-td">환자명</td>
+			<td class="supervisor-td">암종</td>
+			<td class="supervisor-td">Mutation<br />(amino acid change)</td>
+			<td class="supervisor-td">CNA<br />(log fold change)</td>
+			<td class="supervisor-td">mRNA expression<br />(z-score)</td>
 			<td class="supervisor-td">Contents</td>
-			<td class="supervisor-td">Analysis</td>
+			<td class="supervisor-td">분석상태</td>
 			<td class="supervisor-td">Work</td>
 		</tr>
 <?php

@@ -20,13 +20,13 @@ localhost
 $servername = "localhost";
 $username = "root";
 $password = "5262";
-$dbname = "kaist";
+$dbname = "platform";
 */
 
 $servername = "localhost";
 $username = "root";
-$password = "sbl4365";
-$dbname = "v4";
+$password = "5262";
+$dbname = "platform";
 
 // Connect
 $conn = new mysqli($servername, $username, $password, $dbname);
