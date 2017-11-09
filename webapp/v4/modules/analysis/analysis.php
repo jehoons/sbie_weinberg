@@ -60,8 +60,6 @@ $sql = "
 select T.DRUG_ID1, T.DRUG_ID2, T.DRUG_ID3, AR.ATT_SUMMARY_SCORE as ATTRACTOR, AR.SFA_SUMMARY_SCORE as SFA, AR.ML_SUMMARY_SCORE as ML
 from ANALYSIS_RESULT as AR inner join TREATMENT as T
 on AR.ANALYSIS_ID=1 and	AR.TREATMENT_ID = T.ID
-$where
-$orderby
 ";
 $result = $conn->query($sql);
 
@@ -78,7 +76,7 @@ while($row = $result->fetch_assoc()) {
 	if($row[DRUG_ID1]){
 		$sql_drug1 = "
 		select *
-		from drug
+		from DRUG
 		where ID = $row[DRUG_ID1]
 		";
 		$result_drug1 = $conn->query($sql_drug1);
@@ -100,7 +98,7 @@ while($row = $result->fetch_assoc()) {
 	if($row[DRUG_ID2]){
 		$sql_drug2 = "
 		select *
-		from drug
+		from DRUG
 		where ID = $row[DRUG_ID2]
 		";
 		$result_drug2 = $conn->query($sql_drug2);
@@ -122,7 +120,7 @@ while($row = $result->fetch_assoc()) {
 	if($row[DRUG_ID3]){
 		$sql_drug3 = "
 		select *
-		from drug
+		from DRUG
 		where ID = $row[DRUG_ID3]
 		";
 		$result_drug3 = $conn->query($sql_drug3);
