@@ -47,8 +47,13 @@ $row = $result->fetch_assoc();
 					<col>
 				</colgroup>
 				<tr style="background: #F2F2F2">
-					<td class="supervisor-td">약물이름</td>
-					<td class="supervisor-td">약물타겟</td>
+					<td class="supervisor-td" rowspan="2">약물이름</td>
+					<td class="supervisor-td" rowspan="2">약물타겟</td>
+					<td class="supervisor-td" colspan="3">Resistance score</td>
+				</tr>
+				
+				<tr style="background: #F2F2F2">
+					
 					<td class="supervisor-td">Attractor</td>
 					<td class="supervisor-td">SFA</td>
 					<td class="supervisor-td">ML</td>
@@ -143,9 +148,9 @@ while($row = $result->fetch_assoc()) {
 				<tr>
 					<td class="supervisor-td"><?php echo $drug?></td>
 					<td class="supervisor-td"><?php echo $commaList;?></td>
-					<td class="supervisor-td"><?php echo round($row[ATTRACTOR],8);?></td>
-					<td class="supervisor-td"><?php echo round($row[SFA],8);?></td>
-					<td class="supervisor-td"><?php echo round($row[ML],8);?></td>
+					<td class="supervisor-td"><?php echo round($row[ATTRACTOR],3);?></td>
+					<td class="supervisor-td"><?php echo round($row[SFA],3);?></td>
+					<td class="supervisor-td"><?php echo round($row[ML],3);?></td>
 				</tr>
 <?php
 }?>					
