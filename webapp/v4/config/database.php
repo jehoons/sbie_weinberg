@@ -14,7 +14,7 @@ weinberg.kaist.ac.kr
 $servername = "localhost";
 $username = "root";
 $password = "sbl4365";
-$dbname = "v4";
+$dbname = "weinberg";
 
 localhost
 $servername = "localhost";
