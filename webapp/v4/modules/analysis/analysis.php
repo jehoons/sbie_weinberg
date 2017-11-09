@@ -39,7 +39,6 @@ $row = $result->fetch_assoc();
 			<div style="height:32px;"></div>
 			<table class="supervisor-table">
 				<colgroup>
-					<col width='70'>
 					<col width='100'>
 					<col width='100'>
 					<col width='100'>
@@ -48,7 +47,6 @@ $row = $result->fetch_assoc();
 					<col>
 				</colgroup>
 				<tr style="background: #F2F2F2">
-					<td class="supervisor-td">Number</td>
 					<td class="supervisor-td">약물이름</td>
 					<td class="supervisor-td">약물타겟</td>
 					<td class="supervisor-td">Attractor</td>
@@ -143,7 +141,6 @@ while($row = $result->fetch_assoc()) {
 	$commaList = implode(', ', $target_array);
 ?>					
 				<tr>
-					<td class="supervisor-td"><?php echo $boardnum?></td>
 					<td class="supervisor-td"><?php echo $drug?></td>
 					<td class="supervisor-td"><?php echo $commaList;?></td>
 					<td class="supervisor-td"><?php echo round($row[ATTRACTOR],8);?></td>

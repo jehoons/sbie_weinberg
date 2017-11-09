@@ -15,7 +15,6 @@ if(!defined('__CL__')) exit();
 	<table class="supervisor-table">
 		<colgroup>
 			<col width='50'>
-			<col width='70'>
 			<col width='100'>
 			<col width='100'>
 			<col width=''>
@@ -27,7 +26,6 @@ if(!defined('__CL__')) exit();
 		</colgroup>
 		<tr style="background: #F2F2F2">
 			<td class="supervisor-td"></td>
-			<td class="supervisor-td">Number</td>
 			<td class="supervisor-td">환자명</td>
 			<td class="supervisor-td">암종</td>
 			<td class="supervisor-td">Mutation (amino acid change)</td>
@@ -139,7 +137,6 @@ while($row = $result->fetch_assoc()) {
 ?>
 		<tr>
 			<td class="supervisor-td"><input type="checkbox" id="myCheck"></td>
-			<td class="supervisor-td"><?php echo $boardnum?></td>
 			<td class="supervisor-td"><?php echo $row[PATIENT_NAME]?></td>
 			<td class="supervisor-td"><?php echo $row[CANCER_NAME]?></td>
 			<td class="supervisor-td" style="text-align:left; padding-left:0.5em;"><?php echo $mutation_contents?></td>
