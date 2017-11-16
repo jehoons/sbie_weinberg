@@ -1,5 +1,6 @@
 <?php
 if(!defined('__CL__')) exit();
+$start_time = array_sum(explode(' ', microtime()));
 ?>
 <div class="module-upspace"></div>
 
@@ -20,8 +21,8 @@ if(!defined('__CL__')) exit();
 			<col width=''>
 			<col width=''>
 			<col width=''>
-			<col width='150'>
-			<col width='150'>
+			<col width='100'>
+			<col width='100'>
 			<col>
 		</colgroup>
 		<tr style="background: #F2F2F2">
@@ -45,7 +46,7 @@ if($_GET["searchStr"]){
 $orderby = "ORDER BY PATIENT_ID DESC";
 
 $sql = "
-select P.ID as PATIENT_ID, P.NAME as PATIENT_NAME, C.NAME as CANCER_NAME, A.STATUS as ANALYSIS_STATUS
+select P.ID as PATIENT_ID, P.NAME as PATIENT_NAME, C.NAME as CANCER_NAME, C.ID as CANCER_ID, A.STATUS as ANALYSIS_STATUS
 from PATIENT as P inner join CANCER as C inner join ANALYSIS as A
 on P.CANCER_ID = C.ID and P.ID = A.PATIENT_ID
 $where
@@ -71,7 +72,7 @@ while($row = $result->fetch_assoc()) {
 	if($row[ANALYSIS_STATUS]){
 		$status = "<a href=".htmlspecialchars($_SERVER[PHP_SELF])."?module=analysis&act=analysis.php&PATIENT_ID=".$row[PATIENT_ID]." style='color:#000000;'>완료</a>";
 	}else{
-		$status = "<span style='color:#BCBCBC;'>진행중...</span>";	
+		$status = "<span style='color:#BCBCBC;'>진행중</span>";	
 	}
 
 	//Mutaion정보
@@ -86,8 +87,8 @@ while($row = $result->fetch_assoc()) {
 	
 	$sql_mutation = "
 	select M.ID as MUTATION_ID, M.AA as MUTATION_AA, G.SYMBOL as GENE_SYMBOL, T.NAME as MUTATIONTYPE_NAME
-	from MUTATION as M inner join GENE as G inner join MUTATIONTYPE as T
-	on M.GENE_ID = G.ID and M.MUTATIONTYPE_ID = T.ID
+	from MUTATION as M inner join GENE as G inner join MUTATIONTYPE as T inner join (select * from DRIVER where CANCER_ID = $row[CANCER_ID]) as D
+	on M.GENE_ID = G.ID and M.MUTATIONTYPE_ID = T.ID and M.GENE_ID = D.GENE_ID 
 	where M.PATIENT_ID = $row[PATIENT_ID]
 	LIMIT 3
 	";
@@ -98,12 +99,17 @@ while($row = $result->fetch_assoc()) {
 	
 	array_shift($mutation_array); //가장 앞에 있는 배열 값 제거
 	$mutation_commaList = implode(', ', $mutation_array);
-	$mutation_contents = "<span style='color:#D93131;'>".$mutation_count."개</span> - ".stringCut($mutation_commaList,200)."...";
+	if($mutation_commaList){
+		$mutation_contents = "<span style='color:#D93131;'>".$mutation_count."개</span> - ".stringCut($mutation_commaList,200)."...";
+	}else{
+		$mutation_contents = "<span style='color:#D93131;'>".$mutation_count."개</span>";
+	}
+	
 	
 	//CNA정보
 	$sql_cna = "
 	select C.ID as CNA_ID, C.VALUE as CNA_VALUE, G.SYMBOL as GENE_SYMBOL
-	from CNA as C inner join GENE as G
+	from CNA as C inner join GENE as G inner join (select * from DRIVER where CANCER_ID = $row[CANCER_ID]) as D
 	on C.GENE_ID = G.ID
 	where C.PATIENT_ID = $row[PATIENT_ID]
 	LIMIT 3
@@ -143,10 +149,15 @@ while($row = $result->fetch_assoc()) {
 			<td class="supervisor-td" style="text-align:left; padding-left:0.5em;"><?php echo $cna_contents?></td>
 			<td class="supervisor-td" style="text-align:left; padding-left:0.5em;"><?php echo $mrna_contents?></td>
 			<td class="supervisor-td"><?php echo $status?></td>
-			<td class="supervisor-td">Edit / <a href="#0" class="delete-open" data-urldata="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>?module=analysis&act=patient_delete_work.php&pagenum=<?php echo $_GET["pagenum"];?>&searchColumn=<?php echo $_GET["searchColumn"];?>&searchStr=<?php echo $_GET["searchStr"];?>&orderby=<?php echo $_GET["orderby"];?>&orderopt=<?php echo $_GET["orderopt"];?>&pt_rowid=<?php echo $row["pt_rowid"]?>">Delete</a></td>
+			<td class="supervisor-td">Edit / Delete
+			<!--<a href="#0" class="delete-open" data-urldata="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>?module=analysis&act=patient_delete_work.php&pagenum=<?php echo $_GET["pagenum"];?>&searchColumn=<?php echo $_GET["searchColumn"];?>&searchStr=<?php echo $_GET["searchStr"];?>&orderby=<?php echo $_GET["orderby"];?>&orderopt=<?php echo $_GET["orderopt"];?>&pt_rowid=<?php echo $row["pt_rowid"]?>">Delete</a>  -->
+			</td>
 		</tr>
 <?php
 }
+
+$end_time = array_sum(explode(' ', microtime()));
+echo $end_time - $start_time;
 ?>					
 		</table>
 		

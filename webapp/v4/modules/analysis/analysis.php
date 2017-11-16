@@ -39,16 +39,16 @@ $row = $result->fetch_assoc();
 			<div style="height:32px;"></div>
 			<table class="supervisor-table">
 				<colgroup>
-					<col width='100'>
-					<col width='100'>
-					<col width='100'>
-					<col width='100'>
-					<col width='100'>
+					<col width='130'>
+					<col width='130'>
+					<col width='80'>
+					<col width='80'>
+					<col width='80'>
 					<col>
 				</colgroup>
 				<tr style="background: #F2F2F2">
-					<td class="supervisor-td" rowspan="2">약물이름</td>
-					<td class="supervisor-td" rowspan="2">약물타겟</td>
+					<td class="supervisor-td" rowspan="2" style="vertical-align: middle;">약물이름</td>
+					<td class="supervisor-td" rowspan="2" style="vertical-align: middle;">약물타겟</td>
 					<td class="supervisor-td" colspan="3">Resistance score</td>
 				</tr>
 				
