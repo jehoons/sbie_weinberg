@@ -14,7 +14,7 @@ if(!defined('__CL__')) exit();
 	<div class='cl-layout'>
 		<div class='col-4'>
 			<div class='cl-shadowbox-all'>
-				Please select module
+				TestJY: Please select module
 				<select id="cl-simul-module" class="cl-select" style="margin-bottom:1em;">
 					<option value=''>--- Module ---</option>
 					<option value='dream2015'>Dream2015</option>

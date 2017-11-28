@@ -19,7 +19,14 @@ if(substr($_GET["act"],-9,9) == "_work.php"){
 
 	<link rel="stylesheet" href="<?php echo _CL_PATH_HOST_;?>common/css/reset.css"> <!-- CSS reset -->
 	<link rel="stylesheet" href="<?php echo _CL_PATH_HOST_;?>common/css/style.css"> <!-- Resource style -->
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> 
 	<script src="<?php echo _CL_PATH_HOST_;?>common/js/modernizr.js"></script> <!-- Modernizr -->
+
+    <script src="<?php echo _CL_PATH_HOST_;?>common/js/cytoscape.js/dist/cytoscape.js"></script>
+    <script src="<?php echo _CL_PATH_HOST_;?>common/js/cytoscape.js/node_modules/cytoscape-dagre/cytoscape-dagre.js" type="module"></script>
+    <script src="<?php echo _CL_PATH_HOST_;?>common/js/dagre/dist/dagre.min.js"></script>
+    <script src="<?php echo _CL_PATH_HOST_;?>common/js/sfa_net_draw.js"></script>
+	
   	
 	<title>Alternate Fixed And Scroll Backgrounds</title>
 </head>
@@ -55,7 +62,15 @@ require $url;
 		291 DAEHAK-RO, YUSEONG-GU, DAEJEON 305-701, REPUBLIC OF KOREA
 	</footer> <!-- main-content -->
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.2.3/cytoscape.js"></script>
+    <script src="https://cdn.rawgit.com/cpettitt/dagre/v0.7.4/dist/dagre.min.js"></script>
 	<script src="<?php echo _CL_PATH_HOST_;?>common/js/main.js"></script> <!-- Resource jQuery -->
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<script>                                                                                                                                                  
+        $( function() {                                                                                                                                       
+            $("#simul-tab").tabs();                                                                                                                           
+        } );                                                                                                                                                  
+    </script> 
 	
 	<input type="hidden"  id="phpself" value="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
 	<input type="hidden"  id="clpathhost" value="<?php echo _CL_PATH_HOST_;?>">	
