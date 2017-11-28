@@ -27,7 +27,6 @@ $row = $result->fetch_assoc();
                 <div id="att-tab">                                                                                                                            
                     <p>Attractor</p>                                                                                                                          
                 </div>                                                                                                                                        
-
                 <div id="ml-tab">                                                                                                                             
                     <p>ML</p>                                                                                                                                 
                 </div>                                                                                                                                        

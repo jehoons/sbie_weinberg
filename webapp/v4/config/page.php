@@ -86,12 +86,12 @@ function getPage(){
 		// 현재 화면에 있는 페이지 넘버들 보다 더 많은 양이 있을 때 처음으로 갈 수 있도록.
 		if($pagegroupnum>1){
 		?>
-			<!-- <a href="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>?module=<?php echo $_GET["module"];?>&act=<?php echo $_GET["act"];?>&pagenum=0&searchColumn=<?php echo $_GET["searchColumn"];?>&searchStr=<?php echo $_GET["searchStr"];?>&folder_rowid=<?php echo $folder_rowid;?>&orderby=<?php echo $_GET["orderby"];?>&orderopt=<?php echo $_GET["orderopt"];?>">처음활성</a> -->
+			<div class="page-li button"><a href="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>?module=<?php echo $_GET["module"];?>&act=<?php echo $_GET["act"];?>&pagenum=0&searchColumn=<?php echo $_GET["searchColumn"];?>&searchStr=<?php echo $_GET["searchStr"];?>&folder_rowid=<?php echo $folder_rowid;?>&orderby=<?php echo $_GET["orderby"];?>&orderopt=<?php echo $_GET["orderopt"];?>"><i><<</i></a></div>
 			<div class="page-li button"><a href="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>?module=<?php echo $_GET["module"];?>&act=<?php echo $_GET["act"];?>&pagenum=<?php echo $startpage-2;?>&searchColumn=<?php echo $_GET["searchColumn"];?>&searchStr=<?php echo $_GET["searchStr"];?>&folder_rowid=<?php echo $folder_rowid;?>&orderby=<?php echo $_GET["orderby"];?>&orderopt=<?php echo $_GET["orderopt"];?>"><i>이전</i></a></div>
 		<?php 
 		}else{
 		?>
-			<!-- <div>처음비활성</div> -->
+			<div class="page-li button"><a href="#0"><i><<</i></a></div>
 			<div class="page-li button"><a href="#0"><i>이전</i></a></div>
 		<?php
 		}
@@ -123,15 +123,15 @@ function getPage(){
 		if($endpage<$pagesu){
 		?>
 			<div class="page-li button"><a href="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>?module=<?php echo $_GET["module"];?>&act=<?php echo $_GET["act"];?>&pagenum=<?php echo $endpage;?>&searchColumn=<?php echo $_GET["searchColumn"];?>&searchStr=<?php echo $_GET["searchStr"];?>&folder_rowid=<?php echo $folder_rowid;?>&orderby=<?php echo $_GET["orderby"];?>&orderopt=<?php echo $_GET["orderopt"];?>"><i>다음</i></a></div>
-			<!--  <a class="pagingEndButton"  href="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>?module=<?php echo $_GET["module"];?>&act=<?php echo $_GET["act"];?>&pagenum=<?php echo $pagesu-1;?>&searchColumn=<?php echo $_GET["searchColumn"];?>&searchStr=<?php echo $_GET["searchStr"];?>&folder_rowid=<?php echo $folder_rowid;?>&orderby=<?php echo $_GET["orderby"];?>&orderopt=<?php echo $_GET["orderopt"];?>">끝</a> -->
+			<div class="page-li button"><a class="pagingEndButton"  href="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>?module=<?php echo $_GET["module"];?>&act=<?php echo $_GET["act"];?>&pagenum=<?php echo $pagesu-1;?>&searchColumn=<?php echo $_GET["searchColumn"];?>&searchStr=<?php echo $_GET["searchStr"];?>&folder_rowid=<?php echo $folder_rowid;?>&orderby=<?php echo $_GET["orderby"];?>&orderopt=<?php echo $_GET["orderopt"];?>"><i>>></i></a></div>
 		<?php 
 		// 끝 페이지라면 끝 버튼 비 활성화.
 		}else{
 		?>
-			<div class="page-li button"><a href="#0"><i>다음</i></a></div>
-			<!-- <div>끝</div> -->
-		</div>
-	</nav>		
+		<div class="page-li button"><a href="#0"><i>다음</i></a></div>
+		<div class="page-li button"><a href="#0"><i>>></i></a></div>
+	</div>
+</nav>		
 		<?php
 		}
 	}	
