@@ -296,6 +296,11 @@ function checkPassword(str,val){
 	return true;
 }
 
+//그래프 그리기
+function ready_draw(patient_id, treatment_id){
+    getCallAjax_graph($("#clpathhost").val() + "index.php?module=analysis&act=get_result_json_work.php&PATIENT_ID=" + patient_id +"&TREATMENT_ID=" + treatment_id);
+}
+
 //POST 방식의 Ajax 호출
 function postCallAjax(val){
 	// seriallize() : ie8이상. form 안에 있는 value를 정리해서 반환.
@@ -358,4 +363,41 @@ function getCallAjax(val){
 	        alert(xhr.responseText);
 	    }
 	});
+}
+var temp;
+function getCallAjax_graph(val){
+    //ajax 시작.
+    $.ajaxSetup({
+        cache : false
+      });
+    $(document).ajaxError(function(){
+        alert("An error occured!");
+    });
+    $(document).ajaxStart(function(){
+        $("body").append("<img src='" + $("#clpathhost").val() + "common/img/wait.gif' id='wait' />");
+    });
+    $(document).ajaxComplete(function(){
+        $('#wait').remove();
+    });
+    $.ajax({
+        url:encodeURI(val),
+        dataType:'json',
+        type:'GET',
+        success:function(result){
+            if(result.result==null){
+                $('#sfa-text').text("NO RESULT. Computation is not finished");
+                $('#sfa-text').show();
+                $('#mynetwork_sfa').hide();
+            } else{
+                $('#mynetwork_sfa').show();
+                sfa_net_drawing(JSON.parse(result.result));
+                $('#sfa-text').hide();
+            }
+        },
+        error:function (xhr, ajaxOptions, thrownError){
+            alert(xhr.status);
+            alert(xhr.statusText);
+            alert(xhr.responseText);
+        }
+    });
 }

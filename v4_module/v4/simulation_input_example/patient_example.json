@@ -1,0 +1,19 @@
+{
+    "network_id": 3,
+    "inputs": [],
+    "outputs": [],
+    "mutations": [
+        {
+            "value": 1,
+            "node_id": "ARF"
+        },
+        {
+            "value": 1,
+            "node_id": "P21"
+        },
+        {
+            "value": 1,
+            "node_id": "P53"
+        }
+    ]
+}

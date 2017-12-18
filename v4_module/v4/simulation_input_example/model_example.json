@@ -1,0 +1,7 @@
+{
+    "logic": "/data/networks/LUNG/LUNG_logic.txt",
+    "phenotype_rule": "/data/networks/LUNG/LUNG_phenotype.txt",
+    "cancer_id": 1,
+    "sif": "/data/networks/LUNG/LUNG.sif",
+    "resistance_score_rule": "/data/networks/LUNG/LUNG_resistance_score.txt"
+}

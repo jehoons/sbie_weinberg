@@ -84,13 +84,13 @@ function createNetwork(info){
 	
 	var index = 0;
 	var node_color;
-	$.each(info.nodes, function(){
+	$.each(info.NODES, function(){
 		node_color = this.FILL_COLOR;
-		node_color = node_color.substring(1,7);
+		node_color = node_color.substring(3,9);
 		nodes[index] = {
 			"data":{
-				id: this.id,
-				label: this.id,
+				id: this.ID,
+				label: this.NAME,
 				color: "#"+node_color
 			}
 		}
@@ -99,18 +99,18 @@ function createNetwork(info){
 
 	var index = 0;
 	var edge_color;
-	$.each(info.links, function(){
+	$.each(info.LINKS, function(){
 		edge_color = this.FILL_COLOR;
-		edge_color = edge_color.substring(1,7);
+		edge_color = edge_color.substring(3,9);
 		edges[index] = {
 			"data":{
-				//id: this.ID,
-				source: this.source,
-				target: this.target,
+				id: this.ID,
+				source: this.ID_SOURCE,
+				target: this.ID_TARGET,
 				width: this.WIDTH,
 				color: "#"+edge_color
 			},
-			classes: this.SIGN
+			classes: this.HEADER.TYPE
 		}
 		index++;
 	});

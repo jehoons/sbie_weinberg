@@ -1,0 +1,14 @@
+{
+    "perturb_targets": [
+        {
+            "perturb_type": "node",
+            "value": -1,
+            "node_id": "CMET"
+        },
+        {
+            "perturb_type": "node",
+            "value": -1,
+            "node_id": "PDGFR"
+        }
+    ]
+}

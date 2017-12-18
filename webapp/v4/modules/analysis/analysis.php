@@ -19,18 +19,22 @@ $row = $result->fetch_assoc();
 			<div style="margin-bottom:1em; font-size:120%;"><span style="font-weight: bold;"><?php echo $row[PATIENT_NAME];?> 환자</span> 분석결과(<?php echo $row[CANCER_NAME];?> CANCER)</div>
 			<div id="simul-tab">                                                                                                                              
                 <ul>                                                                                                                                          
-                    <li><a href="#att-tab">Attractor</a></li>                                                                                                
-                    <li><a href="modules/analysis/analysis_sfa_tab.php">SFA</a></li>
-                    <!--<li><a href="#sfa-tab">SFA</a></li>-->                                                                                                      
+                    <li><a href="#att-tab">Attractor</a></li>
+                    <li><a href="#sfa-tab">SFA</a></li>
                     <li><a href="#ml-tab">ML</a></li>                                                                                                         
                 </ul>                                                                                                                                         
-                <div id="att-tab">                                                                                                                            
-                    <p>Attractor</p>                                                                                                                          
-                </div>                                                                                                                                        
+                <div id="att-tab">
+                    <p>Attractor</p>
+                </div>
 
-                <div id="ml-tab">                                                                                                                             
-                    <p>ML</p>                                                                                                                                 
-                </div>                                                                                                                                        
+                <div id="sfa-tab"> 
+                    <p id="sfa-text">Select drug on the panel</p>
+                    <div id="mynetwork_sfa" style="width: 100%; height: 700px; display: block;"></div>
+                </div>
+
+                <div id="ml-tab">
+                    <p>ML</p>
+                </div>
             </div>
 		</div>
 		
@@ -59,9 +63,9 @@ $row = $result->fetch_assoc();
 				</tr>
 <?php 
 $sql = "
-select T.DRUG_ID1, T.DRUG_ID2, T.DRUG_ID3, AR.ATT_SUMMARY_SCORE as ATTRACTOR, AR.SFA_SUMMARY_SCORE as SFA, AR.ML_SUMMARY_SCORE as ML
+select T.DRUG_ID1, T.DRUG_ID2, T.DRUG_ID3, T.ID, AR.ATT_SUMMARY_SCORE as ATTRACTOR, AR.SFA_SUMMARY_SCORE as SFA, AR.ML_SUMMARY_SCORE as ML
 from ANALYSIS_RESULT as AR inner join TREATMENT as T
-on AR.ANALYSIS_ID=1 and	AR.TREATMENT_ID = T.ID
+on AR.ANALYSIS_ID=$_GET[PATIENT_ID] and	AR.TREATMENT_ID = T.ID
 ";
 $result = $conn->query($sql);
 
@@ -145,7 +149,7 @@ while($row = $result->fetch_assoc()) {
 	$commaList = implode(', ', $target_array);
 ?>					
 				<tr>
-					<td class="supervisor-td"><?php echo $drug?></td>
+					<td class="supervisor-td" onclick="ready_draw('<?php echo $_GET[PATIENT_ID] ?>', '<?php echo $row[ID]?>')"><?php echo $drug?></td>
 					<td class="supervisor-td"><?php echo $commaList;?></td>
 					<td class="supervisor-td"><?php echo round($row[ATTRACTOR],3);?></td>
 					<td class="supervisor-td"><?php echo round($row[SFA],3);?></td>
