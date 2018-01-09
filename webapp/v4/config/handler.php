@@ -26,7 +26,7 @@ if(substr($_GET["act"],-9,9) == "_work.php"){
     <script src="<?php echo _CL_PATH_HOST_;?>common/js/cytoscape.js/node_modules/cytoscape-dagre/cytoscape-dagre.js" type="module"></script>
     <script src="<?php echo _CL_PATH_HOST_;?>common/js/dagre/dist/dagre.min.js"></script>
     <script src="<?php echo _CL_PATH_HOST_;?>common/js/sfa_net_draw.js"></script>
-	
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
   	
 	<title>Alternate Fixed And Scroll Backgrounds</title>
 </head>

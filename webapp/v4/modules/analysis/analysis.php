@@ -9,7 +9,6 @@ WHERE P.ID = '$_GET[PATIENT_ID]'
 ";
 $result = $conn->query($sql);
 $row = $result->fetch_assoc();
-
 ?>
 <div class="module-upspace"></div>
 
@@ -24,7 +23,10 @@ $row = $result->fetch_assoc();
                     <li><a href="#ml-tab">ML</a></li>                                                                                                         
                 </ul>                                                                                                                                         
                 <div id="att-tab">
-                    <p>Attractor</p>
+                    <p id="att-text">Select drug on the panel</p>
+                    <div id="mynetwork_att" style="width: 500px; height: 700px; margin:auto; text-align:center;">
+                    <span id="full_stacked_div"></span>
+                    </div>
                 </div>
 
                 <div id="sfa-tab"> 
@@ -57,15 +59,16 @@ $row = $result->fetch_assoc();
 				
 				<tr style="background: #F2F2F2">
 					
-					<td class="supervisor-td">Attractor</td>
-					<td class="supervisor-td">SFA</td>
-					<td class="supervisor-td">ML</td>
+					<td class="supervisor-td" style="vertical-align: middle;">Attractor</td>
+					<td class="supervisor-td" style="vertical-align: middle;">SFA</td>
+					<td class="supervisor-td" style="vertical-align: middle;">ML</td>
 				</tr>
 <?php 
 $sql = "
 select T.DRUG_ID1, T.DRUG_ID2, T.DRUG_ID3, T.ID, AR.ATT_SUMMARY_SCORE as ATTRACTOR, AR.SFA_SUMMARY_SCORE as SFA, AR.ML_SUMMARY_SCORE as ML
 from ANALYSIS_RESULT as AR inner join TREATMENT as T
-on AR.ANALYSIS_ID=$_GET[PATIENT_ID] and	AR.TREATMENT_ID = T.ID
+on AR.TREATMENT_ID = T.ID
+where AR.ANALYSIS_ID = $_GET[PATIENT_ID]
 ";
 $result = $conn->query($sql);
 
@@ -146,14 +149,14 @@ while($row = $result->fetch_assoc()) {
 	}
 	
 	array_shift($target_array); //가장 앞에 있는 배열 값 제거
-	$commaList = implode(', ', $target_array);
+	$commaList = implode(', ', array_unique($target_array));
 ?>					
 				<tr>
-					<td class="supervisor-td" onclick="ready_draw('<?php echo $_GET[PATIENT_ID] ?>', '<?php echo $row[ID]?>')"><?php echo $drug?></td>
-					<td class="supervisor-td"><?php echo $commaList;?></td>
-					<td class="supervisor-td"><?php echo round($row[ATTRACTOR],3);?></td>
-					<td class="supervisor-td"><?php echo round($row[SFA],3);?></td>
-					<td class="supervisor-td"><?php echo round($row[ML],3);?></td>
+					<td class="supervisor-td" style="vertical-align: middle;" onclick="ready_draw('<?php echo $_GET[PATIENT_ID]?>', '<?php echo $row[ID]?>')"><?php echo $drug?></td>
+					<td class="supervisor-td" style="vertical-align: middle;"><?php echo $commaList;?></td>
+					<td class="supervisor-td" style="vertical-align: middle;"><?php echo round($row[ATTRACTOR],3);?></td>
+					<td class="supervisor-td" style="vertical-align: middle;"><?php echo round($row[SFA],3);?></td>
+					<td class="supervisor-td" style="vertical-align: middle;"><?php echo round($row[ML],3);?></td>
 				</tr>
 <?php
 }?>					

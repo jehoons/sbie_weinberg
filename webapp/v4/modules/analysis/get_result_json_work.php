@@ -12,7 +12,16 @@ $result = $conn->query($sql);
 $sample = $result->fetch_assoc();
 $sfa_json = $sample["SFA_NETWORK_JSON"];
 
-$jd = array('result' => $sfa_json);
+$sql = "
+SELECT CANCER_ID
+FROM PATIENT
+WHERE ID=$patient_id
+";
+$result = $conn->query($sql);
+$record = $result->fetch_assoc();
+$cid = $record["CANCER_ID"];
+
+$jd = array('result' => $sfa_json, 'cancer_id' => $cid);
 echo json_encode($jd);
 
 //echo '{"asdf":'.$patient_id. ', "qwer":'.$drugs.'}';

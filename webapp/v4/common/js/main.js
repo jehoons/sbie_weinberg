@@ -299,6 +299,7 @@ function checkPassword(str,val){
 //그래프 그리기
 function ready_draw(patient_id, treatment_id){
     getCallAjax_graph($("#clpathhost").val() + "index.php?module=analysis&act=get_result_json_work.php&PATIENT_ID=" + patient_id +"&TREATMENT_ID=" + treatment_id);
+	//getCallAjax_att_graph($("#clpathhost").val() + "index.php?module=analysis&act=get_result_att_json_work.php&PATIENT_ID=" + patient_id +"&TREATMENT_ID=" + treatment_id);
 }
 
 //POST 방식의 Ajax 호출
@@ -390,8 +391,74 @@ function getCallAjax_graph(val){
                 $('#mynetwork_sfa').hide();
             } else{
                 $('#mynetwork_sfa').show();
-                sfa_net_drawing(JSON.parse(result.result));
+                sfa_net_drawing(JSON.parse(result.result), result.cancer_id);
                 $('#sfa-text').hide();
+            }
+        },
+        error:function (xhr, ajaxOptions, thrownError){
+            alert(xhr.status);
+            alert(xhr.statusText);
+            alert(xhr.responseText);
+        }
+    });
+}
+
+
+function getCallAjax_att_graph(val){
+    //ajax 시작.
+    $.ajaxSetup({
+        cache : false
+      });
+    $(document).ajaxError(function(){
+        alert("An error occured!");
+    });
+    $(document).ajaxStart(function(){
+        $("body").append("<img src='" + $("#clpathhost").val() + "common/img/wait.gif' id='wait' />");
+    });
+    $(document).ajaxComplete(function(){
+        $('#wait').remove();
+    });
+    $.ajax({
+        url:encodeURI(val),
+        dataType:'json',
+        type:'GET',
+        success:function(result){
+            if(result==null){
+                $('#mynetwork_att').hide();
+                $('#att-text').show();
+            } else{
+                $('#mynetwork_att').show();
+                $('#att-text').hide();
+                
+                
+                google.charts.load('current', {packages: ['corechart']});
+                google.charts.setOnLoadCallback(drawChart);
+
+                function drawChart() {
+                  var data = google.visualization.arrayToDataTable([
+                    ['Genre', 'Apoptosis', 'Growth arrest', 'Proliferation', { role: 'annotation' } ],
+                    ['Before', result[1].phenotypescore[0], result[1].phenotypescore[1], result[1].phenotypescore[2], ''],
+                    ['After', result[2].phenotypescore[0], result[2].phenotypescore[1], result[2].phenotypescore[2], '']
+                  ]);
+                  
+                  var options_fullStacked = {
+                    title: "Attractor Analysis",
+                    titlePosition: "none",
+                    isStacked: 'percent',
+                    height: 500,
+                    width: 500,
+                    legend: {position: 'bottom', alignment: 'center'},
+                    chartArea: {left:50,top:50,width:'85%',height:'80%'},
+                    colors:['#2F598D','#5D9748','#EAA23D'],
+                    
+                  };
+
+                  var chart_fullStacked = new google.visualization.ColumnChart(
+                      document.getElementById('full_stacked_div'));
+                  chart_fullStacked.draw(data, options_fullStacked);
+                }
+                
+                
             }
         },
         error:function (xhr, ajaxOptions, thrownError){

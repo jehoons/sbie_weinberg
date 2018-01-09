@@ -10,10 +10,8 @@ WHERE ANALYSIS_ID=$patient_id and TREATMENT_ID=$treatment_id
 ";
 $result = $conn->query($sql);
 $sample = $result->fetch_assoc();
-$sfa_json = $sample["SFA_NETWORK_JSON"];
+$att_json = $sample["ATT_STATES_JSON"];
 
-$jd = array('result' => $sfa_json);
-echo json_encode($jd);
+echo $att_json;
 
-//echo '{"asdf":'.$patient_id. ', "qwer":'.$drugs.'}';
 ?>

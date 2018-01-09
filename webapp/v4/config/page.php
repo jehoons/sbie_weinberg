@@ -19,7 +19,7 @@ function setPage($select, $content_volume, $page_volume){
 	global $startpoint;			// 쿼리 시작점 LIMIT 시작점.
 	global $pagegroup;			// 보여줄 페이징 수.
 	global $pagesu;				// 총 페이지 수. 
-	global $pagenum;			// 현재 페이지 위치. 0부터 시작이다. 0이 1페이지다.
+	global $pagenum;
 	
 	global $pagegroupnum;	// 현재 페이징이 소속된 그룹 넘버. 2가 되면 현재 페이지에서 다음 버튼을 누른 것이다.
 	global $startpage;			// 시작 페이지 위치.
@@ -86,8 +86,8 @@ function getPage(){
 		// 현재 화면에 있는 페이지 넘버들 보다 더 많은 양이 있을 때 처음으로 갈 수 있도록.
 		if($pagegroupnum>1){
 		?>
-			<div class="page-li button"><a href="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>?module=<?php echo $_GET["module"];?>&act=<?php echo $_GET["act"];?>&pagenum=0&searchColumn=<?php echo $_GET["searchColumn"];?>&searchStr=<?php echo $_GET["searchStr"];?>&folder_rowid=<?php echo $folder_rowid;?>&orderby=<?php echo $_GET["orderby"];?>&orderopt=<?php echo $_GET["orderopt"];?>"><i><<</i></a></div>
-			<div class="page-li button"><a href="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>?module=<?php echo $_GET["module"];?>&act=<?php echo $_GET["act"];?>&pagenum=<?php echo $startpage-2;?>&searchColumn=<?php echo $_GET["searchColumn"];?>&searchStr=<?php echo $_GET["searchStr"];?>&folder_rowid=<?php echo $folder_rowid;?>&orderby=<?php echo $_GET["orderby"];?>&orderopt=<?php echo $_GET["orderopt"];?>"><i>이전</i></a></div>
+			<div class="page-li button"><a href="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>?module=<?php echo $_GET["module"];?>&act=<?php echo $_GET["act"];?>&pagenum=0&searchColumn=<?php echo $_GET["searchColumn"];?>&searchStr=<?php echo $_GET["searchStr"];?>&folder_rowid=<?php echo $folder_rowid;?>&orderby=<?php echo $_GET["orderby"];?>&orderopt=<?php echo $_GET["orderopt"];?>&PATIENT_ID=<?php echo $_GET["PATIENT_ID"];?>"><i><<</i></a></div>
+			<div class="page-li button"><a href="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>?module=<?php echo $_GET["module"];?>&act=<?php echo $_GET["act"];?>&pagenum=<?php echo $startpage-2;?>&searchColumn=<?php echo $_GET["searchColumn"];?>&searchStr=<?php echo $_GET["searchStr"];?>&folder_rowid=<?php echo $folder_rowid;?>&orderby=<?php echo $_GET["orderby"];?>&orderopt=<?php echo $_GET["orderopt"];?>&PATIENT_ID=<?php echo $_GET["PATIENT_ID"];?>"><i>이전</i></a></div>
 		<?php 
 		}else{
 		?>
@@ -113,7 +113,7 @@ function getPage(){
 			// 해당 숫자클릭이 아니라면 모두 클릭 활성화.
 			}else{
 			?>
-				<div class="page-li"><a href="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>?module=<?php echo $_GET["module"];?>&act=<?php echo $_GET["act"];?>&pagenum=<?php echo $j;?>&searchColumn=<?php echo $_GET["searchColumn"];?>&searchStr=<?php echo $_GET["searchStr"];?>&folder_rowid=<?php echo $folder_rowid;?>&orderby=<?php echo $_GET["orderby"];?>&orderopt=<?php echo $_GET["orderopt"];?>"><?php echo $i;?></a></div>
+				<div class="page-li"><a href="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>?module=<?php echo $_GET["module"];?>&act=<?php echo $_GET["act"];?>&pagenum=<?php echo $j;?>&searchColumn=<?php echo $_GET["searchColumn"];?>&searchStr=<?php echo $_GET["searchStr"];?>&folder_rowid=<?php echo $folder_rowid;?>&orderby=<?php echo $_GET["orderby"];?>&orderopt=<?php echo $_GET["orderopt"];?>&PATIENT_ID=<?php echo $_GET["PATIENT_ID"];?>"><?php echo $i;?></a></div>
 			<?php 
 			}
 	
@@ -122,8 +122,8 @@ function getPage(){
 		// 끝 페이지가 아니라면 끝 버튼 활성화.
 		if($endpage<$pagesu){
 		?>
-			<div class="page-li button"><a href="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>?module=<?php echo $_GET["module"];?>&act=<?php echo $_GET["act"];?>&pagenum=<?php echo $endpage;?>&searchColumn=<?php echo $_GET["searchColumn"];?>&searchStr=<?php echo $_GET["searchStr"];?>&folder_rowid=<?php echo $folder_rowid;?>&orderby=<?php echo $_GET["orderby"];?>&orderopt=<?php echo $_GET["orderopt"];?>"><i>다음</i></a></div>
-			<div class="page-li button"><a class="pagingEndButton"  href="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>?module=<?php echo $_GET["module"];?>&act=<?php echo $_GET["act"];?>&pagenum=<?php echo $pagesu-1;?>&searchColumn=<?php echo $_GET["searchColumn"];?>&searchStr=<?php echo $_GET["searchStr"];?>&folder_rowid=<?php echo $folder_rowid;?>&orderby=<?php echo $_GET["orderby"];?>&orderopt=<?php echo $_GET["orderopt"];?>"><i>>></i></a></div>
+			<div class="page-li button"><a href="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>?module=<?php echo $_GET["module"];?>&act=<?php echo $_GET["act"];?>&pagenum=<?php echo $endpage;?>&searchColumn=<?php echo $_GET["searchColumn"];?>&searchStr=<?php echo $_GET["searchStr"];?>&folder_rowid=<?php echo $folder_rowid;?>&orderby=<?php echo $_GET["orderby"];?>&orderopt=<?php echo $_GET["orderopt"];?>&PATIENT_ID=<?php echo $_GET["PATIENT_ID"];?>"><i>다음</i></a></div>
+			<div class="page-li button"><a class="pagingEndButton"  href="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>?module=<?php echo $_GET["module"];?>&act=<?php echo $_GET["act"];?>&pagenum=<?php echo $pagesu-1;?>&searchColumn=<?php echo $_GET["searchColumn"];?>&searchStr=<?php echo $_GET["searchStr"];?>&folder_rowid=<?php echo $folder_rowid;?>&orderby=<?php echo $_GET["orderby"];?>&orderopt=<?php echo $_GET["orderopt"];?>&PATIENT_ID=<?php echo $_GET["PATIENT_ID"];?>"><i>>></i></a></div>
 		<?php 
 		// 끝 페이지라면 끝 버튼 비 활성화.
 		}else{
